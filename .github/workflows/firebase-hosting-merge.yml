@@ -1,0 +1,38 @@
+name: Deploy to Firebase Hosting on merge
+
+'on':
+  push:
+    tags:
+      - v*
+
+env:
+  REACT_APP_FIREBASE_API_KEY: '${{ secrets.REACT_APP_FIREBASE_API_KEY }}'
+  REACT_APP_FIREBASE_AUTH_DOMAIN: '${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}'
+  REACT_APP_FIREBASE_DATABASE_URL: '${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}'
+  REACT_APP_FIREBASE_PROJECT_ID: '${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}'
+  REACT_APP_FIREBASE_STORAGE_BUCKET: '${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}'
+  REACT_APP_FIREBASE_MESSAGING_SENDER_ID: '${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}'
+  REACT_APP_FIREBASE_APP_ID: '${{ secrets.REACT_APP_FIREBASE_APP_ID }}'
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: "Checkout the repository"
+        uses: actions/checkout@v2
+        
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      
+      - name: "NPM install and build"
+        run: npm ci && REACT_APP_VERSION='${{ steps.get_version.outputs.VERSION }}' npm run build
+      
+      - name: "Deploy to Firebase"
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIWDER_IO }}'
+          channelId: live
+          projectId: niwder-io
