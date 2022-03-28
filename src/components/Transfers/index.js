@@ -184,6 +184,7 @@ const Transfers = () => {
     }
     megaToGDrive(megaLink)(firebase, dispatch);
     setValidationError("");
+    clearMessages()(dispatch);
   };
 
   return (
