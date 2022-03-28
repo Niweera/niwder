@@ -8,7 +8,6 @@ import CardContent from "@mui/material/CardContent";
 import Logo from "../../helpers/cover.png";
 import LogoTwo from "../../helpers/cover_2.png";
 import LogoThree from "../../helpers/cover_3.png";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "@mui/material/Link";
 
 const useStyles = makeStyles((theme) => ({
