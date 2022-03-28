@@ -38,12 +38,7 @@ export const signOut = () => async (firebase) => {
 
 export const storeFCMKey = (FCMKey, uid) => async (firebase) => {
   try {
-    await firebase
-      .database()
-      .ref("users")
-      .child(uid)
-      .child("fcmKey")
-      .set(FCMKey);
+    await firebase.database().ref("fcmKeys").child(uid).push(FCMKey);
   } catch (e) {
     console.log(e.message);
   }

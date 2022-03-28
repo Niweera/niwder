@@ -5,13 +5,13 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
-import { megaToGDrive, clearMessages } from "../../store/actions";
+import { megaToGDrive, clearMessages, storeFCMKey } from "../../store/actions";
 import Box from "@mui/material/Box";
 import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
-import Notification from "../../helpers/Notification";
+import Message from "../../helpers/Notification";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useFirebase } from "react-redux-firebase";
+import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
@@ -22,6 +22,8 @@ import TimeAgo from "react-timeago";
 import prettyBytes from "pretty-bytes";
 import Link from "@mui/material/Link";
 import Divider from "@mui/material/Divider";
+import { FCM_VAPID_KEY, messaging } from "../../config";
+import { get } from "lodash";
 
 const Transfers = () => {
   const firebase = useFirebase();
@@ -29,9 +31,69 @@ const Transfers = () => {
   const [megaLink, setMegaLink] = useState("");
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const [validationError, setValidationError] = useState("");
+  const [transfers, setTransfers] = useState([]);
+  const [notification, setNotification] = useState(null);
 
-  const profile = useSelector(({ firebase: { profile } }) => profile);
+  const uid = useSelector(
+    ({
+      firebase: {
+        auth: { uid },
+      },
+    }) => uid
+  );
+
+  useFirebaseConnect({
+    path: `transfers/${uid}/mega-to-gdrive`,
+    type: "value",
+    queryParams: ["orderByKey"],
+  });
+
+  const ordered = useSelector(({ firebase: { ordered } }) => ordered);
+
+  useEffect(() => {
+    const orderedData = get(ordered, `transfers.${uid}.mega-to-gdrive`, []);
+    setTransfers((orderedData || []).map((obj) => obj.value));
+  }, [uid, ordered]);
+
+  useEffect(() => {
+    if (messaging) {
+      if (
+        Notification.permission !== "granted" &&
+        Notification.permission !== "denied"
+      ) {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            messaging
+              .getToken({
+                vapidKey: FCM_VAPID_KEY,
+              })
+              .then((refreshedToken) => {
+                storeFCMKey(refreshedToken, uid)(firebase);
+              })
+              .catch((e) => console.log(e));
+          }
+        });
+      }
+    }
+  }, [firebase, uid]);
+
+  useEffect(() => {
+    if (messaging) {
+      const unsubscribe = messaging.onMessage(
+        (payload) => {
+          setNotification(payload?.notification);
+          setNotificationOpen(true);
+        },
+        (error) => console.log(error)
+      );
+
+      return () => {
+        unsubscribe && unsubscribe();
+      };
+    }
+  }, []);
 
   const error = useSelector(
     ({
@@ -61,6 +123,13 @@ const Transfers = () => {
     }
     clearMessages()(dispatch);
     setSuccessOpen(false);
+  };
+
+  const onNotificationClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setNotificationOpen(false);
   };
 
   useEffect(() => {
@@ -118,21 +187,31 @@ const Transfers = () => {
   return (
     <div className="container">
       {error && (
-        <Notification
+        <Message
           severity={"error"}
           onClose={onErrorNotificationClose}
           message={error}
           open={errorOpen}
-          autoHideDuration={60000}
+          autoHideDuration={2000}
         />
       )}
       {successOpen && (
-        <Notification
+        <Message
           severity={"success"}
           onClose={onSuccessNotificationClose}
           message={"Transfer Queued!"}
           open={successOpen}
-          autoHideDuration={60000}
+          autoHideDuration={2000}
+        />
+      )}
+      {notification && (
+        <Message
+          severity={"info"}
+          alertTitle={`Transfer completed: ${notification.title}`}
+          onClose={onNotificationClose}
+          message={notification.body}
+          open={notificationOpen}
+          autoHideDuration={5000}
         />
       )}
       <Grid
@@ -187,7 +266,7 @@ const Transfers = () => {
           </Card>
         </Grid>
       </Grid>
-      {Object.values(profile["mega-to-gdrive"] || {}).length > 0 && (
+      {transfers.length > 0 && (
         <Grid
           container
           spacing={0}
@@ -215,78 +294,75 @@ const Transfers = () => {
                   }}
                 >
                   <Divider />
-                  {Object.values(profile["mega-to-gdrive"]).map(
-                    (obj, index) => {
-                      return (
-                        <React.Fragment>
-                          <ListItem alignItems="flex-start" key={index}>
-                            <ListItemAvatar>
-                              <Avatar>
-                                <FolderIcon />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              primary={
+                  {transfers.map((obj, index) => {
+                    return (
+                      <React.Fragment key={index}>
+                        <ListItem alignItems="flex-start">
+                          <ListItemAvatar>
+                            <Avatar>
+                              <FolderIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={
+                              <Typography
+                                sx={{ display: "inline" }}
+                                component="span"
+                                variant="h6"
+                                color="text.primary"
+                              >
+                                {obj.name}
+                              </Typography>
+                            }
+                            secondary={
+                              <React.Fragment>
+                                <Link
+                                  href={obj.gDriveLink}
+                                  underline={"hover"}
+                                  variant="body1"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  color="white"
+                                >
+                                  Google Drive Link
+                                </Link>
+                                <br />
+                                <Link
+                                  href={obj.megaLink}
+                                  underline={"hover"}
+                                  variant="body1"
+                                  target="_blank"
+                                  color="white"
+                                  rel="noopener noreferrer"
+                                >
+                                  Mega.nz Link
+                                </Link>
+                                <br />
                                 <Typography
                                   sx={{ display: "inline" }}
                                   component="span"
-                                  variant="h6"
+                                  variant="body2"
                                   color="text.primary"
                                 >
-                                  {obj.name}
+                                  {prettyBytes(obj.size)} [{obj.mimeType}]
                                 </Typography>
-                              }
-                              secondary={
-                                <React.Fragment>
-                                  <Link
-                                    href={obj.gDriveLink}
-                                    underline={"hover"}
-                                    variant="body1"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    color="white"
-                                  >
-                                    Google Drive Link
-                                  </Link>
-                                  <br />
-                                  <Link
-                                    href={obj.megaLink}
-                                    underline={"hover"}
-                                    variant="body1"
-                                    target="_blank"
-                                    color="white"
-                                    rel="noopener noreferrer"
-                                  >
-                                    Mega.nz Link
-                                  </Link>
-                                  <br />
-                                  <Typography
-                                    sx={{ display: "inline" }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                  >
-                                    {prettyBytes(obj.size)} [{obj.mimeType}]
-                                  </Typography>
-                                  <br />
-                                  <Typography
-                                    sx={{ display: "inline" }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                  >
-                                    Transferred:{" "}
-                                    <TimeAgo date={obj.timestamp} />
-                                  </Typography>
-                                </React.Fragment>
-                              }
-                            />
-                          </ListItem>
-                          <Divider />
-                        </React.Fragment>
-                      );
-                    }
-                  )}
+                                <br />
+                                <Typography
+                                  sx={{ display: "inline" }}
+                                  component="span"
+                                  variant="body2"
+                                  color="text.primary"
+                                >
+                                  Transferred: <TimeAgo date={obj.timestamp} />
+                                </Typography>
+                              </React.Fragment>
+                            }
+                          />
+                        </ListItem>
+                        <Divider />
+                      </React.Fragment>
+                    );
+                  })}
                 </List>
               </CardContent>
             </Card>

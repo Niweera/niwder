@@ -15,7 +15,7 @@ export const megaToGDrive = (url) => async (firebase, dispatch) => {
     );
     dispatch(actions.megaToGDriveAction.success());
   } catch (e) {
-    actions.megaToGDriveAction.failure(e);
+    dispatch(actions.megaToGDriveAction.failure(e.message));
   }
 };
 
