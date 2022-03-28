@@ -174,10 +174,12 @@ const Transfers = () => {
 
   const onSubmit = () => {
     const regExp = new RegExp(
-      /^https:\/\/mega\.nz\/file\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$/g
+      /^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$/g
     );
     if (!regExp.test(megaLink)) {
-      setValidationError("The URL must be a valid Mega.nz file export URL");
+      setValidationError(
+        "The URL must be a valid Mega.nz file/folder export URL"
+      );
       return;
     }
     megaToGDrive(megaLink)(firebase, dispatch);
