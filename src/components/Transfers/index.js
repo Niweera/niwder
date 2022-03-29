@@ -174,7 +174,7 @@ const Transfers = () => {
 
   const onSubmit = () => {
     const regExp = new RegExp(
-      /^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$/g
+      /(^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$)|(^https:\/\/mega\.nz\/folder\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+\/(file|folder)\/[a-zA-Z0-9]{0,8}$)/g
     );
     if (!regExp.test(megaLink)) {
       setValidationError(
@@ -184,6 +184,7 @@ const Transfers = () => {
     }
     megaToGDrive(megaLink)(firebase, dispatch);
     setValidationError("");
+    setMegaLink("");
     clearMessages()(dispatch);
   };
 
