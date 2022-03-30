@@ -30,7 +30,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         error: payload,
       };
 
-    case actions.megaToGDriveAction.TRIGGER:
+    case actions.queueTransferAction.TRIGGER:
       return {
         ...state,
         transfer: {
@@ -38,7 +38,7 @@ const userReducer = (state = initialState, { type, payload }) => {
           loading: true,
         },
       };
-    case actions.megaToGDriveAction.SUCCESS:
+    case actions.queueTransferAction.SUCCESS:
       return {
         ...state,
         transfer: {
@@ -47,7 +47,7 @@ const userReducer = (state = initialState, { type, payload }) => {
           error: false,
         },
       };
-    case actions.megaToGDriveAction.FAILURE:
+    case actions.queueTransferAction.FAILURE:
       return {
         ...state,
         transfer: {
@@ -57,7 +57,7 @@ const userReducer = (state = initialState, { type, payload }) => {
         },
       };
 
-    case actions.megaToGDriveAction.FULFILL:
+    case actions.queueTransferAction.FULFILL:
       return {
         ...state,
         transfer: {

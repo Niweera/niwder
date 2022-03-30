@@ -1,11 +1,11 @@
-import React from "react";
-import { makeStyles } from "@mui/styles";
+import React, { useState } from "react";
+import { makeStyles, useTheme } from "@mui/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Logo from "../../helpers/logo.png";
 import Avatar from "@mui/material/Avatar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
@@ -17,6 +17,9 @@ import { isEmpty, isLoaded, useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,10 +76,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const MenuListItems = ({ anchorEl, handleClose, classes }) => (
+  <Menu
+    id="menu-appbar"
+    anchorEl={anchorEl}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+    keepMounted
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    open={Boolean(anchorEl)}
+    onClose={handleClose}
+    TransitionComponent={Fade}
+  >
+    <MenuItem onClick={handleClose}>
+      <NavLink
+        to={"/transfers/mega-to-gdrive"}
+        className={({ isActive }) =>
+          isActive ? classes.linkTextActive : classes.linkText
+        }
+      >
+        Mega.nz to Google Drive
+      </NavLink>
+    </MenuItem>
+    <MenuItem onClick={handleClose}>
+      <NavLink
+        to={"/transfers/gdrive-to-mega"}
+        className={({ isActive }) =>
+          isActive ? classes.linkTextActive : classes.linkText
+        }
+      >
+        Google Drive to Mega.nz
+      </NavLink>
+    </MenuItem>
+  </Menu>
+);
+
 const Navbar = () => {
+  const theme = useTheme();
   const classes = useStyles();
   const auth = useSelector(({ firebase: { auth } }) => auth);
   const firebase = useFirebase();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = () => setAnchorEl(null);
+  const handleMenu = (event) => setAnchorEl(event.currentTarget);
+
+  const { pathname } = useLocation();
+
+  const isMatched = pathname.includes("/transfers");
 
   return (
     <div className={classes.root}>
@@ -114,20 +166,29 @@ const Navbar = () => {
               </ListItem>{" "}
             </NavLink>
             {isLoaded(auth) && !isEmpty(auth) && (
-              <NavLink
-                to={"/transfers"}
-                className={({ isActive }) =>
-                  isActive ? classes.linkTextActive : classes.linkText
-                }
-              >
-                <ListItem button>
+              <div>
+                <ListItem
+                  button
+                  onClick={handleMenu}
+                  sx={{
+                    color: isMatched
+                      ? theme.palette.text.primary
+                      : theme.palette.text.disabled,
+                  }}
+                >
                   <BrowserUpdatedIcon />{" "}
                   <ListItemText
-                    className={classes.navItems}
-                    primary={"Transfers"}
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    primary="Transfers"
                   />
-                </ListItem>{" "}
-              </NavLink>
+                </ListItem>
+                <MenuListItems
+                  anchorEl={anchorEl}
+                  handleClose={handleClose}
+                  classes={classes}
+                />
+              </div>
             )}
             {isLoaded(auth) && !isEmpty(auth) ? (
               <div>

@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import Spinner from "./helpers/Spinner";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 import { UserIsAuthenticated, UserIsNotAuthenticated } from "./auth";
+import MegaToGDrive from "./components/Transfers/MegaToGDrive";
+import GDriveToMega from "./components/Transfers/GDriveToMega";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -35,6 +37,16 @@ const RoutesComponent = () => {
             </Route>
             <Route exact path="/transfers" element={<UserIsAuthenticated />}>
               <Route exact path={"/transfers"} element={<Transfers />} />
+              <Route
+                exact
+                path={"/transfers/mega-to-gdrive"}
+                element={<MegaToGDrive />}
+              />
+              <Route
+                exact
+                path={"/transfers/gdrive-to-mega"}
+                element={<GDriveToMega />}
+              />
             </Route>
             <Route exact path={"*"} element={<NotFound />} />
           </Routes>
