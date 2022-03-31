@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import { NavLink } from "react-router-dom";
+import useEnableFCM from "../../helpers/useEnableFCM";
 
 const Transfers = () => {
   const classes = makeStyles((theme) => ({
@@ -44,6 +45,8 @@ const Transfers = () => {
       color: theme.palette.text.primary,
     },
   }))();
+
+  useEnableFCM();
 
   return (
     <div className="container">

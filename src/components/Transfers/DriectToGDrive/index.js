@@ -35,7 +35,7 @@ import { red } from "@mui/material/colors";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import useEnableFCM from "../../../helpers/useEnableFCM";
 
-const GDriveToMega = () => {
+const DirectToGDrive = () => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const [gDriveLink, setGDriveLink] = useState("");
@@ -381,4 +381,4 @@ const GDriveToMega = () => {
   );
 };
 
-export default GDriveToMega;
+export default DirectToGDrive;

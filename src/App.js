@@ -1,6 +1,7 @@
 import React from "react";
 import Routes from "./routes";
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { red } from "@mui/material/colors";
 
 const App = () => {

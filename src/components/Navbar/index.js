@@ -93,26 +93,22 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => (
     onClose={handleClose}
     TransitionComponent={Fade}
   >
-    <MenuItem onClick={handleClose}>
-      <NavLink
-        to={"/transfers/mega-to-gdrive"}
-        className={({ isActive }) =>
-          isActive ? classes.linkTextActive : classes.linkText
-        }
-      >
-        Mega.nz to Google Drive
-      </NavLink>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <NavLink
-        to={"/transfers/gdrive-to-mega"}
-        className={({ isActive }) =>
-          isActive ? classes.linkTextActive : classes.linkText
-        }
-      >
-        Google Drive to Mega.nz
-      </NavLink>
-    </MenuItem>
+    <NavLink
+      to={"/transfers/mega-to-gdrive"}
+      className={({ isActive }) =>
+        isActive ? classes.linkTextActive : classes.linkText
+      }
+    >
+      <MenuItem onClick={handleClose}>Mega.nz to Google Drive</MenuItem>
+    </NavLink>
+    <NavLink
+      to={"/transfers/gdrive-to-mega"}
+      className={({ isActive }) =>
+        isActive ? classes.linkTextActive : classes.linkText
+      }
+    >
+      <MenuItem onClick={handleClose}>Google Drive to Mega.nz</MenuItem>
+    </NavLink>
   </Menu>
 );
 

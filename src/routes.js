@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import Navbar from "./components/Navbar";
@@ -29,7 +29,7 @@ const RoutesComponent = () => {
     <Router>
       <AuthIsLoaded>
         <Navbar />
-        <Container maxWidth={"xl"}>
+        <Container maxWidth={false}>
           <Routes>
             <Route exact path={"/"} element={<Home />} />
             <Route exact path="/login" element={<UserIsNotAuthenticated />}>

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   megaToGDrive,
   clearMessages,
-  storeFCMKey,
   checkAPIAlive,
 } from "../../../store/actions";
 import Box from "@mui/material/Box";
@@ -28,12 +27,13 @@ import prettyBytes from "pretty-bytes";
 import Link from "@mui/material/Link";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-import { FCM_VAPID_KEY, messaging } from "../../../config";
 import { get } from "lodash";
 import InputAdornment from "@mui/material/InputAdornment";
 import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 import SyncIcon from "@mui/icons-material/Sync";
 import { red } from "@mui/material/colors";
+import useFCMNotifications from "../../../helpers/useFCMNotifications";
+import useEnableFCM from "../../../helpers/useEnableFCM";
 
 const MegaToGDrive = () => {
   const firebase = useFirebase();
@@ -46,6 +46,9 @@ const MegaToGDrive = () => {
   const [transfers, setTransfers] = useState([]);
   const [notification, setNotification] = useState(null);
   const [apiAlive, setApiAlive] = useState(false);
+
+  useEnableFCM();
+  useFCMNotifications(setNotification, setNotificationOpen);
 
   const uid = useSelector(
     ({
@@ -67,44 +70,6 @@ const MegaToGDrive = () => {
     const orderedData = get(ordered, `transfers.${uid}.mega-to-gdrive`, []);
     setTransfers((orderedData || []).reverse().map((obj) => obj.value));
   }, [uid, ordered]);
-
-  useEffect(() => {
-    if (messaging) {
-      if (
-        Notification.permission !== "granted" &&
-        Notification.permission !== "denied"
-      ) {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            messaging
-              .getToken({
-                vapidKey: FCM_VAPID_KEY,
-              })
-              .then((refreshedToken) => {
-                storeFCMKey(refreshedToken, uid)(firebase);
-              })
-              .catch((e) => console.log(e));
-          }
-        });
-      }
-    }
-  }, [firebase, uid]);
-
-  useEffect(() => {
-    if (messaging) {
-      const unsubscribe = messaging.onMessage(
-        (payload) => {
-          setNotification(payload?.notification);
-          setNotificationOpen(true);
-        },
-        (error) => console.log(error)
-      );
-
-      return () => {
-        unsubscribe && unsubscribe();
-      };
-    }
-  }, []);
 
   const error = useSelector(
     ({

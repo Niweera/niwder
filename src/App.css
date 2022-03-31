@@ -1,93 +1,12 @@
 .container {
-  padding: 0;
-  max-width: 2500px;
-  min-height: calc(100vh - 170px);
+    padding: 0;
+    max-width: 2500px;
+    min-height: calc(100vh - 170px);
 }
 
 @media (min-width: 2500px) {
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .repository-cell {
-    text-decoration: none;
-    color: white;
-  }
-
-  .repository-cell:hover {
-    text-decoration: underline;
-  }
-
-  .Mui-selected {
-    color: #ffffff !important;
-  }
-
-  .Mui-checked {
-    color: #c6c6c6 !important;
-  }
-
-  .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
-    background-color: rgba(9, 67, 119, 0.16) !important;
-  }
-
-  .MuiTableRow-root.Mui-selected {
-    background-color: rgba(9, 67, 119, 0.16) !important;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .repository-cell {
-    text-decoration: none;
-    color: black;
-  }
-
-  .repository-cell:hover {
-    text-decoration: underline;
-  }
-
-  .Mui-selected {
-    color: #000000 !important;
-  }
-
-  .Mui-checked {
-    color: #1d1919 !important;
-  }
-
-  .MuiDataGrid-root .MuiDataGrid-row.Mui-selected {
-    background-color: rgba(0, 53, 53, 0.16) !important;
-  }
-
-  .MuiTableRow-root.Mui-selected {
-    background-color: rgba(0, 53, 53, 0.16) !important;
-  }
-}
-
-.fab-root {
-  display: flex;
-  font-size: 13px !important;
-  background-color: transparent !important;
-  border: 1px solid #4eaf1e !important;
-  border-radius: 100px !important;
-  transition: border-radius 2s !important;
-}
-
-.fab-root:hover {
-  width: 100px;
-  background-color: #253023 !important;
-  border-radius: 0 !important;
-}
-
-.fab-root:hover .fab-icon {
-  display: none;
-}
-
-.fab-root:hover .fab-text:before {
-  content: "View Results"
-}
-
-.fab-root:hover .fab-view-files:before {
-  content: "Browse Files"
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
