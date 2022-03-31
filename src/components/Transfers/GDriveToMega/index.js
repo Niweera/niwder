@@ -185,7 +185,7 @@ const GDriveToMega = () => {
 
   const onSubmit = () => {
     const regExp = new RegExp(
-      /^https:\/\/drive\.google\.com\/drive\/folders\/.*\?.*$/g
+      /(https:\/\/drive\.google\.com\/file\/d\/.*?\/.*?\??.*$|^https:\/\/drive\.google\.com\/drive\/folders\/.*\?.*$)/g
     );
     if (!regExp.test(gDriveLink)) {
       setValidationError(
