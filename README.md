@@ -22,7 +22,7 @@ Niwder-UI and Niwder-API use [Firebase](https://firebase.google.com/) for hostin
 
 New features to keep an eye on;
 
-- [ ] Google Drive link to Mega.nz link
+- [x] Google Drive link to Mega.nz link
 - [ ] Direct download link to Google Drive link
 - [ ] Direct download link to Mega.nz link
 - [ ] Google Drive link to direct download link
