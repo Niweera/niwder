@@ -13,6 +13,7 @@ import { isLoaded, isEmpty } from "react-redux-firebase";
 import { UserIsAuthenticated, UserIsNotAuthenticated } from "./auth";
 import MegaToGDrive from "./components/Transfers/MegaToGDrive";
 import GDriveToMega from "./components/Transfers/GDriveToMega";
+import DirectToGDrive from "./components/Transfers/DriectToGDrive";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -46,6 +47,11 @@ const RoutesComponent = () => {
                 exact
                 path={"/transfers/gdrive-to-mega"}
                 element={<GDriveToMega />}
+              />
+              <Route
+                exact
+                path={"/transfers/direct-to-gdrive"}
+                element={<DirectToGDrive />}
               />
             </Route>
             <Route exact path={"*"} element={<NotFound />} />

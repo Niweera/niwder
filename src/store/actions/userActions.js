@@ -36,6 +36,23 @@ export const gDriveToMega = (url) => async (firebase, dispatch) => {
   }
 };
 
+export const directToGDrive = (url) => async (firebase, dispatch) => {
+  try {
+    dispatch(actions.queueTransferAction.trigger());
+    const token = await firebase.auth().currentUser.getIdToken();
+    await axios.post(
+      `${API_BASE}/api/direct-to-gdrive`,
+      {
+        url,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    dispatch(actions.queueTransferAction.success());
+  } catch (e) {
+    dispatch(actions.queueTransferAction.failure(e.message));
+  }
+};
+
 export const checkAPIAlive = () => async (firebase) => {
   return new Promise(async (resolve, reject) => {
     try {
