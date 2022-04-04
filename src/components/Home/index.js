@@ -11,12 +11,15 @@ import LogoThree from "../../helpers/cover_3.png";
 import Link from "@mui/material/Link";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: "-20px -24px -20px -24px",
+  },
   typography: {
     flexGrow: 1,
     textAlign: "center",
   },
   cardPaper: {
-    backgroundColor: `${theme.palette.background.default} !important`,
+    background: `radial-gradient(115.33% 258.13% at 1.39% -10.78%, #333333 0%, #000000 100%) !important`,
   },
   linkText: {
     color: theme.palette.text.primary,
@@ -27,14 +30,14 @@ const Home = () => {
   const classes = useStyles();
 
   return (
-    <div className="container">
+    <div className={`container ${classes.root}`}>
       <Grid container>
         <Grid item>
-          <Card elevation={10} className={classes.cardPaper}>
+          <Card elevation={0} className={classes.cardPaper}>
             <CardMedia component="img" image={Logo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
-            <CardContent>
+            <CardContent sx={{ padding: "24px" }}>
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
               </Typography>

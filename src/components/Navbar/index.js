@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   appBar: {
+    background: `linear-gradient(90deg, rgba(0,0,0,1) 16%, rgba(59,58,48,1) 60%, rgba(56,55,51,1) 100%) !important`,
     paddingRight: "79px",
     paddingLeft: "118px",
     paddingBottom: "1px",
