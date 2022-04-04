@@ -39,6 +39,7 @@ import useEnableFCM from "../../../helpers/useEnableFCM";
  * @param {JSX.Element} title
  * @param {string} placeholder
  * @param {function} secondaryComponent
+ * @param {function} transferringComponent
  * @returns {JSX.Element}
  * @constructor
  */
@@ -50,6 +51,7 @@ const TransfersBase = ({
   title,
   placeholder,
   secondaryComponent,
+  transferringComponent,
 }) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
@@ -59,9 +61,11 @@ const TransfersBase = ({
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [validationError, setValidationError] = useState("");
   const [transfers, setTransfers] = useState([]);
+  const [transferring, setTransferring] = useState([]);
   const [notification, setNotification] = useState(null);
   const [apiAlive, setApiAlive] = useState(null);
   const [transfersLoading, setTransfersLoading] = useState(null);
+  const [transferringLoading, setTransferringLoading] = useState(null);
 
   useEnableFCM();
   useFCMNotifications(setNotification, setNotificationOpen);
@@ -76,17 +80,29 @@ const TransfersBase = ({
     }) => uid
   );
 
-  useFirebaseConnect({
-    path: `transfers/${uid}/${dbPath}`,
-    type: "value",
-    queryParams: ["orderByKey"],
-  });
+  useFirebaseConnect([
+    {
+      path: `transferring/${uid}/${dbPath}`,
+      type: "value",
+      queryParams: ["orderByKey"],
+    },
+    {
+      path: `transfers/${uid}/${dbPath}`,
+      type: "value",
+      queryParams: ["orderByKey"],
+    },
+  ]);
 
   const ordered = useSelector(({ firebase: { ordered } }) => ordered);
 
   useEffect(() => {
     const orderedData = get(ordered, `transfers.${uid}.${dbPath}`, []);
     setTransfers((orderedData || []).reverse().map((obj) => obj.value));
+  }, [dbPath, uid, ordered]);
+
+  useEffect(() => {
+    const orderedData = get(ordered, `transferring.${uid}.${dbPath}`, []);
+    setTransferring((orderedData || []).reverse().map((obj) => obj.value));
   }, [dbPath, uid, ordered]);
 
   const error = useSelector(
@@ -173,7 +189,7 @@ const TransfersBase = ({
       setValidationError(validationErrorMessage);
       return;
     }
-    submitFN(link)(firebase, dispatch);
+    submitFN(link, dbPath)(firebase, dispatch);
     setValidationError("");
     setLink("");
     clearMessages()(dispatch);
@@ -204,6 +220,23 @@ const TransfersBase = ({
       setTransfersLoading(false);
     } else {
       setTransfersLoading(false);
+    }
+  }, [requesting, requested, uid, dbPath]);
+
+  useEffect(() => {
+    const requestingProp = get(
+      requesting,
+      `transferring/${uid}/${dbPath}`,
+      null
+    );
+    const requestedProp = get(requested, `transferring/${uid}/${dbPath}`, null);
+
+    if (requestingProp === true && requestedProp === false) {
+      setTransferringLoading(true);
+    } else if (requestingProp === false && requestedProp === true) {
+      setTransferringLoading(false);
+    } else {
+      setTransferringLoading(false);
     }
   }, [requesting, requested, uid, dbPath]);
 
@@ -243,7 +276,7 @@ const TransfersBase = ({
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "40vh" }}
+        style={{ minHeight: "30vh" }}
       >
         <Grid item style={{ textAlign: "center", minWidth: "50vw" }}>
           <Card className={classes.root}>
@@ -305,6 +338,87 @@ const TransfersBase = ({
               >
                 Start Transfer
               </LoadingButton>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: "20vh", marginBottom: "20px" }}
+      >
+        <Grid item style={{ textAlign: "center", minWidth: "50vw" }}>
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                variant="h5"
+                className={classes.typography}
+                style={{ marginBottom: "10px" }}
+              >
+                Now transferring
+              </Typography>
+
+              {transferringLoading === true && (
+                <Typography variant="h6">
+                  <Skeleton animation="wave" sx={{ bgcolor: "grey.900" }} />
+                </Typography>
+              )}
+
+              {transferringLoading === false && transferring.length === 0 && (
+                <>
+                  <Divider />
+                  <Typography
+                    variant="h6"
+                    className={classes.typography}
+                    color="text.secondary"
+                    sx={{ mt: "5px" }}
+                  >
+                    No current transfers
+                  </Typography>
+                </>
+              )}
+
+              {transferring.length > 0 && (
+                <List
+                  sx={{
+                    width: "100%",
+                    bgcolor: "background.paper",
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                  }}
+                >
+                  <Divider />
+                  {transferring.map((obj, index) => (
+                    <React.Fragment key={index}>
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar>
+                            <CircularProgress color="inherit" />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="h6"
+                              color="text.primary"
+                            >
+                              {obj.name}
+                            </Typography>
+                          }
+                          secondary={transferringComponent(obj)}
+                        />
+                      </ListItem>
+                      <Divider />
+                    </React.Fragment>
+                  ))}
+                </List>
+              )}
             </CardContent>
           </Card>
         </Grid>

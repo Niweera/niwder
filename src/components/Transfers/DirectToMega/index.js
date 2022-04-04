@@ -1,13 +1,13 @@
 import React from "react";
-import { directToGDrive } from "../../../store/actions";
+import { queueTransfer } from "../../../store/actions";
 import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 
-const DirectToGDrive = () => {
-  const secondary = ({ gDriveLink, directLink, size, mimeType, timestamp }) => (
+const DirectToMega = () => {
+  const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
     <SecondaryComponent
-      primaryLink={gDriveLink}
-      primaryText={"Google Drive Link"}
+      primaryLink={megaLink}
+      primaryText={"Mega Link"}
       secondaryLink={directLink}
       secondaryText={"Direct Link"}
       size={size}
@@ -18,17 +18,17 @@ const DirectToGDrive = () => {
 
   return (
     <TransfersBase
-      dbPath={"direct-to-gdrive"}
+      dbPath={"direct-to-mega"}
       regExpString={
         /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g
       }
       validationErrorMessage={"Provide a valid direct download URL"}
-      submitFN={directToGDrive}
-      title={<>Add a direct link to convert to a Google Drive link</>}
+      submitFN={queueTransfer}
+      title={<>Add a direct link to convert to a Mega.nz link</>}
       placeholder={"Direct Link"}
       secondaryComponent={secondary}
     />
   );
 };
 
-export default DirectToGDrive;
+export default DirectToMega;

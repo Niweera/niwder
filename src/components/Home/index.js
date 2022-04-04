@@ -41,9 +41,16 @@ const Home = () => {
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
               </Typography>
-              <Typography variant="h5" color="text.secondary">
-                Niwder.io is a platform to convert Mega.nz links to Google Drive
-                links. We will support other types of conversions in the future.
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
+                Niwder.io is a platform to transfer Google Drive, Mega.nz links
+                to desired destinations. Currently supports, Google Drive links
+                to Mega.nz links, and vice-versa and converting direct links to
+                Google Drive links and Mega.nz links. <br />
+                <br />
                 Remember; the future belongs to those who believe in the beauty
                 of their dreams.
               </Typography>

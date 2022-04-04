@@ -1,5 +1,5 @@
 import React from "react";
-import { gDriveToMega } from "../../../store/actions";
+import { queueTransfer } from "../../../store/actions";
 import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 
@@ -25,7 +25,7 @@ const GDriveToMega = () => {
       validationErrorMessage={
         "The URL must be a valid Google Drive file/folder export URL"
       }
-      submitFN={gDriveToMega}
+      submitFN={queueTransfer}
       title={<>Add a Google Drive link to convert to a Mega.nz link</>}
       placeholder={"Google Drive Link"}
       secondaryComponent={secondary}

@@ -1,9 +1,3 @@
-export {
-  megaToGDrive,
-  clearMessages,
-  checkAPIAlive,
-  gDriveToMega,
-  directToGDrive,
-} from "./userActions";
+export { clearMessages, checkAPIAlive, queueTransfer } from "./userActions";
 
 export { signIn, signOut, storeFCMKey } from "./authActions";
