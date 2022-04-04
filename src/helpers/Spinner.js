@@ -4,22 +4,40 @@ import Logo from "./logo.png";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 
-const BrandName = ({ index }) => {
-  const names = [
-    `Niwder.io /`,
-    `<Niwder.io />`,
-    `{Niwder.io}`,
-    `[Niwder.io,]`,
-    `Niwder.io`,
-    `Niwder.io.`,
-    `<Niwder.io>`,
-  ];
+const BrandName = ({ startIndex, endIndex }) => {
+  const starts = ` <({[/`;
+  const ends = ` >)}]\\`;
 
-  return <>{names[index]}</>;
+  const brandName = Array.from("niwder.io")
+    .map((letter) => {
+      const rando = Math.floor((Math.random() * 1000000) % 3);
+
+      switch (rando) {
+        case 0: {
+          return letter.toLowerCase();
+        }
+        case 1: {
+          return letter.toUpperCase();
+        }
+        default: {
+          return letter;
+        }
+      }
+    })
+    .join("");
+
+  return (
+    <>
+      {starts[startIndex]}
+      {brandName}
+      {ends[endIndex]}
+    </>
+  );
 };
 
 const Spinner = ({ half }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
 
   const classes = makeStyles(() => ({
     large: {
@@ -29,12 +47,12 @@ const Spinner = ({ half }) => {
   }))();
 
   useEffect(() => {
-    const id = setInterval(
-      () => setCurrentIndex(Math.floor((Math.random() * 1000000) % 7)),
-      500
-    );
+    const id = setInterval(() => {
+      setStartIndex(Math.floor((Math.random() * 1000000) % 6));
+      setEndIndex(Math.floor((Math.random() * 1000000) % 6));
+    }, 500);
     return () => clearInterval(id);
-  }, [currentIndex]);
+  }, [startIndex, endIndex]);
 
   return (
     <Grid
@@ -54,7 +72,7 @@ const Spinner = ({ half }) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <BrandName index={currentIndex} />
+        <BrandName startIndex={startIndex} endIndex={endIndex} />
       </Grid>
     </Grid>
   );
