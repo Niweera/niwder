@@ -17,9 +17,7 @@ import { isEmpty, isLoaded, useFirebase } from "react-redux-firebase";
 import { signOut } from "../../store/actions";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Fade from "@mui/material/Fade";
+import MenuListItems from "./MenuListItems";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,50 +74,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "4px",
   },
 }));
-
-const MenuListItems = ({ anchorEl, handleClose, classes }) => (
-  <Menu
-    id="menu-appbar"
-    anchorEl={anchorEl}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    keepMounted
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    open={Boolean(anchorEl)}
-    onClose={handleClose}
-    TransitionComponent={Fade}
-  >
-    <NavLink
-      to={"/transfers/mega-to-gdrive"}
-      className={({ isActive }) =>
-        isActive ? classes.linkTextActive : classes.linkText
-      }
-    >
-      <MenuItem onClick={handleClose}>Mega.nz to Google Drive</MenuItem>
-    </NavLink>
-    <NavLink
-      to={"/transfers/gdrive-to-mega"}
-      className={({ isActive }) =>
-        isActive ? classes.linkTextActive : classes.linkText
-      }
-    >
-      <MenuItem onClick={handleClose}>Google Drive to Mega.nz</MenuItem>
-    </NavLink>
-    <NavLink
-      to={"/transfers/direct-to-gdrive"}
-      className={({ isActive }) =>
-        isActive ? classes.linkTextActive : classes.linkText
-      }
-    >
-      <MenuItem onClick={handleClose}>Direct to Google Drive</MenuItem>
-    </NavLink>
-  </Menu>
-);
 
 const Navbar = () => {
   const theme = useTheme();
