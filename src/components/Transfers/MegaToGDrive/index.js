@@ -2,20 +2,25 @@ import React from "react";
 import { queueTransfer } from "../../../store/actions";
 import TransferBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
+import TransferringComponent from "../TransfersBase/TransferringComponent";
+
+const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
+  <SecondaryComponent
+    primaryLink={gDriveLink}
+    primaryText={"Google Drive Link"}
+    secondaryLink={megaLink}
+    secondaryText={"Mega.nz Link"}
+    size={size}
+    mimeType={mimeType}
+    timestamp={timestamp}
+  />
+);
+
+const transferring = ({ stdout }) => (
+  <TransferringComponent primaryText={stdout} />
+);
 
 const MegaToGDrive = () => {
-  const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
-    <SecondaryComponent
-      primaryLink={gDriveLink}
-      primaryText={"Google Drive Link"}
-      secondaryLink={megaLink}
-      secondaryText={"Mega.nz Link"}
-      size={size}
-      mimeType={mimeType}
-      timestamp={timestamp}
-    />
-  );
-
   return (
     <TransferBase
       dbPath={"mega-to-gdrive"}
@@ -29,6 +34,7 @@ const MegaToGDrive = () => {
       title={<>Add a Mega.nz link to convert to a Google Drive link</>}
       placeholder={"Mega.nz Link"}
       secondaryComponent={secondary}
+      transferringComponent={transferring}
     />
   );
 };

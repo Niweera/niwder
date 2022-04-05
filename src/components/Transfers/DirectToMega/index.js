@@ -2,20 +2,25 @@ import React from "react";
 import { queueTransfer } from "../../../store/actions";
 import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
+import TransferringComponent from "../TransfersBase/TransferringComponent";
+
+const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
+  <SecondaryComponent
+    primaryLink={megaLink}
+    primaryText={"Mega Link"}
+    secondaryLink={directLink}
+    secondaryText={"Direct Link"}
+    size={size}
+    mimeType={mimeType}
+    timestamp={timestamp}
+  />
+);
+
+const transferring = ({ stdout }) => (
+  <TransferringComponent primaryText={stdout} />
+);
 
 const DirectToMega = () => {
-  const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
-    <SecondaryComponent
-      primaryLink={megaLink}
-      primaryText={"Mega Link"}
-      secondaryLink={directLink}
-      secondaryText={"Direct Link"}
-      size={size}
-      mimeType={mimeType}
-      timestamp={timestamp}
-    />
-  );
-
   return (
     <TransfersBase
       dbPath={"direct-to-mega"}
@@ -27,6 +32,7 @@ const DirectToMega = () => {
       title={<>Add a direct link to convert to a Mega.nz link</>}
       placeholder={"Direct Link"}
       secondaryComponent={secondary}
+      transferringComponent={transferring}
     />
   );
 };
