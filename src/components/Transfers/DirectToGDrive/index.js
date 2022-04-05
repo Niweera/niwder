@@ -16,8 +16,8 @@ const secondary = ({ gDriveLink, directLink, size, mimeType, timestamp }) => (
   />
 );
 
-const transferring = ({ stdout, size, mimeType }) => (
-  <TransferringComponent primaryText={stdout} size={size} mimeType={mimeType} />
+const transferring = ({ stdout }) => (
+  <TransferringComponent primaryText={stdout} />
 );
 
 const DirectToGDrive = () => {
