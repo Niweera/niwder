@@ -29,6 +29,9 @@ import SyncIcon from "@mui/icons-material/Sync";
 import { red } from "@mui/material/colors";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import useEnableFCM from "../../../helpers/useEnableFCM";
+import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 
 /**
  *
@@ -158,6 +161,13 @@ const TransfersBase = ({
     root: {
       minWidth: 350,
     },
+    glass: {
+      background: "rgba(255, 255, 255, 0.1)",
+      borderRadius: "1px",
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+      backdropFilter: "blur(2.1px)",
+      border: "1px solid rgba(255, 255, 255, 0.24)",
+    },
     title: {
       fontSize: 14,
     },
@@ -240,6 +250,27 @@ const TransfersBase = ({
     }
   }, [requesting, requested, uid, dbPath]);
 
+  const copyFromClipboard = async () => {
+    if (!("clipboard" in navigator)) return;
+    const permissions = await navigator.permissions.query({
+      name: "clipboard-read",
+    });
+    if (permissions.state !== "granted" && permissions.state !== "prompt")
+      return;
+    const clipText = await navigator.clipboard.readText();
+    const regExp = new RegExp(regExpString);
+    if (!regExp.test(clipText)) return;
+    setValidationError("");
+    setLink(clipText);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      onSubmit();
+    }
+  };
+
   return (
     <div className="container">
       {error && (
@@ -293,13 +324,14 @@ const TransfersBase = ({
                   <TextField
                     disabled={!apiAlive}
                     sx={{ mb: 1 }}
-                    autoFocus
                     placeholder={placeholder}
                     value={link}
                     onChange={(event) => {
                       setValidationError("");
                       setLink(event.target.value);
                     }}
+                    onFocus={copyFromClipboard}
+                    onKeyDown={handleKeyDown}
                     required
                     error={!!validationError}
                     label={validationError ? "Error" : ""}
@@ -328,6 +360,7 @@ const TransfersBase = ({
                 </FormGroup>
               </Box>
               <LoadingButton
+                type="submit"
                 variant="outlined"
                 color="inherit"
                 size={"large"}
@@ -394,22 +427,35 @@ const TransfersBase = ({
                   <Divider />
                   {transferring.map((obj, index) => (
                     <React.Fragment key={index}>
-                      <ListItem alignItems="flex-start">
+                      <ListItem
+                        alignItems="flex-start"
+                        className={classes.glass}
+                      >
                         <ListItemAvatar>
                           <Avatar>
-                            <CircularProgress color="inherit" />
+                            <FontAwesomeIcon icon={faSync} color="white" spin />
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                           primary={
-                            <Typography
-                              sx={{ display: "inline" }}
-                              component="span"
-                              variant="h6"
-                              color="text.primary"
+                            <CustomizedToolTip
+                              arrow
+                              placement="top"
+                              title={obj.name}
                             >
-                              {obj.name}
-                            </Typography>
+                              <Typography
+                                sx={{
+                                  display: "inline-block",
+                                  maxWidth: "40vw",
+                                }}
+                                component="span"
+                                variant="h6"
+                                color="text.primary"
+                                noWrap
+                              >
+                                {obj.name}
+                              </Typography>
+                            </CustomizedToolTip>
                           }
                           secondary={transferringComponent(obj)}
                         />
@@ -474,22 +520,35 @@ const TransfersBase = ({
                   <Divider />
                   {transfers.map((obj, index) => (
                     <React.Fragment key={index}>
-                      <ListItem alignItems="flex-start">
+                      <ListItem
+                        alignItems="flex-start"
+                        className={classes.glass}
+                      >
                         <ListItemAvatar>
                           <Avatar>
-                            <FolderIcon />
+                            <FolderIcon color="action" />
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText
                           primary={
-                            <Typography
-                              sx={{ display: "inline" }}
-                              component="span"
-                              variant="h6"
-                              color="text.primary"
+                            <CustomizedToolTip
+                              arrow
+                              placement="top"
+                              title={obj.name}
                             >
-                              {obj.name}
-                            </Typography>
+                              <Typography
+                                sx={{
+                                  display: "inline-block",
+                                  maxWidth: "40vw",
+                                }}
+                                component="span"
+                                variant="h6"
+                                color="text.primary"
+                                noWrap
+                              >
+                                {obj.name}
+                              </Typography>
+                            </CustomizedToolTip>
                           }
                           secondary={secondaryComponent(obj)}
                         />

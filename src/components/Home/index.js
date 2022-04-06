@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
   linkText: {
     color: theme.palette.text.primary,
   },
+  glass: {
+    background: "rgba(255, 255, 255, 0.05)",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(2.1px)",
+  },
 }));
 
 const Home = () => {
@@ -37,7 +42,7 @@ const Home = () => {
             <CardMedia component="img" image={Logo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
-            <CardContent sx={{ padding: "24px" }}>
+            <CardContent sx={{ padding: "24px" }} className={classes.glass}>
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
               </Typography>

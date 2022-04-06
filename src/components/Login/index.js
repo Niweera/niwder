@@ -64,6 +64,17 @@ const Login = () => {
     },
   }))();
 
+  const handleSignIn = () => {
+    if (!username || !password) return;
+    signIn(username, password)(firebase, dispatch);
+  };
+
+  const handleKeyDown = async (e) => {
+    if (e.keyCode === 13) {
+      await handleSignIn();
+    }
+  };
+
   return (
     <div className="container">
       {error && (
@@ -111,17 +122,19 @@ const Login = () => {
                     placeholder="Password"
                     required
                     value={password}
+                    onKeyDown={handleKeyDown}
                     onChange={(event) => setPassword(event.target.value)}
                   />
                 </FormGroup>
               </Box>
               <LoadingButton
+                type="submit"
                 variant="outlined"
                 color="inherit"
                 size={"large"}
                 className={classes.button}
                 disabled={!username || !password}
-                onClick={() => signIn(username, password)(firebase, dispatch)}
+                onClick={handleSignIn}
                 loading={loading}
               >
                 Sign In

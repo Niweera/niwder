@@ -3,6 +3,8 @@ import { queueTransfer } from "../../../store/actions";
 import TransferBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
 
 const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -13,6 +15,8 @@ const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
     size={size}
     mimeType={mimeType}
     timestamp={timestamp}
+    primaryIcon={faGoogleDrive}
+    secondaryIcon={faM}
   />
 );
 

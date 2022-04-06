@@ -103,6 +103,16 @@ const Transfers = () => {
                     Transfer from Direct Link to Google Drive
                   </NavLink>
                 </Button>
+                <Button variant="contained" size="large">
+                  <NavLink
+                    to={"/transfers/direct-to-mega"}
+                    className={({ isActive }) =>
+                      isActive ? classes.linkTextActive : classes.linkText
+                    }
+                  >
+                    Transfer from Direct Link to Mega.nz
+                  </NavLink>
+                </Button>
               </ButtonGroup>
             </CardContent>
           </Card>

@@ -3,6 +3,8 @@ import { queueTransfer } from "../../../store/actions";
 import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
 
 const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -13,6 +15,8 @@ const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
     size={size}
     mimeType={mimeType}
     timestamp={timestamp}
+    primaryIcon={faM}
+    secondaryIcon={faLink}
   />
 );
 

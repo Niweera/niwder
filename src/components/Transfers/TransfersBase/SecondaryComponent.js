@@ -2,7 +2,8 @@ import React from "react";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import prettyBytes from "pretty-bytes";
-import TimeAgo from "react-timeago";
+import TimeAgo from "react-time-ago";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**
  *
@@ -13,6 +14,8 @@ import TimeAgo from "react-timeago";
  * @param {number} size
  * @param {string} mimeType
  * @param {number} timestamp
+ * @param {IconDefinition} primaryIcon
+ * @param {IconDefinition} secondaryIcon
  * @returns {JSX.Element}
  * @constructor
  */
@@ -24,6 +27,8 @@ const SecondaryComponent = ({
   size,
   mimeType,
   timestamp,
+  primaryIcon,
+  secondaryIcon,
 }) => (
   <React.Fragment>
     <Link
@@ -34,7 +39,7 @@ const SecondaryComponent = ({
       rel="noopener noreferrer"
       color="white"
     >
-      {primaryText}
+      <FontAwesomeIcon icon={primaryIcon} /> {primaryText}
     </Link>
     <br />
     <Link
@@ -45,7 +50,7 @@ const SecondaryComponent = ({
       color="white"
       rel="noopener noreferrer"
     >
-      {secondaryText}
+      <FontAwesomeIcon icon={secondaryIcon} /> {secondaryText}
     </Link>
     <br />
     <Typography
