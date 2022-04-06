@@ -16,8 +16,12 @@ const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
   />
 );
 
-const transferring = ({ stdout }) => (
-  <TransferringComponent primaryText={stdout} />
+const transferring = ({ stdout, message, percentage }) => (
+  <TransferringComponent
+    primaryText={message}
+    secondaryText={stdout}
+    percentage={percentage}
+  />
 );
 
 const GDriveToMega = () => {
