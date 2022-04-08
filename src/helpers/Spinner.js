@@ -61,7 +61,7 @@ const Spinner = ({ half }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: half ? "50vh" : "100vh" }}
+      sx={{ minHeight: half ? "50vh" : "100vh" }}
     >
       <Grid item xs={12}>
         <Avatar

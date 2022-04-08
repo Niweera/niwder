@@ -92,15 +92,15 @@ const Login = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "70vh" }}
+        sx={{ minHeight: "70vh" }}
       >
-        <Grid item xs={10} style={{ textAlign: "center", marginTop: "50px" }}>
+        <Grid item xs={10} sx={{ textAlign: "center", marginTop: "50px" }}>
           <Card className={classes.root}>
             <CardContent>
               <Typography
                 variant="h5"
                 className={classes.typography}
-                style={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px" }}
               >
                 Sign in to continue!
               </Typography>

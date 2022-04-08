@@ -126,27 +126,34 @@ const Navbar = () => {
             </NavLink>
             {isLoaded(auth) && !isEmpty(auth) && (
               <div>
-                <ListItem
-                  button
-                  onClick={handleMenu}
-                  sx={{
-                    color: isMatched
-                      ? theme.palette.text.primary
-                      : theme.palette.text.disabled,
-                  }}
+                <NavLink
+                  to={"/transfers"}
+                  className={({ isActive }) =>
+                    isActive ? classes.linkTextActive : classes.linkText
+                  }
                 >
-                  <BrowserUpdatedIcon />{" "}
-                  <ListItemText
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    primary="Transfers"
+                  <ListItem
+                    button
+                    onClick={handleMenu}
+                    sx={{
+                      color: isMatched
+                        ? theme.palette.text.primary
+                        : theme.palette.text.disabled,
+                    }}
+                  >
+                    <BrowserUpdatedIcon />{" "}
+                    <ListItemText
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      primary="Transfers"
+                    />
+                  </ListItem>
+                  <MenuListItems
+                    anchorEl={anchorEl}
+                    handleClose={handleClose}
+                    classes={classes}
                   />
-                </ListItem>
-                <MenuListItems
-                  anchorEl={anchorEl}
-                  handleClose={handleClose}
-                  classes={classes}
-                />
+                </NavLink>
               </div>
             )}
             {isLoaded(auth) && !isEmpty(auth) ? (

@@ -307,15 +307,15 @@ const TransfersBase = ({
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "30vh" }}
+        sx={{ minHeight: "30vh" }}
       >
-        <Grid item style={{ textAlign: "center", minWidth: "50vw" }}>
+        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
           <Card className={classes.root}>
             <CardContent>
               <Typography
                 variant="h5"
                 className={classes.typography}
-                style={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px" }}
               >
                 {title}
               </Typography>
@@ -382,15 +382,15 @@ const TransfersBase = ({
         direction="column"
         alignItems="center"
         justifyContent="center"
-        style={{ minHeight: "20vh", marginBottom: "20px" }}
+        sx={{ minHeight: "20vh", marginBottom: "20px" }}
       >
-        <Grid item style={{ textAlign: "center", minWidth: "50vw" }}>
+        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
           <Card className={classes.root}>
             <CardContent>
               <Typography
                 variant="h5"
                 className={classes.typography}
-                style={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px" }}
               >
                 Now transferring
               </Typography>
@@ -477,13 +477,13 @@ const TransfersBase = ({
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item style={{ textAlign: "center", minWidth: "50vw" }}>
+        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
           <Card className={classes.root}>
             <CardContent>
               <Typography
                 variant="h5"
                 className={classes.typography}
-                style={{ marginBottom: "10px" }}
+                sx={{ marginBottom: "10px" }}
               >
                 Completed transfers
               </Typography>

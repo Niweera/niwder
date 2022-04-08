@@ -33,5 +33,38 @@ export const checkAPIAlive = () => async (firebase) => {
   });
 };
 
+export const authorizeGoogle = () => async (firebase, dispatch) => {
+  try {
+    dispatch(actions.authorizingAction.trigger());
+    const token = await firebase.auth().currentUser.getIdToken();
+    const response = await axios.get(`${API_BASE}/api/oauth`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const win = window.open(response.data.url, "_blank");
+    win.focus();
+    dispatch(actions.authorizingAction.success());
+  } catch (e) {
+    dispatch(actions.authorizingAction.failure(e.message));
+  }
+};
+
+export const revokeGoogle = () => async (firebase, dispatch) => {
+  try {
+    dispatch(actions.authorizingAction.trigger());
+    const token = await firebase.auth().currentUser.getIdToken();
+    const response = await axios.delete(`${API_BASE}/api/oauth`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const win = window.open(response.data.url, "_blank");
+    win.focus();
+    dispatch(actions.authorizingAction.success());
+  } catch (e) {
+    dispatch(actions.authorizingAction.failure(e.message));
+  }
+};
+
 export const clearMessages = () => (dispatch) =>
   dispatch(actions.queueTransferAction.fulfill());
+
+export const clearAuthorizingMessages = () => (dispatch) =>
+  dispatch(actions.authorizingAction.fulfill());

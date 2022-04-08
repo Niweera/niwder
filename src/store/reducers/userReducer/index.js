@@ -7,6 +7,10 @@ const initialState = {
     loading: false,
     error: null,
   },
+  authorizing: {
+    loading: false,
+    error: null,
+  },
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
@@ -56,12 +60,47 @@ const userReducer = (state = initialState, { type, payload }) => {
           error: payload,
         },
       };
-
     case actions.queueTransferAction.FULFILL:
       return {
         ...state,
         transfer: {
           ...state.transfer,
+          loading: false,
+          error: null,
+        },
+      };
+
+    case actions.authorizingAction.TRIGGER:
+      return {
+        ...state,
+        authorizing: {
+          ...state.authorizing,
+          loading: true,
+        },
+      };
+    case actions.authorizingAction.SUCCESS:
+      return {
+        ...state,
+        authorizing: {
+          ...state.authorizing,
+          loading: false,
+          error: false,
+        },
+      };
+    case actions.authorizingAction.FAILURE:
+      return {
+        ...state,
+        authorizing: {
+          ...state.authorizing,
+          loading: false,
+          error: payload,
+        },
+      };
+    case actions.authorizingAction.FULFILL:
+      return {
+        ...state,
+        authorizing: {
+          ...state.authorizing,
           loading: false,
           error: null,
         },
