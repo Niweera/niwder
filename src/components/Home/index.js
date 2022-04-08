@@ -73,6 +73,24 @@ const Home = () => {
                 </Link>
                 .
               </Typography>
+              <Typography
+                variant="button"
+                color="text.primary"
+                sx={{ mt: "5px" }}
+              >
+                This project uses{" "}
+                <Link
+                  href="https://undraw.co/"
+                  underline={"hover"}
+                  variant="button"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  unDraw
+                </Link>{" "}
+                for illustrations.
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

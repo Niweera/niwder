@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,16 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     marginTop: "20px",
     background: `linear-gradient(90deg, rgba(0,0,0,1) 16%, rgba(59,58,48,1) 60%, rgba(56,55,51,1) 100%) !important`,
+  },
+  linkText: {
+    textDecoration: `none`,
+    color: theme.palette.text.disabled,
+    marginLeft: "10px",
+  },
+  linkTextActive: {
+    textDecoration: `none`,
+    color: theme.palette.text.primary,
+    marginLeft: "10px",
   },
 }));
 
@@ -38,7 +49,23 @@ const Footer = () => {
           <Toolbar>
             <Typography variant="body2" className={classes.typography}>
               Niwder.io &#169; {new Date().getFullYear()}{" "}
-              {process.env.REACT_APP_VERSION}
+              {process.env.REACT_APP_VERSION}{" "}
+              <NavLink
+                to={"/privacy-policy"}
+                className={({ isActive }) =>
+                  isActive ? classes.linkTextActive : classes.linkText
+                }
+              >
+                Privacy Policy
+              </NavLink>{" "}
+              <NavLink
+                to={"/terms-of-service"}
+                className={({ isActive }) =>
+                  isActive ? classes.linkTextActive : classes.linkText
+                }
+              >
+                Terms of Service
+              </NavLink>
             </Typography>
           </Toolbar>
         </Container>

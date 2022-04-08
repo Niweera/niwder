@@ -15,6 +15,8 @@ import MegaToGDrive from "./components/Transfers/MegaToGDrive";
 import GDriveToMega from "./components/Transfers/GDriveToMega";
 import DirectToGDrive from "./components/Transfers/DirectToGDrive";
 import DirectToMega from "./components/Transfers/DirectToMega";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsOfService from "./components/TermsOfService";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -34,6 +36,12 @@ const RoutesComponent = () => {
         <Container maxWidth={false}>
           <Routes>
             <Route exact path={"/"} element={<Home />} />
+            <Route exact path={"/privacy-policy"} element={<PrivacyPolicy />} />
+            <Route
+              exact
+              path={"/terms-of-service"}
+              element={<TermsOfService />}
+            />
             <Route exact path="/login" element={<UserIsNotAuthenticated />}>
               <Route exact path="/login" element={<Login />} />
             </Route>
