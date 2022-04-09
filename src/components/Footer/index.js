@@ -5,6 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Link from "@mui/material/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: "center",
     color: theme.palette.text.primary,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   appBar: {
     height: "64px",
@@ -47,7 +52,11 @@ const Footer = () => {
       >
         <Container maxWidth="lg">
           <Toolbar>
-            <Typography variant="body2" className={classes.typography}>
+            <Typography
+              variant="body2"
+              className={classes.typography}
+              component="div"
+            >
               Niwder.io &#169; {new Date().getFullYear()}{" "}
               {process.env.REACT_APP_VERSION}{" "}
               <NavLink
@@ -66,6 +75,16 @@ const Footer = () => {
               >
                 Terms of Service
               </NavLink>
+              <Link
+                href="https://github.com/Niweera/niwder"
+                underline={"hover"}
+                target="_blank"
+                color="white"
+                rel="noopener noreferrer"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <GitHubIcon fontSize="small" sx={{ ml: "10px" }} />
+              </Link>
             </Typography>
           </Toolbar>
         </Container>
