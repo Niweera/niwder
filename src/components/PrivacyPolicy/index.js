@@ -1,209 +1,278 @@
 import React from "react";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Link from "@mui/material/Link";
+import CircleIcon from "@mui/icons-material/Circle";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: "-20px -24px -20px -24px",
+  },
+  typography: {
+    flexGrow: 1,
+    textAlign: "center",
+  },
+  cardPaper: {
+    padding: "20px",
+    background: `radial-gradient(115.33% 258.13% at 1.39% -10.78%, #333333 0%, #000000 100%) !important`,
+  },
+  linkText: {
+    color: theme.palette.text.primary,
+  },
+  glass: {
+    background: "rgba(255, 255, 255, 0.05)",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(2.1px)",
+  },
+}));
 
 const PrivacyPolicy = () => {
+  const classes = useStyles();
+
   return (
-    <div className="container">
-      <h1>Privacy Policy for Niwder.io</h1>
+    <div className={`container`}>
+      <Grid
+        container
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Grid item>
+          <Card elevation={10} className={classes.cardPaper}>
+            <CardContent sx={{ padding: "24px" }} className={classes.glass}>
+              <Typography gutterBottom variant="h4" component="div">
+                Privacy Policy of Niwder.io
+              </Typography>
 
-      <p>
-        At Niwder.io, accessible from https://niwder.niweera.gq, one of our main
-        priorities is the privacy of our visitors. This Privacy Policy document
-        contains types of information that is collected and recorded by
-        Niwder.io and how we use it.
-      </p>
-
-      <p>
-        If you have additional questions or require more information about our
-        Privacy Policy, do not hesitate to contact us.
-      </p>
-
-      <p>
-        This Privacy Policy applies only to our online activities and is valid
-        for visitors to our website with regards to the information that they
-        shared and/or collect in Niwder.io. This policy is not applicable to any
-        information collected offline or via channels other than this website.
-        Our Privacy Policy was created with the help of the{" "}
-        <a href="https://www.privacypolicygenerator.info">
-          Free Privacy Policy Generator
-        </a>
-        .
-      </p>
-
-      <h2>Consent</h2>
-
-      <p>
-        By using our website, you hereby consent to our Privacy Policy and agree
-        to its terms.
-      </p>
-
-      <h2>Information we collect</h2>
-
-      <p>
-        The personal information that you are asked to provide, and the reasons
-        why you are asked to provide it, will be made clear to you at the point
-        we ask you to provide your personal information.
-      </p>
-      <p>
-        If you contact us directly, we may receive additional information about
-        you such as your name, email address, phone number, the contents of the
-        message and/or attachments you may send us, and any other information
-        you may choose to provide.
-      </p>
-      <p>
-        When you register for an Account, we may ask for your contact
-        information, including items such as name, company name, address, email
-        address, and telephone number.
-      </p>
-
-      <h2>How we use your information</h2>
-
-      <p>We use the information we collect in various ways, including to:</p>
-
-      <ul>
-        <li>Provide, operate, and maintain our website</li>
-        <li>Improve, personalize, and expand our website</li>
-        <li>Understand and analyze how you use our website</li>
-        <li>Develop new products, services, features, and functionality</li>
-        <li>
-          Communicate with you, either directly or through one of our partners,
-          including for customer service, to provide you with updates and other
-          information relating to the website, and for marketing and promotional
-          purposes
-        </li>
-        <li>Send you emails</li>
-        <li>Find and prevent fraud</li>
-      </ul>
-
-      <h2>Log Files</h2>
-
-      <p>
-        Niwder.io follows a standard procedure of using log files. These files
-        log visitors when they visit websites. All hosting companies do this and
-        a part of hosting services' analytics. The information collected by log
-        files include internet protocol (IP) addresses, browser type, Internet
-        Service Provider (ISP), date and time stamp, referring/exit pages, and
-        possibly the number of clicks. These are not linked to any information
-        that is personally identifiable. The purpose of the information is for
-        analyzing trends, administering the site, tracking users' movement on
-        the website, and gathering demographic information.
-      </p>
-
-      <h2>Advertising Partners Privacy Policies</h2>
-
-      <p>
-        You may consult this list to find the Privacy Policy for each of the
-        advertising partners of Niwder.io.
-      </p>
-
-      <p>
-        Third-party ad servers or ad networks uses technologies like cookies,
-        JavaScript, or Web Beacons that are used in their respective
-        advertisements and links that appear on Niwder.io, which are sent
-        directly to users' browser. They automatically receive your IP address
-        when this occurs. These technologies are used to measure the
-        effectiveness of their advertising campaigns and/or to personalize the
-        advertising content that you see on websites that you visit.
-      </p>
-
-      <p>
-        Note that Niwder.io has no access to or control over these cookies that
-        are used by third-party advertisers.
-      </p>
-
-      <h2>Third Party Privacy Policies</h2>
-
-      <p>
-        Niwder.io's Privacy Policy does not apply to other advertisers or
-        websites. Thus, we are advising you to consult the respective Privacy
-        Policies of these third-party ad servers for more detailed information.
-        It may include their practices and instructions about how to opt-out of
-        certain options.{" "}
-      </p>
-
-      <p>
-        You can choose to disable cookies through your individual browser
-        options. To know more detailed information about cookie management with
-        specific web browsers, it can be found at the browsers' respective
-        websites.
-      </p>
-
-      <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
-
-      <p>
-        Under the CCPA, among other rights, California consumers have the right
-        to:
-      </p>
-      <p>
-        Request that a business that collects a consumer's personal data
-        disclose the categories and specific pieces of personal data that a
-        business has collected about consumers.
-      </p>
-      <p>
-        Request that a business delete any personal data about the consumer that
-        a business has collected.
-      </p>
-      <p>
-        Request that a business that sells a consumer's personal data, not sell
-        the consumer's personal data.
-      </p>
-      <p>
-        If you make a request, we have one month to respond to you. If you would
-        like to exercise any of these rights, please contact us.
-      </p>
-
-      <h2>GDPR Data Protection Rights</h2>
-
-      <p>
-        We would like to make sure you are fully aware of all of your data
-        protection rights. Every user is entitled to the following:
-      </p>
-      <p>
-        The right to access – You have the right to request copies of your
-        personal data. We may charge you a small fee for this service.
-      </p>
-      <p>
-        The right to rectification – You have the right to request that we
-        correct any information you believe is inaccurate. You also have the
-        right to request that we complete the information you believe is
-        incomplete.
-      </p>
-      <p>
-        The right to erasure – You have the right to request that we erase your
-        personal data, under certain conditions.
-      </p>
-      <p>
-        The right to restrict processing – You have the right to request that we
-        restrict the processing of your personal data, under certain conditions.
-      </p>
-      <p>
-        The right to object to processing – You have the right to object to our
-        processing of your personal data, under certain conditions.
-      </p>
-      <p>
-        The right to data portability – You have the right to request that we
-        transfer the data that we have collected to another organization, or
-        directly to you, under certain conditions.
-      </p>
-      <p>
-        If you make a request, we have one month to respond to you. If you would
-        like to exercise any of these rights, please contact us.
-      </p>
-
-      <h2>Children's Information</h2>
-
-      <p>
-        Another part of our priority is adding protection for children while
-        using the internet. We encourage parents and guardians to observe,
-        participate in, and/or monitor and guide their online activity.
-      </p>
-
-      <p>
-        Niwder.io does not knowingly collect any Personal Identifiable
-        Information from children under the age of 13. If you think that your
-        child provided this kind of information on our website, we strongly
-        encourage you to contact us immediately and we will do our best efforts
-        to promptly remove such information from our records.
-      </p>
+              <Typography gutterBottom variant="h5" component="div">
+                Niwder operates the niwder.niweera.gq website, which provides
+                the SERVICE.
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                This page is used to inform website visitors regarding the
+                policies with the collection, use, and disclosure of Personal
+                Information if anyone decided to use the SERVICE. The SERVICE
+                does not collect any personal data nor it uses any cookies to
+                provide necessary functionalities.
+              </Typography>
+              <Typography gutterBottom variant="body1" component="div">
+                If the USER choose to use the SERVICE, then the USER agrees to
+                the terms mentioned in this policy. There will be no personal
+                information collection in this platform and the source code of
+                this platform is open-source and hosted on GitHub as{" "}
+                <Link
+                  href="https://github.com/Niweera/niwder"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  Niwder-UI
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="https://github.com/Niweera/niwder-api"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  Niwder-API
+                </Link>
+                .
+              </Typography>
+              <Typography gutterBottom variant="body1" component="div">
+                The terms used in this Privacy Policy have the same meaning as
+                in the Terms of Service, which is accessible at
+                niwder.niweera.gq, unless otherwise defined in this Privacy
+                Policy.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Information
+                Collection and Use
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="subtitle1" component="div">
+                The SERVICE will,
+              </Typography>
+              <Typography gutterBottom variant="body1" component="div">
+                1. Create, modify permission folders in the USER's Google Drive{" "}
+                <br />
+                2. Showing, upload, copy, update, and delete files in the USER's
+                Google Drive <br />
+                3. Manage files and folders in the USER's Google Drive (limited
+                to search, organize, and modify permissions and other metadata,
+                such as the name of the folder or file)
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                The SERVICE will access the USER's Google Drive account to
+                upload the files or folders. First, the SERVICE will create a
+                folder named 'Niwder' on the Google Drive and the files and
+                folders will be uploaded to that folder. The uploaded files or
+                folders will be available to be shared with other users via the
+                shared link which will be obtained using changing the
+                permissions via Google Drive API.
+              </Typography>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                The SERVICE will NOT access nor modify any existing files in the
+                USER's Google Drive.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Application
+                Access and Uses
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                The SERVICE provides a platform for transferring files on the
+                cloud. For an example, if the USER needs to transfer a
+                application binary (
+                <Link
+                  href="https://github.com/chromium/chromium/archive/refs/tags/102.0.4993.1.zip"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  https://github.com/chromium/chromium/archive/refs/tags/102.0.4993.1.zip
+                </Link>
+                ) to their Google Drive. The USER has to download this file to
+                their device and upload it to the Google Drive. Niwder.io
+                platform removes this middle step and directly transfers the
+                specified file to the Google Drive of the USER.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Security
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                The SERVICE uses https for transporting security and uses{" "}
+                <Link
+                  href="https://firebase.google.com/docs/auth"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  Google Firebase Authentication
+                </Link>{" "}
+                for securing the access to the protected data stored in
+                databases. The SERVICE implements industry best practices in
+                storing, retrieving and manipulating sensitive data.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Links to
+                Other Sites
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                The Niwder.io platform may contain links to other sites and
+                services. If the USER clicks on a third-party link, the USER
+                will be redirected to the site or resource. Note that these
+                external sites are not operated by the SERVICE. Hence, the
+                SERVICE strongly suggest the USER to review their Privacy
+                Policies from the respective web-sites. The SERVICE have no
+                control over, and assume no responsibility for the content,
+                Privacy Policies, or practices of any third- party sites or
+                services.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Changes to
+                This Privacy Policy
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                The SERVICE may update its Privacy Policy from periodically.
+                Hence, the SERVICE advise the USER to review this page
+                periodically for any updates. The SERVICE will notify the USER
+                of any changes by posting the new Privacy Policy on this page.
+                These changes are effective immediately, after they are posted
+                on this page.
+              </Typography>
+              <br />
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <CircleIcon fontSize="small" sx={{ mr: "5px" }} /> Contact Us
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="body1" component="div">
+                If the USER have any questions or suggestions about our Privacy
+                Policy, do not hesitate to contact us via email:
+                w[dot]nipuna[at]gmail[dot]com or create an issue on{" "}
+                <Link
+                  href="https://github.com/Niweera/niwder"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </Link>
+                .
+              </Typography>
+              <br />
+              <Typography gutterBottom variant="subtitle1" component="div">
+                The SERVICE uses functionality of Google services. Please read
+                the{" "}
+                <Link
+                  href="https://policies.google.com/privacy"
+                  underline={"hover"}
+                  variant="body1"
+                  target="_blank"
+                  color="white"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy of Google
+                </Link>
+                .
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
   );
 };

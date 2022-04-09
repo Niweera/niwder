@@ -42,7 +42,7 @@ const Home = () => {
             <CardMedia component="img" image={Logo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
             <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
-            <CardContent sx={{ padding: "24px" }} className={classes.glass}>
+            <CardContent sx={{ padding: "30px" }} className={classes.glass}>
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
               </Typography>
