@@ -133,7 +133,9 @@ const Transfers = () => {
                 className={classes.typography}
                 sx={{ marginBottom: "10px" }}
               >
-                Authorize Google Drive
+                {googleAuthorized
+                  ? "Google Drive Authorized"
+                  : "Authorize Google Drive"}
               </Typography>
               <ConfirmationDialog
                 id="google-remove-auth"

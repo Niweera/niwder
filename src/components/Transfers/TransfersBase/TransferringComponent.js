@@ -6,12 +6,11 @@ import Box from "@mui/material/Box";
 /**
  *
  * @param {string} primaryText
- * @param {string} secondaryText
  * @param {number} percentage
  * @returns {JSX.Element}
  * @constructor
  */
-const TransferringComponent = ({ primaryText, secondaryText, percentage }) => (
+const TransferringComponent = ({ primaryText, percentage }) => (
   <React.Fragment>
     <Typography
       sx={{ display: "inline" }}
@@ -22,20 +21,7 @@ const TransferringComponent = ({ primaryText, secondaryText, percentage }) => (
       {primaryText}
     </Typography>
     <br />
-    {secondaryText && (
-      <>
-        <Typography
-          sx={{ display: "inline" }}
-          component="span"
-          variant="body2"
-          color="text.secondary"
-        >
-          {secondaryText}
-        </Typography>
-        <br />
-      </>
-    )}
-    {percentage && (
+    {Boolean(percentage) && (
       <Box sx={{ width: "100%" }} component="span">
         <LinearProgress
           variant="buffer"
