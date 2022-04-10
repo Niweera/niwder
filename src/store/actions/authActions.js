@@ -27,6 +27,21 @@ export const signIn = (email, password) => async (firebase, dispatch) => {
   }
 };
 
+export const signInWithProviderID =
+  (provider) => async (firebase, dispatch) => {
+    try {
+      dispatch(actions.signInAction.trigger());
+      await firebase.login({
+        provider,
+        type: "popup",
+        scopes: [""],
+      });
+      dispatch(actions.signInAction.success());
+    } catch (e) {
+      dispatch(actions.signInAction.failure(e.message));
+    }
+  };
+
 export const signOut = () => async (firebase) => {
   try {
     await firebase.logout();

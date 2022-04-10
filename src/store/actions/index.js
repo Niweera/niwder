@@ -7,4 +7,9 @@ export {
   clearAuthorizingMessages,
 } from "./userActions";
 
-export { signIn, signOut, storeFCMKey } from "./authActions";
+export {
+  signIn,
+  signOut,
+  storeFCMKey,
+  signInWithProviderID,
+} from "./authActions";

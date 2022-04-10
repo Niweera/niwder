@@ -9,6 +9,7 @@ import Logo from "../../helpers/cover.png";
 import LogoTwo from "../../helpers/cover_2.png";
 import LogoThree from "../../helpers/cover_3.png";
 import Link from "@mui/material/Link";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     background: `radial-gradient(115.33% 258.13% at 1.39% -10.78%, #333333 0%, #000000 100%) !important`,
   },
   linkText: {
+    "&:hover": {
+      textDecoration: `underline`,
+    },
+    textDecoration: `none`,
     color: theme.palette.text.primary,
   },
   glass: {
@@ -51,22 +56,65 @@ const Home = () => {
                 color="text.secondary"
                 sx={{ mb: "10px" }}
               >
-                Niwder.io is a platform to transfer Google Drive, Mega.nz links
-                to desired destinations. Currently supports, Google Drive links
-                to Mega.nz links, and vice-versa and converting direct links to
-                Google Drive links and Mega.nz links. <br />
-                <br />
+                Niwder.io is a platform which helps users to transfer files
+                between storage providers on cloud. The users can transfer a
+                file from the internet to their own Google Drive or they can
+                transfer a Mega.nz file or folder to their own Google Drive. In
+                addition, the users can also convert a Google Drive share link
+                to a Mega.nz share link. Also, the user can convert a direct
+                download link to a Mega.nz share link.
+              </Typography>
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
+                How does Niwder.io work:
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
+                Niwder.io first download the file specified by the user (the
+                user provides the download link), then it downloads the file to
+                the Niwder.io ephemeral server and uploads the files to the
+                Google Drive using Google Drive API. After the file is uploaded,
+                the file is deleted from the ephemeral server. For this feature
+                to function, the user has to grant the permission to their
+                Google Drive (the permission to see, edit, create, and delete
+                all of the Google Drive files). Niwder.io does not view nor
+                access any personal files on the user's Google Drive. Please
+                read the{" "}
+                <NavLink to={"/privacy-policy"} className={classes.linkText}>
+                  Privacy Policy
+                </NavLink>{" "}
+                and{" "}
+                <NavLink to={"/terms-of-service"} className={classes.linkText}>
+                  Terms of Service
+                </NavLink>{" "}
+                of Niwder.io before using the service.
+              </Typography>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
                 Remember; the future belongs to those who believe in the beauty
                 of their dreams.
               </Typography>
-              <Typography variant="h6" color="text.primary" sx={{ mt: "5px" }}>
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ mt: "5px" }}
+              >
                 Niwder.io is open-source. Check it out on{" "}
                 <Link
                   href="https://github.com/Niweera/niwder"
                   underline={"hover"}
                   variant="h6"
                   target="_blank"
-                  color="white"
+                  color="text.primary"
                   rel="noopener noreferrer"
                 >
                   GitHub
@@ -75,7 +123,7 @@ const Home = () => {
               </Typography>
               <Typography
                 variant="button"
-                color="text.primary"
+                color="text.secondary"
                 sx={{ mt: "5px" }}
               >
                 This project uses{" "}
@@ -84,7 +132,7 @@ const Home = () => {
                   underline={"hover"}
                   variant="button"
                   target="_blank"
-                  color="white"
+                  color="text.primary"
                   rel="noopener noreferrer"
                 >
                   unDraw
