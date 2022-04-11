@@ -1,37 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
-import { clearMessages, checkAPIAlive } from "../../../store/actions";
-import Box from "@mui/material/Box";
-import FormGroup from "@mui/material/FormGroup";
-import TextField from "@mui/material/TextField";
+import { useDispatch } from "react-redux";
+import { clearMessages } from "../../../store/actions";
 import Message from "../../../helpers/Notification";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ListItemText from "@mui/material/ListItemText";
-import FolderIcon from "@mui/icons-material/Folder";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import Tooltip from "@mui/material/Tooltip";
-import Skeleton from "@mui/material/Skeleton";
-import CircularProgress from "@mui/material/CircularProgress";
-import { get } from "lodash";
-import InputAdornment from "@mui/material/InputAdornment";
-import SyncProblemIcon from "@mui/icons-material/SyncProblem";
-import SyncIcon from "@mui/icons-material/Sync";
-import { red } from "@mui/material/colors";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import useEnableFCM from "../../../helpers/useEnableFCM";
-import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
+import InputComponent from "./InputComponent";
+import TransferringBase from "./TransferringBase";
+import TransferredBase from "./TransferredBase";
 
 /**
  *
@@ -56,87 +32,15 @@ const TransfersBase = ({
   secondaryComponent,
   transferringComponent,
 }) => {
-  const firebase = useFirebase();
   const dispatch = useDispatch();
-  const [link, setLink] = useState("");
-  const [errorOpen, setErrorOpen] = useState(false);
-  const [successOpen, setSuccessOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const [validationError, setValidationError] = useState("");
-  const [transfers, setTransfers] = useState([]);
-  const [transferring, setTransferring] = useState([]);
+
   const [notification, setNotification] = useState(null);
-  const [apiAlive, setApiAlive] = useState(null);
-  const [transfersLoading, setTransfersLoading] = useState(null);
-  const [transferringLoading, setTransferringLoading] = useState(null);
 
   useEnableFCM();
   useFCMNotifications(setNotification, setNotificationOpen);
 
   useEffect(() => () => clearMessages()(dispatch), [dispatch]);
-
-  const uid = useSelector(
-    ({
-      firebase: {
-        auth: { uid },
-      },
-    }) => uid
-  );
-
-  useFirebaseConnect([
-    {
-      path: `transferring/${uid}/${dbPath}`,
-      type: "value",
-      queryParams: ["orderByKey"],
-    },
-    {
-      path: `transfers/${uid}/${dbPath}`,
-      type: "value",
-      queryParams: ["orderByKey"],
-    },
-  ]);
-
-  const ordered = useSelector(({ firebase: { ordered } }) => ordered);
-
-  useEffect(() => {
-    const orderedData = get(ordered, `transfers.${uid}.${dbPath}`, []);
-    setTransfers((orderedData || []).reverse().map((obj) => obj.value));
-  }, [dbPath, uid, ordered]);
-
-  useEffect(() => {
-    const orderedData = get(ordered, `transferring.${uid}.${dbPath}`, []);
-    setTransferring((orderedData || []).reverse().map((obj) => obj.value));
-  }, [dbPath, uid, ordered]);
-
-  const error = useSelector(
-    ({
-      userData: {
-        transfer: { error },
-      },
-    }) => error
-  );
-  const loading = useSelector(
-    ({
-      userData: {
-        transfer: { loading },
-      },
-    }) => loading
-  );
-
-  const onErrorNotificationClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setErrorOpen(false);
-  };
-
-  const onSuccessNotificationClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    clearMessages()(dispatch);
-    setSuccessOpen(false);
-  };
 
   const onNotificationClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -144,18 +48,6 @@ const TransfersBase = ({
     }
     setNotificationOpen(false);
   };
-
-  useEffect(() => {
-    if (error) {
-      setErrorOpen(true);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (error === false && loading === false) {
-      setSuccessOpen(true);
-    }
-  }, [error, loading]);
 
   const classes = makeStyles((theme) => ({
     root: {
@@ -192,105 +84,8 @@ const TransfersBase = ({
     },
   }))();
 
-  const onSubmit = () => {
-    const regExp = new RegExp(regExpString);
-
-    if (!regExp.test(link)) {
-      setValidationError(validationErrorMessage);
-      return;
-    }
-    submitFN(link, dbPath)(firebase, dispatch);
-    setValidationError("");
-    setLink("");
-    clearMessages()(dispatch);
-  };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      checkAPIAlive()(firebase)
-        .then(() => setApiAlive(true))
-        .catch(() => setApiAlive(false));
-    }, 5000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [firebase]);
-
-  const requesting = useSelector(({ firebase: { requesting } }) => requesting);
-  const requested = useSelector(({ firebase: { requested } }) => requested);
-
-  useEffect(() => {
-    const requestingProp = get(requesting, `transfers/${uid}/${dbPath}`, null);
-    const requestedProp = get(requested, `transfers/${uid}/${dbPath}`, null);
-
-    if (requestingProp === true && requestedProp === false) {
-      setTransfersLoading(true);
-    } else if (requestingProp === false && requestedProp === true) {
-      setTransfersLoading(false);
-    } else {
-      setTransfersLoading(false);
-    }
-  }, [requesting, requested, uid, dbPath]);
-
-  useEffect(() => {
-    const requestingProp = get(
-      requesting,
-      `transferring/${uid}/${dbPath}`,
-      null
-    );
-    const requestedProp = get(requested, `transferring/${uid}/${dbPath}`, null);
-
-    if (requestingProp === true && requestedProp === false) {
-      setTransferringLoading(true);
-    } else if (requestingProp === false && requestedProp === true) {
-      setTransferringLoading(false);
-    } else {
-      setTransferringLoading(false);
-    }
-  }, [requesting, requested, uid, dbPath]);
-
-  const copyFromClipboard = async () => {
-    if (!("clipboard" in navigator)) return;
-    const permissions = await navigator.permissions.query({
-      name: "clipboard-read",
-    });
-    if (permissions.state !== "granted" && permissions.state !== "prompt")
-      return;
-    const clipText = await navigator.clipboard.readText();
-    const regExp = new RegExp(regExpString);
-    if (!regExp.test(clipText)) return;
-    setValidationError("");
-    setLink(clipText);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      onSubmit();
-    }
-  };
-
   return (
     <div className="container">
-      {error && (
-        <Message
-          severity={"error"}
-          onClose={onErrorNotificationClose}
-          message={error}
-          open={errorOpen}
-          autoHideDuration={2000}
-        />
-      )}
-      {successOpen && (
-        <Message
-          severity={"success"}
-          onClose={onSuccessNotificationClose}
-          message={"Transfer Queued!"}
-          open={successOpen}
-          autoHideDuration={2000}
-        />
-      )}
       {notification && (
         <Message
           severity={"info"}
@@ -301,267 +96,28 @@ const TransfersBase = ({
           autoHideDuration={5000}
         />
       )}
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ minHeight: "30vh" }}
-      >
-        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                variant="h5"
-                className={classes.typography}
-                sx={{ marginBottom: "10px" }}
-              >
-                {title}
-              </Typography>
-              <Box component="form" noValidate autoComplete="off">
-                <FormGroup>
-                  <TextField
-                    disabled={!apiAlive}
-                    sx={{ mb: 1 }}
-                    placeholder={placeholder}
-                    value={link}
-                    onChange={(event) => {
-                      setValidationError("");
-                      setLink(event.target.value);
-                    }}
-                    onFocus={copyFromClipboard}
-                    onKeyDown={handleKeyDown}
-                    required
-                    error={!!validationError}
-                    label={validationError ? "Error" : ""}
-                    helperText={!!validationError ? validationError : ""}
-                    variant="standard"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          {apiAlive === null ? (
-                            <Tooltip title="Checking Niwder-API status">
-                              <CircularProgress color="inherit" size="1.2rem" />
-                            </Tooltip>
-                          ) : apiAlive === true ? (
-                            <Tooltip title="Niwder-API is active">
-                              <SyncIcon color="success" />
-                            </Tooltip>
-                          ) : (
-                            <Tooltip title="Niwder-API is unreachable">
-                              <SyncProblemIcon sx={{ color: red[500] }} />
-                            </Tooltip>
-                          )}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </FormGroup>
-              </Box>
-              <LoadingButton
-                type="submit"
-                variant="outlined"
-                color="inherit"
-                size={"large"}
-                className={classes.button}
-                disabled={!link}
-                onClick={onSubmit}
-                loading={loading}
-              >
-                Start Transfer
-              </LoadingButton>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
 
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ minHeight: "20vh", marginBottom: "20px" }}
-      >
-        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                variant="h5"
-                className={classes.typography}
-                sx={{ marginBottom: "10px" }}
-              >
-                Now transferring
-              </Typography>
+      <InputComponent
+        dbPath={dbPath}
+        classes={classes}
+        regExpString={regExpString}
+        validationErrorMessage={validationErrorMessage}
+        submitFN={submitFN}
+        title={title}
+        placeholder={placeholder}
+      />
 
-              {transferringLoading === true && (
-                <Typography variant="h6">
-                  <Skeleton animation="wave" sx={{ bgcolor: "grey.900" }} />
-                </Typography>
-              )}
+      <TransferringBase
+        classes={classes}
+        transferringComponent={transferringComponent}
+        dbPath={dbPath}
+      />
 
-              {transferringLoading === false && transferring.length === 0 && (
-                <>
-                  <Divider />
-                  <Typography
-                    variant="h6"
-                    className={classes.typography}
-                    color="text.secondary"
-                    sx={{ mt: "5px" }}
-                  >
-                    No current transfers
-                  </Typography>
-                </>
-              )}
-
-              {transferring.length > 0 && (
-                <List
-                  sx={{
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  }}
-                >
-                  <Divider />
-                  {transferring.map((obj, index) => (
-                    <React.Fragment key={index}>
-                      <ListItem
-                        alignItems="flex-start"
-                        className={classes.glass}
-                      >
-                        <ListItemAvatar>
-                          <Avatar>
-                            <FontAwesomeIcon icon={faSync} color="white" spin />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={
-                            <CustomizedToolTip
-                              arrow
-                              placement="top"
-                              title={obj.name}
-                            >
-                              <Typography
-                                sx={{
-                                  display: "inline-block",
-                                  maxWidth: "40vw",
-                                }}
-                                component="span"
-                                variant="h6"
-                                color="text.primary"
-                                noWrap
-                              >
-                                {obj.name}
-                              </Typography>
-                            </CustomizedToolTip>
-                          }
-                          secondary={transferringComponent(obj)}
-                        />
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
-                </List>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography
-                variant="h5"
-                className={classes.typography}
-                sx={{ marginBottom: "10px" }}
-              >
-                Completed transfers
-              </Typography>
-
-              {transfersLoading === true && (
-                <Typography variant="h6">
-                  <Skeleton animation="wave" sx={{ bgcolor: "grey.900" }} />
-                </Typography>
-              )}
-
-              {transfersLoading === false && transfers.length === 0 && (
-                <>
-                  <Divider />
-                  <Typography
-                    variant="h6"
-                    className={classes.typography}
-                    color="text.secondary"
-                    sx={{ mt: "5px" }}
-                  >
-                    No completed transfers
-                  </Typography>
-                </>
-              )}
-
-              {transfers.length > 0 && (
-                <List
-                  sx={{
-                    width: "100%",
-                    bgcolor: "background.paper",
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  }}
-                >
-                  <Divider />
-                  {transfers.map((obj, index) => (
-                    <React.Fragment key={index}>
-                      <ListItem
-                        alignItems="flex-start"
-                        className={classes.glass}
-                      >
-                        <ListItemAvatar>
-                          <Avatar>
-                            <FolderIcon color="action" />
-                          </Avatar>
-                        </ListItemAvatar>
-                        <ListItemText
-                          primary={
-                            <CustomizedToolTip
-                              arrow
-                              placement="top"
-                              title={obj.name}
-                            >
-                              <Typography
-                                sx={{
-                                  display: "inline-block",
-                                  maxWidth: "40vw",
-                                }}
-                                component="span"
-                                variant="h6"
-                                color="text.primary"
-                                noWrap
-                              >
-                                {obj.name}
-                              </Typography>
-                            </CustomizedToolTip>
-                          }
-                          secondary={secondaryComponent(obj)}
-                        />
-                      </ListItem>
-                      <Divider />
-                    </React.Fragment>
-                  ))}
-                </List>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <TransferredBase
+        classes={classes}
+        secondaryComponent={secondaryComponent}
+        dbPath={dbPath}
+      />
     </div>
   );
 };
