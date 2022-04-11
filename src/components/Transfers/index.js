@@ -17,6 +17,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFirebase } from "react-redux-firebase";
 import ConfirmationDialog from "../../helpers/ConfirmationDialog";
 import Message from "../../helpers/Notification";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Box from "@mui/material/Box";
+import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
 
 const Transfers = () => {
   const dispatch = useDispatch();
@@ -59,6 +65,10 @@ const Transfers = () => {
     linkTextActive: {
       textDecoration: `none`,
       color: theme.palette.text.primary,
+    },
+    box: {
+      display: "flex",
+      alignItems: "center",
     },
   }))();
 
@@ -196,12 +206,21 @@ const Transfers = () => {
                   variant="contained"
                   size="large"
                   disabled={!googleAuthorized}
+                  startIcon={
+                    <Box className={classes.box} component="span">
+                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                      <ArrowRightAltIcon />
+                      <FontAwesomeIcon
+                        icon={faGoogleDrive}
+                        size="xs"
+                        color="#1FA463"
+                      />
+                    </Box>
+                  }
                 >
                   <NavLink
                     to={"/transfers/mega-to-gdrive"}
-                    className={({ isActive }) =>
-                      isActive ? classes.linkTextActive : classes.linkText
-                    }
+                    className={classes.linkTextActive}
                   >
                     Transfer from Mega.nz to Google Drive
                   </NavLink>
@@ -210,12 +229,21 @@ const Transfers = () => {
                   variant="contained"
                   size="large"
                   disabled={!googleAuthorized}
+                  startIcon={
+                    <Box className={classes.box} component="span">
+                      <FontAwesomeIcon
+                        icon={faGoogleDrive}
+                        size="xs"
+                        color="#FFD04B"
+                      />
+                      <ArrowRightAltIcon />
+                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                    </Box>
+                  }
                 >
                   <NavLink
                     to={"/transfers/gdrive-to-mega"}
-                    className={({ isActive }) =>
-                      isActive ? classes.linkTextActive : classes.linkText
-                    }
+                    className={classes.linkTextActive}
                   >
                     Transfer from Google Drive to Mega.nz
                   </NavLink>
@@ -224,22 +252,39 @@ const Transfers = () => {
                   variant="contained"
                   size="large"
                   disabled={!googleAuthorized}
+                  startIcon={
+                    <Box className={classes.box} component="span">
+                      <FontAwesomeIcon icon={faLink} size="xs" />{" "}
+                      <ArrowRightAltIcon />
+                      <FontAwesomeIcon
+                        icon={faGoogleDrive}
+                        size="xs"
+                        color="#4688F4"
+                      />
+                    </Box>
+                  }
                 >
                   <NavLink
                     to={"/transfers/direct-to-gdrive"}
-                    className={({ isActive }) =>
-                      isActive ? classes.linkTextActive : classes.linkText
-                    }
+                    className={classes.linkTextActive}
                   >
                     Transfer from Direct Link to Google Drive
                   </NavLink>
                 </Button>
-                <Button variant="contained" size="large">
+                <Button
+                  variant="contained"
+                  size="large"
+                  startIcon={
+                    <Box className={classes.box} component="span">
+                      <FontAwesomeIcon icon={faLink} size="xs" />{" "}
+                      <ArrowRightAltIcon />
+                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                    </Box>
+                  }
+                >
                   <NavLink
                     to={"/transfers/direct-to-mega"}
-                    className={({ isActive }) =>
-                      isActive ? classes.linkTextActive : classes.linkText
-                    }
+                    className={classes.linkTextActive}
                   >
                     Transfer from Direct Link to Mega.nz
                   </NavLink>
