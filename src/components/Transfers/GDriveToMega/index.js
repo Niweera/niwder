@@ -29,7 +29,7 @@ const GDriveToMega = () => {
     <TransfersBase
       dbPath={"gdrive-to-mega"}
       regExpString={
-        /(https:\/\/drive\.google\.com\/file\/d\/.*?\/.*?\??.*$|^https:\/\/drive\.google\.com\/drive\/folders\/.*\?.*$)/g
+        /(https:\/\/drive\.google\.com\/file\/d\/.*?\/.*?\??.*$|^https:\/\/drive\.google\.com\/drive\/folders\/.*\??.*$)/g
       }
       validationErrorMessage={
         "The URL must be a valid Google Drive file/folder export URL"

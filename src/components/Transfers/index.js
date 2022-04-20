@@ -202,93 +202,100 @@ const Transfers = () => {
                 aria-label="vertical contained button group"
                 variant="contained"
               >
-                <Button
-                  variant="contained"
-                  size="large"
-                  disabled={!googleAuthorized}
-                  startIcon={
-                    <Box className={classes.box} component="span">
-                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
-                      <ArrowRightAltIcon />
-                      <FontAwesomeIcon
-                        icon={faGoogleDrive}
-                        size="xs"
-                        color="#1FA463"
-                      />
-                    </Box>
-                  }
+                <NavLink
+                  to={"/transfers/mega-to-gdrive"}
+                  className={classes.linkTextActive}
                 >
-                  <NavLink
-                    to={"/transfers/mega-to-gdrive"}
-                    className={classes.linkTextActive}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    disabled={!googleAuthorized}
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon
+                          icon={faGoogleDrive}
+                          size="xs"
+                          color="#1FA463"
+                        />
+                      </Box>
+                    }
                   >
                     Transfer from Mega.nz to Google Drive
-                  </NavLink>
-                </Button>
-                <Button
-                  variant="contained"
-                  size="large"
-                  disabled={!googleAuthorized}
-                  startIcon={
-                    <Box className={classes.box} component="span">
-                      <FontAwesomeIcon
-                        icon={faGoogleDrive}
-                        size="xs"
-                        color="#FFD04B"
-                      />
-                      <ArrowRightAltIcon />
-                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
-                    </Box>
-                  }
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={"/transfers/gdrive-to-mega"}
+                  className={classes.linkTextActive}
                 >
-                  <NavLink
-                    to={"/transfers/gdrive-to-mega"}
-                    className={classes.linkTextActive}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    disabled={!googleAuthorized}
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon
+                          icon={faGoogleDrive}
+                          size="xs"
+                          color="#FFD04B"
+                        />
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                      </Box>
+                    }
                   >
                     Transfer from Google Drive to Mega.nz
-                  </NavLink>
-                </Button>
-                <Button
-                  variant="contained"
-                  size="large"
-                  disabled={!googleAuthorized}
-                  startIcon={
-                    <Box className={classes.box} component="span">
-                      <FontAwesomeIcon icon={faLink} size="xs" />{" "}
-                      <ArrowRightAltIcon />
-                      <FontAwesomeIcon
-                        icon={faGoogleDrive}
-                        size="xs"
-                        color="#4688F4"
-                      />
-                    </Box>
-                  }
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={"/transfers/direct-to-gdrive"}
+                  className={classes.linkTextActive}
                 >
-                  <NavLink
-                    to={"/transfers/direct-to-gdrive"}
-                    className={classes.linkTextActive}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    disabled={!googleAuthorized}
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon icon={faLink} size="xs" />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon
+                          icon={faGoogleDrive}
+                          size="xs"
+                          color="#4688F4"
+                        />
+                      </Box>
+                    }
                   >
                     Transfer from Direct Link to Google Drive
-                  </NavLink>
-                </Button>
-                <Button
-                  variant="contained"
-                  size="large"
-                  startIcon={
-                    <Box className={classes.box} component="span">
-                      <FontAwesomeIcon icon={faLink} size="xs" />{" "}
-                      <ArrowRightAltIcon />
-                      <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
-                    </Box>
-                  }
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={"/transfers/direct-to-mega"}
+                  className={classes.linkTextActive}
                 >
-                  <NavLink
-                    to={"/transfers/direct-to-mega"}
-                    className={classes.linkTextActive}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon icon={faLink} size="xs" />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                      </Box>
+                    }
                   >
                     Transfer from Direct Link to Mega.nz
-                  </NavLink>
-                </Button>
+                  </Button>
+                </NavLink>
               </ButtonGroup>
             </CardContent>
           </Card>

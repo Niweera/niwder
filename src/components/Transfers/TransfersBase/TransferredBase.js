@@ -14,7 +14,10 @@ import ListItemText from "@mui/material/ListItemText";
 import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
 import { get } from "lodash";
 import { useSelector } from "react-redux";
-import { useFirebaseConnect } from "react-redux-firebase";
+import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { red, common } from "@mui/material/colors";
+import { removeTransferred } from "../../../store/actions";
 
 /**
  *
@@ -27,6 +30,8 @@ import { useFirebaseConnect } from "react-redux-firebase";
 const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
   const [transfers, setTransfers] = useState([]);
   const [transfersLoading, setTransfersLoading] = useState(null);
+
+  const firebase = useFirebase();
 
   const uid = useSelector(
     ({
@@ -52,7 +57,11 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
   });
 
   useEffect(() => {
-    setTransfers((orderedData || []).reverse().map((obj) => obj.value));
+    setTransfers(
+      (orderedData || [])
+        .reverse()
+        .map((obj) => ({ ...obj.value, key: obj.key }))
+    );
   }, [orderedData]);
 
   useEffect(() => {
@@ -113,7 +122,6 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                   paddingBottom: 0,
                 }}
               >
-                <Divider />
                 {transfers.map((obj, index) => (
                   <React.Fragment key={index}>
                     <ListItem alignItems="flex-start" className={classes.glass}>
@@ -145,8 +153,32 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                         }
                         secondary={secondaryComponent(obj)}
                       />
+                      <ListItemAvatar
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <CustomizedToolTip arrow placement="top" title="Remove">
+                          <Avatar
+                            sx={{
+                              width: 24,
+                              height: 24,
+                              bgcolor: common["black"],
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              removeTransferred(dbPath, obj.key)(firebase)
+                            }
+                          >
+                            <RemoveCircleIcon
+                              sx={{ color: red["A700"] }}
+                              fontSize="inherit"
+                            />
+                          </Avatar>
+                        </CustomizedToolTip>
+                      </ListItemAvatar>
                     </ListItem>
-                    <Divider />
                   </React.Fragment>
                 ))}
               </List>

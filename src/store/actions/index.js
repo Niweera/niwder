@@ -5,6 +5,7 @@ export {
   authorizeGoogle,
   revokeGoogle,
   clearAuthorizingMessages,
+  removeTransferred,
 } from "./userActions";
 
 export {
