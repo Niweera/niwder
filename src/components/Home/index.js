@@ -69,6 +69,26 @@ const Home = () => {
                 color="text.secondary"
                 sx={{ mb: "10px" }}
               >
+                With Niwder.io you can convert:{" "}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
+                1. Mega.nz link to Google Drive link
+                <br />
+                2. Google Drive link to Mega.nz link
+                <br />
+                3. Direct download link to Google Drive link
+                <br />
+                4. Direct download link to Mega.nz link
+              </Typography>
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ mb: "10px" }}
+              >
                 How does Niwder.io work:
               </Typography>
               <Typography

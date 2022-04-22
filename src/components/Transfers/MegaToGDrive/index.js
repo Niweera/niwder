@@ -5,6 +5,7 @@ import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faM } from "@fortawesome/free-solid-svg-icons/faM";
 import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
+import { megaRe } from "../../../config/Constants";
 
 const secondary = ({ gDriveLink, megaLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -28,9 +29,7 @@ const MegaToGDrive = () => {
   return (
     <TransferBase
       dbPath={"mega-to-gdrive"}
-      regExpString={
-        /(^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$)|(^https:\/\/mega\.nz\/folder\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+\/(file|folder)\/[a-zA-Z0-9]{0,8}$)/g
-      }
+      regExpString={megaRe}
       validationErrorMessage={
         "The URL must be a valid Mega.nz file/folder export URL"
       }

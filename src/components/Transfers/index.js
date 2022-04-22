@@ -116,6 +116,22 @@ const Transfers = () => {
     setSearchParams();
   };
 
+  const changeColor = () => {
+    const rando = Math.floor((Math.random() * 1000000) % 3);
+
+    switch (rando) {
+      case 0: {
+        return "#4688F4";
+      }
+      case 1: {
+        return "#FFD04B";
+      }
+      default: {
+        return "#1FA463";
+      }
+    }
+  };
+
   return (
     <div className="container">
       {error && (
@@ -218,7 +234,7 @@ const Transfers = () => {
                         <FontAwesomeIcon
                           icon={faGoogleDrive}
                           size="xs"
-                          color="#1FA463"
+                          color={changeColor()}
                         />
                       </Box>
                     }
@@ -241,7 +257,7 @@ const Transfers = () => {
                         <FontAwesomeIcon
                           icon={faGoogleDrive}
                           size="xs"
-                          color="#FFD04B"
+                          color={changeColor()}
                         />
                         <ArrowRightAltIcon />
                         <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
@@ -268,7 +284,7 @@ const Transfers = () => {
                         <FontAwesomeIcon
                           icon={faGoogleDrive}
                           size="xs"
-                          color="#4688F4"
+                          color={changeColor()}
                         />
                       </Box>
                     }
@@ -294,6 +310,30 @@ const Transfers = () => {
                     }
                   >
                     Transfer from Direct Link to Mega.nz
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={"/transfers/gdrive-to-direct"}
+                  className={classes.linkTextActive}
+                >
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon
+                          icon={faGoogleDrive}
+                          size="xs"
+                          color={changeColor()}
+                        />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faLink} size="xs" />
+                      </Box>
+                    }
+                  >
+                    Transfer from Google Drive to Direct Link
                   </Button>
                 </NavLink>
               </ButtonGroup>

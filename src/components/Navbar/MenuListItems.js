@@ -69,6 +69,14 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
       >
         <MenuItem onClick={handleClose}>Direct to Mega.nz</MenuItem>
       </NavLink>
+      <NavLink
+        to={"/transfers/gdrive-to-direct"}
+        className={({ isActive }) =>
+          isActive ? classes.linkTextActive : classes.linkText
+        }
+      >
+        <MenuItem onClick={handleClose}>Google Drive to Direct</MenuItem>
+      </NavLink>
     </Menu>
   );
 };

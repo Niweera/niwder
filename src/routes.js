@@ -15,6 +15,7 @@ import MegaToGDrive from "./components/Transfers/MegaToGDrive";
 import GDriveToMega from "./components/Transfers/GDriveToMega";
 import DirectToGDrive from "./components/Transfers/DirectToGDrive";
 import DirectToMega from "./components/Transfers/DirectToMega";
+import GDriveToDirect from "./components/Transfers/GDriveToDirect";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsOfService from "./components/TermsOfService";
 
@@ -66,6 +67,11 @@ const RoutesComponent = () => {
                 exact
                 path={"/transfers/direct-to-mega"}
                 element={<DirectToMega />}
+              />
+              <Route
+                exact
+                path={"/transfers/gdrive-to-direct"}
+                element={<GDriveToDirect />}
               />
             </Route>
             <Route exact path={"*"} element={<NotFound />} />

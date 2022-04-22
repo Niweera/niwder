@@ -5,6 +5,7 @@ import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faM } from "@fortawesome/free-solid-svg-icons/faM";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
+import { directRe } from "../../../config/Constants";
 
 const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -28,9 +29,7 @@ const DirectToMega = () => {
   return (
     <TransfersBase
       dbPath={"direct-to-mega"}
-      regExpString={
-        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g
-      }
+      regExpString={directRe}
       validationErrorMessage={"Provide a valid direct download URL"}
       submitFN={queueTransfer}
       title={<>Add a direct link to convert to a Mega.nz link</>}
