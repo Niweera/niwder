@@ -17,16 +17,25 @@ if (firebase.messaging.isSupported()) {
   const messaging = firebase.messaging();
 
   messaging.onBackgroundMessage(function (payload) {
-    // Customize notification here
-    const notificationTitle = payload.notification.title;
-    const collapseKey = payload.data.collapseKey;
-    const notificationOptions = {
-      body: payload.notification.body,
-      icon: "./logo.png",
-      image: "./cover.png",
-      tag: collapseKey,
-      actions: [{ action: "open", title: "Open Link" }],
-    };
+    let notificationTitle, notificationOptions;
+    if (payload?.notification) {
+      notificationTitle = payload.notification.title;
+      notificationOptions = {
+        body: payload.notification.body,
+        icon: "./logo.png",
+        image: "./cover.png",
+        tag: payload.data.collapseKey,
+        actions: [{ action: "open", title: "Open Link" }],
+      };
+    } else {
+      notificationTitle = "Error occurred in transferring";
+      notificationOptions = {
+        body: `Error [${payload.data.error}] occurred in transferring ${payload.data.job}`,
+        icon: "./logo.png",
+        image: "./cover.png",
+        tag: payload.data.collapseKey,
+      };
+    }
 
     return self.registration
       .getNotifications()

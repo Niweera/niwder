@@ -6,7 +6,7 @@ const useFCMNotifications = (setNotification, setNotificationOpen) => {
     if (messaging) {
       const unsubscribe = messaging.onMessage(
         (payload) => {
-          setNotification(payload?.notification);
+          setNotification(payload?.notification || payload?.data);
           setNotificationOpen(true);
         },
         (error) => console.log(error)

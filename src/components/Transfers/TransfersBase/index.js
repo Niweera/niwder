@@ -34,7 +34,6 @@ const TransfersBase = ({
 }) => {
   const dispatch = useDispatch();
   const [notificationOpen, setNotificationOpen] = useState(false);
-
   const [notification, setNotification] = useState(null);
 
   useEnableFCM();
@@ -87,7 +86,7 @@ const TransfersBase = ({
 
   return (
     <div className="container">
-      {notification && (
+      {notification?.title && (
         <Message
           severity={"info"}
           alertTitle={`Transfer completed: ${notification.title}`}
@@ -95,6 +94,24 @@ const TransfersBase = ({
           message={notification.body}
           open={notificationOpen}
           autoHideDuration={5000}
+        />
+      )}
+
+      {notification?.job && (
+        <Message
+          severity={"error"}
+          alertTitle={"Error occurred in transfer"}
+          onClose={onNotificationClose}
+          message={
+            <>
+              Error [{notification.error}] <br />
+              occurred in transferring <br />
+              {notification.job} <br />
+              Retry again after a few minutes.
+            </>
+          }
+          open={notificationOpen}
+          autoHideDuration={20000}
         />
       )}
 
