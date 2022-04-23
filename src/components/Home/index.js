@@ -83,6 +83,10 @@ const Home = () => {
                 3. Direct download link to Google Drive link
                 <br />
                 4. Direct download link to Mega.nz link
+                <br />
+                5. Google Drive link to direct download link
+                <br />
+                6. Mega.nz link to direct download link
               </Typography>
               <Typography
                 variant="h6"

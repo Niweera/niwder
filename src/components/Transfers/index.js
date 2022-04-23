@@ -336,6 +336,26 @@ const Transfers = () => {
                     Transfer from Google Drive to Direct Link
                   </Button>
                 </NavLink>
+
+                <NavLink
+                  to={"/transfers/mega-to-direct"}
+                  className={classes.linkTextActive}
+                >
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faLink} size="xs" />
+                      </Box>
+                    }
+                  >
+                    Transfer from Mega.nz to Direct Link
+                  </Button>
+                </NavLink>
               </ButtonGroup>
             </CardContent>
           </Card>

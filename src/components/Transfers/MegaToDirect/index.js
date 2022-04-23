@@ -1,0 +1,45 @@
+import React from "react";
+import { queueTransfer } from "../../../store/actions";
+import TransfersBase from "../TransfersBase";
+import SecondaryComponent from "../TransfersBase/SecondaryComponent";
+import TransferringComponent from "../TransfersBase/TransferringComponent";
+import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
+import { megaRe } from "../../../config/Constants";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+
+const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
+  <SecondaryComponent
+    primaryLink={directLink}
+    primaryText={"Direct Link"}
+    secondaryLink={megaLink}
+    secondaryText={"Mega.nz Link"}
+    size={size}
+    mimeType={mimeType}
+    timestamp={timestamp}
+    primaryIcon={faLink}
+    secondaryIcon={faM}
+  />
+);
+
+const transferring = ({ message, percentage }) => (
+  <TransferringComponent primaryText={message} percentage={percentage} />
+);
+
+const MegaToDirect = () => {
+  return (
+    <TransfersBase
+      dbPath={"mega-to-direct"}
+      regExpString={megaRe}
+      validationErrorMessage={
+        "The URL must be a valid Mega.nz file/folder export URL"
+      }
+      submitFN={queueTransfer}
+      title={<>Add a Mega.nz link to convert to a Direct link</>}
+      placeholder={"Mega.nz Link"}
+      secondaryComponent={secondary}
+      transferringComponent={transferring}
+    />
+  );
+};
+
+export default MegaToDirect;

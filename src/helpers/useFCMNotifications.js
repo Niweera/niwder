@@ -3,19 +3,21 @@ import { messaging } from "../config";
 
 const useFCMNotifications = (setNotification, setNotificationOpen) => {
   useEffect(() => {
+    let unsubscribe;
+
     if (messaging) {
-      const unsubscribe = messaging.onMessage(
+      unsubscribe = messaging.onMessage(
         (payload) => {
           setNotification(payload?.notification || payload?.data);
           setNotificationOpen(true);
         },
         (error) => console.log(error)
       );
-
-      return () => {
-        unsubscribe && unsubscribe();
-      };
     }
+
+    return () => {
+      unsubscribe?.();
+    };
   }, [setNotification, setNotificationOpen]);
 };
 
