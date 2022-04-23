@@ -4,6 +4,14 @@ import { NavLink } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import React from "react";
 import { useSelector } from "react-redux";
+import {
+  DIRECT_TO_GDRIVE_ROUTE,
+  DIRECT_TO_MEGA_ROUTE,
+  GDRIVE_TO_DIRECT_ROUTE,
+  GDRIVE_TO_MEGA_ROUTE,
+  MEGA_TO_DIRECT_ROUTE,
+  MEGA_TO_GDRIVE_ROUTE,
+} from "../../config/Constants";
 
 const MenuListItems = ({ anchorEl, handleClose, classes }) => {
   const googleAuthorized = useSelector(
@@ -33,7 +41,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
     >
       {googleAuthorized && (
         <NavLink
-          to={"/transfers/mega-to-gdrive"}
+          to={MEGA_TO_GDRIVE_ROUTE}
           className={({ isActive }) =>
             isActive ? classes.linkTextActive : classes.linkText
           }
@@ -43,7 +51,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
       )}
       {googleAuthorized && (
         <NavLink
-          to={"/transfers/gdrive-to-mega"}
+          to={GDRIVE_TO_MEGA_ROUTE}
           className={({ isActive }) =>
             isActive ? classes.linkTextActive : classes.linkText
           }
@@ -53,7 +61,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
       )}
       {googleAuthorized && (
         <NavLink
-          to={"/transfers/direct-to-gdrive"}
+          to={DIRECT_TO_GDRIVE_ROUTE}
           className={({ isActive }) =>
             isActive ? classes.linkTextActive : classes.linkText
           }
@@ -62,7 +70,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
         </NavLink>
       )}
       <NavLink
-        to={"/transfers/direct-to-mega"}
+        to={DIRECT_TO_MEGA_ROUTE}
         className={({ isActive }) =>
           isActive ? classes.linkTextActive : classes.linkText
         }
@@ -70,7 +78,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
         <MenuItem onClick={handleClose}>Direct to Mega.nz</MenuItem>
       </NavLink>
       <NavLink
-        to={"/transfers/gdrive-to-direct"}
+        to={GDRIVE_TO_DIRECT_ROUTE}
         className={({ isActive }) =>
           isActive ? classes.linkTextActive : classes.linkText
         }
@@ -78,7 +86,7 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
         <MenuItem onClick={handleClose}>Google Drive to Direct</MenuItem>
       </NavLink>
       <NavLink
-        to={"/transfers/mega-to-direct"}
+        to={MEGA_TO_DIRECT_ROUTE}
         className={({ isActive }) =>
           isActive ? classes.linkTextActive : classes.linkText
         }

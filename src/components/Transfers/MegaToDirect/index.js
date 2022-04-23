@@ -4,7 +4,7 @@ import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
-import { megaRe } from "../../../config/Constants";
+import { MEGA_TO_DIRECT_QUEUE, megaRe } from "../../../config/Constants";
 import { faM } from "@fortawesome/free-solid-svg-icons/faM";
 
 const secondary = ({ megaLink, directLink, size, mimeType, timestamp }) => (
@@ -28,7 +28,7 @@ const transferring = ({ message, percentage }) => (
 const MegaToDirect = () => {
   return (
     <TransfersBase
-      dbPath={"mega-to-direct"}
+      dbPath={MEGA_TO_DIRECT_QUEUE}
       regExpString={megaRe}
       validationErrorMessage={
         "The URL must be a valid Mega.nz file/folder export URL"

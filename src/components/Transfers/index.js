@@ -23,6 +23,14 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Box from "@mui/material/Box";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
+import {
+  DIRECT_TO_GDRIVE_ROUTE,
+  DIRECT_TO_MEGA_ROUTE,
+  GDRIVE_TO_DIRECT_ROUTE,
+  GDRIVE_TO_MEGA_ROUTE,
+  MEGA_TO_DIRECT_ROUTE,
+  MEGA_TO_GDRIVE_ROUTE,
+} from "../../config/Constants";
 
 const Transfers = () => {
   const dispatch = useDispatch();
@@ -219,7 +227,7 @@ const Transfers = () => {
                 variant="contained"
               >
                 <NavLink
-                  to={"/transfers/mega-to-gdrive"}
+                  to={MEGA_TO_GDRIVE_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button
@@ -244,7 +252,7 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
-                  to={"/transfers/gdrive-to-mega"}
+                  to={GDRIVE_TO_MEGA_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button
@@ -269,7 +277,7 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
-                  to={"/transfers/direct-to-gdrive"}
+                  to={DIRECT_TO_GDRIVE_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button
@@ -294,7 +302,7 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
-                  to={"/transfers/direct-to-mega"}
+                  to={DIRECT_TO_MEGA_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button
@@ -314,7 +322,7 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
-                  to={"/transfers/gdrive-to-direct"}
+                  to={GDRIVE_TO_DIRECT_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button
@@ -338,7 +346,7 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
-                  to={"/transfers/mega-to-direct"}
+                  to={MEGA_TO_DIRECT_ROUTE}
                   className={classes.linkTextActive}
                 >
                   <Button

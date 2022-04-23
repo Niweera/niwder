@@ -19,6 +19,14 @@ import GDriveToDirect from "./components/Transfers/GDriveToDirect";
 import MegaToDirect from "./components/Transfers/MegaToDirect";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsOfService from "./components/TermsOfService";
+import {
+  DIRECT_TO_GDRIVE_ROUTE,
+  DIRECT_TO_MEGA_ROUTE,
+  GDRIVE_TO_DIRECT_ROUTE,
+  GDRIVE_TO_MEGA_ROUTE,
+  MEGA_TO_DIRECT_ROUTE,
+  MEGA_TO_GDRIVE_ROUTE,
+} from "./config/Constants";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -51,32 +59,32 @@ const RoutesComponent = () => {
               <Route exact path={"/transfers"} element={<Transfers />} />
               <Route
                 exact
-                path={"/transfers/mega-to-gdrive"}
+                path={MEGA_TO_GDRIVE_ROUTE}
                 element={<MegaToGDrive />}
               />
               <Route
                 exact
-                path={"/transfers/gdrive-to-mega"}
+                path={GDRIVE_TO_MEGA_ROUTE}
                 element={<GDriveToMega />}
               />
               <Route
                 exact
-                path={"/transfers/direct-to-gdrive"}
+                path={DIRECT_TO_GDRIVE_ROUTE}
                 element={<DirectToGDrive />}
               />
               <Route
                 exact
-                path={"/transfers/direct-to-mega"}
+                path={DIRECT_TO_MEGA_ROUTE}
                 element={<DirectToMega />}
               />
               <Route
                 exact
-                path={"/transfers/gdrive-to-direct"}
+                path={GDRIVE_TO_DIRECT_ROUTE}
                 element={<GDriveToDirect />}
               />
               <Route
                 exact
-                path={"/transfers/mega-to-direct"}
+                path={MEGA_TO_DIRECT_ROUTE}
                 element={<MegaToDirect />}
               />
             </Route>

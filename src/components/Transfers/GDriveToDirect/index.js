@@ -5,7 +5,7 @@ import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
-import { gDriveRe } from "../../../config/Constants";
+import { GDRIVE_TO_DIRECT_QUEUE, gDriveRe } from "../../../config/Constants";
 
 const secondary = ({ gDriveLink, directLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -28,7 +28,7 @@ const transferring = ({ message, percentage }) => (
 const GDriveToDirect = () => {
   return (
     <TransfersBase
-      dbPath={"gdrive-to-direct"}
+      dbPath={GDRIVE_TO_DIRECT_QUEUE}
       regExpString={gDriveRe}
       validationErrorMessage={
         "The URL must be a valid Google Drive file/folder export URL"

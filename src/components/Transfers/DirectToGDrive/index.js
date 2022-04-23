@@ -5,7 +5,7 @@ import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
-import { directRe } from "../../../config/Constants";
+import { DIRECT_TO_GDRIVE_QUEUE, directRe } from "../../../config/Constants";
 
 const secondary = ({ gDriveLink, directLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -28,7 +28,7 @@ const transferring = ({ message, percentage }) => (
 const DirectToGDrive = () => {
   return (
     <TransfersBase
-      dbPath={"direct-to-gdrive"}
+      dbPath={DIRECT_TO_GDRIVE_QUEUE}
       regExpString={directRe}
       validationErrorMessage={"Provide a valid direct download URL"}
       submitFN={queueTransfer}
