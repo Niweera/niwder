@@ -18,13 +18,14 @@ if (firebase.messaging.isSupported()) {
 
   messaging.onBackgroundMessage(function (payload) {
     let notificationTitle, notificationOptions;
+    const collapseKey = payload.data.collapseKey;
     if (payload?.notification) {
       notificationTitle = payload.notification.title;
       notificationOptions = {
         body: payload.notification.body,
         icon: "./logo.png",
         image: "./cover.png",
-        tag: payload.data.collapseKey,
+        tag: collapseKey,
         actions: [{ action: "open", title: "Open Link" }],
       };
     } else {
@@ -33,7 +34,7 @@ if (firebase.messaging.isSupported()) {
         body: `Error [${payload.data.error}] occurred in transferring ${payload.data.job}`,
         icon: "./logo.png",
         image: "./cover.png",
-        tag: payload.data.collapseKey,
+        tag: collapseKey,
       };
     }
 
