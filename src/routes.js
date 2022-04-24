@@ -18,6 +18,8 @@ import DirectToMega from "./components/Transfers/DirectToMega";
 import GDriveToDirect from "./components/Transfers/GDriveToDirect";
 import MegaToDirect from "./components/Transfers/MegaToDirect";
 import TorrentsToGDrive from "./components/Transfers/TorrentsToGDrive";
+import TorrentsToMega from "./components/Transfers/TorrentsToMega";
+import TorrentsToDirect from "./components/Transfers/TorrentsToDirect";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsOfService from "./components/TermsOfService";
 import {
@@ -27,7 +29,9 @@ import {
   GDRIVE_TO_MEGA_ROUTE,
   MEGA_TO_DIRECT_ROUTE,
   MEGA_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_DIRECT_ROUTE,
   TORRENTS_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_MEGA_ROUTE,
 } from "./config/Constants";
 
 const AuthIsLoaded = ({ children }) => {
@@ -93,6 +97,16 @@ const RoutesComponent = () => {
                 exact
                 path={TORRENTS_TO_GDRIVE_ROUTE}
                 element={<TorrentsToGDrive />}
+              />
+              <Route
+                exact
+                path={TORRENTS_TO_MEGA_ROUTE}
+                element={<TorrentsToMega />}
+              />
+              <Route
+                exact
+                path={TORRENTS_TO_DIRECT_ROUTE}
+                element={<TorrentsToDirect />}
               />
             </Route>
             <Route exact path={"*"} element={<NotFound />} />

@@ -30,7 +30,9 @@ import {
   GDRIVE_TO_MEGA_ROUTE,
   MEGA_TO_DIRECT_ROUTE,
   MEGA_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_DIRECT_ROUTE,
   TORRENTS_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_MEGA_ROUTE,
 } from "../../config/Constants";
 import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
 
@@ -392,6 +394,54 @@ const Transfers = () => {
                     }
                   >
                     Transfer from Torrents to Google Drive
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={TORRENTS_TO_MEGA_ROUTE}
+                  className={classes.linkTextActive}
+                >
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon
+                          icon={faMagnet}
+                          size="xs"
+                          color="#ffeeb4"
+                        />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faM} size="xs" color="#d9272e" />
+                      </Box>
+                    }
+                  >
+                    Transfer from Torrents to Mega.nz
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={TORRENTS_TO_DIRECT_ROUTE}
+                  className={classes.linkTextActive}
+                >
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon
+                          icon={faMagnet}
+                          size="xs"
+                          color="#ffeeb4"
+                        />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon icon={faLink} size="xs" />
+                      </Box>
+                    }
+                  >
+                    Transfer from Torrents to Direct Link
                   </Button>
                 </NavLink>
               </ButtonGroup>

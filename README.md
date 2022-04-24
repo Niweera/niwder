@@ -27,8 +27,8 @@ New features to keep an eye on;
 - [x] Direct download link to Mega.nz link
 - [x] Google Drive link to direct download link
 - [x] Mega.nz to direct download link
-- [ ] Torrents to Google Drive link
-- [ ] Torrents to Mega.nz link
-- [ ] Torrents to direct download link
+- [x] Torrents to Google Drive link
+- [x] Torrents to Mega.nz link
+- [x] Torrents to direct download link
 
 Niwder is live on https://niwder.niweera.gq.

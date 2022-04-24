@@ -11,7 +11,9 @@ import {
   GDRIVE_TO_MEGA_ROUTE,
   MEGA_TO_DIRECT_ROUTE,
   MEGA_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_DIRECT_ROUTE,
   TORRENTS_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_MEGA_ROUTE,
 } from "../../config/Constants";
 
 const MenuListItems = ({ anchorEl, handleClose, classes }) => {
@@ -101,6 +103,22 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
         }
       >
         <MenuItem onClick={handleClose}>Torrents to Google Drive</MenuItem>
+      </NavLink>
+      <NavLink
+        to={TORRENTS_TO_MEGA_ROUTE}
+        className={({ isActive }) =>
+          isActive ? classes.linkTextActive : classes.linkText
+        }
+      >
+        <MenuItem onClick={handleClose}>Torrents to Mega.nz</MenuItem>
+      </NavLink>
+      <NavLink
+        to={TORRENTS_TO_DIRECT_ROUTE}
+        className={({ isActive }) =>
+          isActive ? classes.linkTextActive : classes.linkText
+        }
+      >
+        <MenuItem onClick={handleClose}>Torrents to Direct</MenuItem>
       </NavLink>
     </Menu>
   );
