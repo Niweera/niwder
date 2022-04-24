@@ -30,7 +30,9 @@ import {
   GDRIVE_TO_MEGA_ROUTE,
   MEGA_TO_DIRECT_ROUTE,
   MEGA_TO_GDRIVE_ROUTE,
+  TORRENTS_TO_GDRIVE_ROUTE,
 } from "../../config/Constants";
+import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
 
 const Transfers = () => {
   const dispatch = useDispatch();
@@ -362,6 +364,34 @@ const Transfers = () => {
                     }
                   >
                     Transfer from Mega.nz to Direct Link
+                  </Button>
+                </NavLink>
+
+                <NavLink
+                  to={TORRENTS_TO_GDRIVE_ROUTE}
+                  className={classes.linkTextActive}
+                >
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    startIcon={
+                      <Box className={classes.box} component="span">
+                        <FontAwesomeIcon
+                          icon={faMagnet}
+                          size="xs"
+                          color="#ffeeb4"
+                        />{" "}
+                        <ArrowRightAltIcon />
+                        <FontAwesomeIcon
+                          icon={faGoogleDrive}
+                          size="xs"
+                          color={changeColor()}
+                        />
+                      </Box>
+                    }
+                  >
+                    Transfer from Torrents to Google Drive
                   </Button>
                 </NavLink>
               </ButtonGroup>
