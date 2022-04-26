@@ -1,11 +1,12 @@
 import React from "react";
 import { queueTransfer } from "../../../store/actions";
-import TransferBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { magnetRe, TORRENTS_TO_DIRECT_QUEUE } from "../../../config/Constants";
 import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
+import TorrentsBase from "../TransfersBase/TorrentsBase";
+import TorrentsComponent from "../TransfersBase/TorrentsComponent";
 
 const secondary = ({ directLink, magnetLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -21,13 +22,17 @@ const secondary = ({ directLink, magnetLink, size, mimeType, timestamp }) => (
   />
 );
 
+const torrents = (torrentsData) => (
+  <TorrentsComponent torrentsData={torrentsData} />
+);
+
 const transferring = ({ message, percentage }) => (
   <TransferringComponent primaryText={message} percentage={percentage} />
 );
 
 const TorrentsToDirect = () => {
   return (
-    <TransferBase
+    <TorrentsBase
       dbPath={TORRENTS_TO_DIRECT_QUEUE}
       regExpString={magnetRe}
       validationErrorMessage={"The link must be a valid magnet link"}
@@ -36,6 +41,7 @@ const TorrentsToDirect = () => {
       placeholder={"Magnet Link"}
       secondaryComponent={secondary}
       transferringComponent={transferring}
+      torrentsComponent={torrents}
     />
   );
 };

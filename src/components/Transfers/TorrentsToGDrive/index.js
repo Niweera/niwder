@@ -1,11 +1,12 @@
 import React from "react";
 import { queueTransfer } from "../../../store/actions";
-import TransferBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
 import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
 import { magnetRe, TORRENTS_TO_GDRIVE_QUEUE } from "../../../config/Constants";
 import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
+import TorrentsComponent from "../TransfersBase/TorrentsComponent";
+import TorrentsBase from "../TransfersBase/TorrentsBase";
 
 const secondary = ({ gDriveLink, magnetLink, size, mimeType, timestamp }) => (
   <SecondaryComponent
@@ -21,13 +22,17 @@ const secondary = ({ gDriveLink, magnetLink, size, mimeType, timestamp }) => (
   />
 );
 
+const torrents = (torrentsData) => (
+  <TorrentsComponent torrentsData={torrentsData} />
+);
+
 const transferring = ({ message, percentage }) => (
   <TransferringComponent primaryText={message} percentage={percentage} />
 );
 
 const TorrentsToGDrive = () => {
   return (
-    <TransferBase
+    <TorrentsBase
       dbPath={TORRENTS_TO_GDRIVE_QUEUE}
       regExpString={magnetRe}
       validationErrorMessage={"The link must be a valid magnet link"}
@@ -36,6 +41,7 @@ const TorrentsToGDrive = () => {
       placeholder={"Magnet Link"}
       secondaryComponent={secondary}
       transferringComponent={transferring}
+      torrentsComponent={torrents}
     />
   );
 };

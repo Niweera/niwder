@@ -87,6 +87,12 @@ const Home = () => {
                 5. Google Drive link to direct download link
                 <br />
                 6. Mega.nz link to direct download link
+                <br />
+                7. Torrents to Google Drive link
+                <br />
+                8. Torrents to Mega.nz link
+                <br />
+                9. Torrents to direct download link
               </Typography>
               <Typography
                 variant="h6"

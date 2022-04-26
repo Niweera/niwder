@@ -9,29 +9,28 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import FolderIcon from "@mui/icons-material/Folder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import ListItemText from "@mui/material/ListItemText";
 import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
-import { get } from "lodash";
+import { useFirebaseConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
-import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
+import { get } from "lodash";
+import Box from "@mui/material/Box";
+import { common, red } from "@mui/material/colors";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { red, common } from "@mui/material/colors";
-import { removeTransferred } from "../../../store/actions";
 
 /**
  *
  * @param {object} classes
+ * @param {function} torrentsComponent
  * @param {string} dbPath
- * @param {function} secondaryComponent
  * @returns {JSX.Element}
  * @constructor
  */
-const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
-  const [transfers, setTransfers] = useState([]);
-  const [transfersLoading, setTransfersLoading] = useState(null);
-
-  const firebase = useFirebase();
+const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
+  const [transferring, setTransferring] = useState([]);
+  const [transferringLoading, setTransferringLoading] = useState(null);
 
   const uid = useSelector(
     ({
@@ -40,39 +39,35 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
       },
     }) => uid
   );
-  const orderedData = useSelector(({ firebase: { ordered } }) =>
-    get(ordered, `transfers.${uid}.${dbPath}`, [])
-  );
   const requestingProp = useSelector(({ firebase: { requesting } }) =>
-    get(requesting, `transfers/${uid}/${dbPath}`, null)
+    get(requesting, `torrents/${uid}/${dbPath}`, null)
   );
   const requestedProp = useSelector(({ firebase: { requested } }) =>
-    get(requested, `transfers/${uid}/${dbPath}`, null)
+    get(requested, `torrents/${uid}/${dbPath}`, null)
+  );
+  const orderedData = useSelector(({ firebase: { ordered } }) =>
+    get(ordered, `torrents.${uid}.${dbPath}`, [])
   );
 
   useFirebaseConnect({
-    path: `transfers/${uid}/${dbPath}`,
+    path: `torrents/${uid}/${dbPath}`,
     type: "value",
     queryParams: ["orderByKey"],
   });
 
   useEffect(() => {
-    setTransfers(
-      (orderedData || [])
-        .reverse()
-        .map((obj) => ({ ...obj.value, key: obj.key }))
-    );
-  }, [orderedData]);
-
-  useEffect(() => {
     if (requestingProp === true && requestedProp === false) {
-      setTransfersLoading(true);
+      setTransferringLoading(true);
     } else if (requestingProp === false && requestedProp === true) {
-      setTransfersLoading(false);
+      setTransferringLoading(false);
     } else {
-      setTransfersLoading(false);
+      setTransferringLoading(false);
     }
   }, [requestingProp, requestedProp]);
+
+  useEffect(() => {
+    setTransferring((orderedData || []).reverse().map((obj) => obj.value));
+  }, [orderedData]);
 
   return (
     <Grid
@@ -81,7 +76,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: "20vh" }}
+      sx={{ minHeight: "20vh", mt: "20px" }}
     >
       <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
         <Card className={classes.root}>
@@ -91,16 +86,16 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
               className={classes.typography}
               sx={{ marginBottom: "10px" }}
             >
-              Completed transfers
+              Torrents transferring
             </Typography>
 
-            {transfersLoading === true && (
+            {transferringLoading === true && (
               <Typography variant="h6">
                 <Skeleton animation="wave" sx={{ bgcolor: "grey.900" }} />
               </Typography>
             )}
 
-            {transfersLoading === false && transfers.length === 0 && (
+            {transferringLoading === false && transferring.length === 0 && (
               <>
                 <Divider />
                 <Typography
@@ -109,29 +104,29 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                   color="text.secondary"
                   sx={{ mt: "5px" }}
                 >
-                  No completed transfers
+                  No current transfers
                 </Typography>
               </>
             )}
 
-            {transfers.length > 0 && (
+            {transferring.length > 0 && (
               <List
                 sx={{
-                  width: "100%",
                   bgcolor: "background.paper",
                   paddingTop: 0,
                   paddingBottom: 0,
                 }}
               >
-                {transfers.map((obj, index) => (
-                  <React.Fragment key={index}>
+                {transferring.map((obj, index) => (
+                  <Box sx={{ flexGrow: 1 }} key={index}>
                     <ListItem alignItems="flex-start" className={classes.glass}>
                       <ListItemAvatar>
                         <Avatar>
-                          <FolderIcon color="action" />
+                          <FontAwesomeIcon icon={faSync} color="white" spin />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
+                        disableTypography
                         primary={
                           <CustomizedToolTip
                             arrow
@@ -152,7 +147,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                             </Typography>
                           </CustomizedToolTip>
                         }
-                        secondary={secondaryComponent(obj)}
+                        secondary={torrentsComponent(obj)}
                       />
                       <ListItemAvatar
                         sx={{
@@ -168,9 +163,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                               bgcolor: common["black"],
                               cursor: "pointer",
                             }}
-                            onClick={() =>
-                              removeTransferred(dbPath, obj.key)(firebase)
-                            }
+                            onClick={() => console.log("remove", obj.magnetURI)}
                           >
                             <RemoveCircleIcon
                               sx={{ color: red["A700"] }}
@@ -180,7 +173,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                         </CustomizedToolTip>
                       </ListItemAvatar>
                     </ListItem>
-                  </React.Fragment>
+                  </Box>
                 ))}
               </List>
             )}
@@ -191,4 +184,4 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
   );
 };
 
-export default TransferredBase;
+export default TorrentsTransferring;
