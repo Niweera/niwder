@@ -76,7 +76,7 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: "20vh", mt: "20px" }}
+      sx={{ my: "20px" }}
     >
       <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
         <Card className={classes.root}>

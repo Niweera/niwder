@@ -81,7 +81,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ minHeight: "20vh" }}
+      sx={{ my: "20px" }}
     >
       <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
         <Card className={classes.root}>
