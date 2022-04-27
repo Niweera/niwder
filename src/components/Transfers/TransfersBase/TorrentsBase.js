@@ -115,7 +115,6 @@ const TorrentsBase = ({
               Error [{notification.error}] <br />
               occurred in transferring <br />
               {notification.job} <br />
-              Retry again after a few minutes.
             </>
           }
           open={notificationOpen}

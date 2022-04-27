@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../../../helpers/Notification";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
-import { FileUploader } from "react-drag-drop-files";
+import { useDropzone } from "react-dropzone";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 const DNDComponent = (props) => {
@@ -35,8 +35,16 @@ const DNDComponent = (props) => {
         <FileUploadIcon sx={{ mt: "5px", mr: "5px" }} />
       </Grid>
       <Grid item>
-        <Typography variant="body1" className={props.className1}>
-          Drag and drop your torrent file here.
+        <Typography
+          noWrap
+          variant="body1"
+          className={props.className1}
+          sx={{
+            display: "inline-block",
+            maxWidth: "40vw",
+          }}
+        >
+          {props.name ? props.name : "Drag and drop your torrent file here."}
         </Typography>
       </Grid>
     </Grid>
@@ -70,7 +78,8 @@ const TorrentsInput = ({
   const [apiAlive, setApiAlive] = useState(null);
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
-  const [torrent, setTorrent] = useState("");
+  const [torrent, setTorrent] = useState(null);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -85,16 +94,28 @@ const TorrentsInput = ({
   }, [firebase]);
 
   const onSubmit = () => {
-    const regExp = new RegExp(regExpString);
-
-    if (!regExp.test(link)) {
-      setValidationError(validationErrorMessage);
+    if (torrent) {
+      submitFN(link, dbPath, torrent)(firebase, dispatch);
+      setTorrent(null);
+      setName("");
+      setValidationError("");
+      clearMessages()(dispatch);
       return;
     }
-    submitFN(link, dbPath)(firebase, dispatch);
-    setValidationError("");
-    setLink("");
-    clearMessages()(dispatch);
+
+    if (link) {
+      const regExp = new RegExp(regExpString);
+
+      if (!regExp.test(link)) {
+        setValidationError(validationErrorMessage);
+        return;
+      }
+
+      submitFN(link, dbPath)(firebase, dispatch);
+      setLink("");
+      setValidationError("");
+      clearMessages()(dispatch);
+    }
   };
 
   const copyFromClipboard = async () => {
@@ -161,15 +182,26 @@ const TorrentsInput = ({
     }
   }, [error]);
 
-  const handleChange = (file) => {
-    setTorrent(file);
-    console.log(torrent);
-    setValidationError("Niwder.io is not supporting torrent files yet!");
-  };
+  const onDropAccepted = useCallback((files) => {
+    if (files.length > 0) {
+      setName(files[0].name);
+      setTorrent(files[0]);
+    }
+  }, []);
 
-  const handleOnTypeError = (err) => {
-    setValidationError(err);
-  };
+  const onDropRejected = useCallback((files) => {
+    if (files.length > 0) {
+      setTorrent(null);
+      setValidationError("Please only select a torrent file");
+    }
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDropAccepted,
+    accept: [".torrent", "application/x-bittorrent"],
+    maxFiles: 1,
+    onDropRejected,
+  });
 
   return (
     <>
@@ -253,18 +285,15 @@ const TorrentsInput = ({
                 <Chip color="primary" label="OR" />
               </Divider>
               {apiAlive ? (
-                <FileUploader
-                  handleChange={handleChange}
-                  name="file"
-                  types={["torrent"]}
-                  onTypeError={handleOnTypeError}
-                >
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
                   <DNDComponent
                     className={classes.fileUpload}
                     apiAlive={apiAlive}
                     className1={classes.typography}
+                    name={name}
                   />
-                </FileUploader>
+                </div>
               ) : (
                 <DNDComponent
                   className={classes.fileUpload}
@@ -278,7 +307,7 @@ const TorrentsInput = ({
                 color="inherit"
                 size={"large"}
                 className={classes.button}
-                disabled={!link}
+                disabled={!link && !torrent}
                 onClick={onSubmit}
                 loading={loading}
               >
