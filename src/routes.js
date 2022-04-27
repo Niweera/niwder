@@ -10,7 +10,11 @@ import Transfers from "./components/Transfers";
 import { useSelector } from "react-redux";
 import Spinner from "./helpers/Spinner";
 import { isLoaded, isEmpty } from "react-redux-firebase";
-import { UserIsAuthenticated, UserIsNotAuthenticated } from "./auth";
+import {
+  UserIsAuthenticated,
+  UserIsGoogleAuthorized,
+  UserIsNotAuthenticated,
+} from "./auth";
 import MegaToGDrive from "./components/Transfers/MegaToGDrive";
 import GDriveToMega from "./components/Transfers/GDriveToMega";
 import DirectToGDrive from "./components/Transfers/DirectToGDrive";
@@ -63,21 +67,39 @@ const RoutesComponent = () => {
             </Route>
             <Route exact path="/transfers" element={<UserIsAuthenticated />}>
               <Route exact path={"/transfers"} element={<Transfers />} />
+
               <Route
                 exact
-                path={MEGA_TO_GDRIVE_ROUTE}
-                element={<MegaToGDrive />}
-              />
-              <Route
-                exact
-                path={GDRIVE_TO_MEGA_ROUTE}
-                element={<GDriveToMega />}
-              />
-              <Route
-                exact
-                path={DIRECT_TO_GDRIVE_ROUTE}
-                element={<DirectToGDrive />}
-              />
+                path="/transfers"
+                element={<UserIsGoogleAuthorized />}
+              >
+                <Route
+                  exact
+                  path={MEGA_TO_GDRIVE_ROUTE}
+                  element={<MegaToGDrive />}
+                />
+                <Route
+                  exact
+                  path={GDRIVE_TO_MEGA_ROUTE}
+                  element={<GDriveToMega />}
+                />
+                <Route
+                  exact
+                  path={DIRECT_TO_GDRIVE_ROUTE}
+                  element={<DirectToGDrive />}
+                />
+                <Route
+                  exact
+                  path={GDRIVE_TO_DIRECT_ROUTE}
+                  element={<GDriveToDirect />}
+                />
+                <Route
+                  exact
+                  path={TORRENTS_TO_GDRIVE_ROUTE}
+                  element={<TorrentsToGDrive />}
+                />
+              </Route>
+
               <Route
                 exact
                 path={DIRECT_TO_MEGA_ROUTE}
@@ -85,18 +107,8 @@ const RoutesComponent = () => {
               />
               <Route
                 exact
-                path={GDRIVE_TO_DIRECT_ROUTE}
-                element={<GDriveToDirect />}
-              />
-              <Route
-                exact
                 path={MEGA_TO_DIRECT_ROUTE}
                 element={<MegaToDirect />}
-              />
-              <Route
-                exact
-                path={TORRENTS_TO_GDRIVE_ROUTE}
-                element={<TorrentsToGDrive />}
               />
               <Route
                 exact

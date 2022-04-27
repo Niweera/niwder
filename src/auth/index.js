@@ -16,3 +16,14 @@ export const UserIsAuthenticated = () => {
 
   return isAuthenticated === true ? <Outlet /> : <Navigate to="/login" />;
 };
+
+export const UserIsGoogleAuthorized = () => {
+  const googleAuthorized = useSelector(
+    ({
+      firebase: {
+        profile: { google },
+      },
+    }) => google
+  );
+  return googleAuthorized === true ? <Outlet /> : <Navigate to="/transfers" />;
+};

@@ -13,12 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import ListItemText from "@mui/material/ListItemText";
 import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
-import { useFirebaseConnect } from "react-redux-firebase";
+import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { get } from "lodash";
 import Box from "@mui/material/Box";
 import { common, red } from "@mui/material/colors";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { removeTorrents } from "../../../store/actions";
 
 /**
  *
@@ -29,6 +30,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
  * @constructor
  */
 const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
+  const firebase = useFirebase();
   const [transferring, setTransferring] = useState([]);
   const [transferringLoading, setTransferringLoading] = useState(null);
 
@@ -66,7 +68,11 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
   }, [requestingProp, requestedProp]);
 
   useEffect(() => {
-    setTransferring((orderedData || []).reverse().map((obj) => obj.value));
+    setTransferring(
+      (orderedData || [])
+        .reverse()
+        .map((obj) => ({ ...obj.value, key: obj.key }))
+    );
   }, [orderedData]);
 
   return (
@@ -163,7 +169,13 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
                               bgcolor: common["black"],
                               cursor: "pointer",
                             }}
-                            onClick={() => console.log("remove", obj.magnetURI)}
+                            onClick={() =>
+                              removeTorrents(
+                                obj.magnetURI,
+                                dbPath,
+                                obj.key
+                              )(firebase)
+                            }
                           >
                             <RemoveCircleIcon
                               sx={{ color: red["A700"] }}

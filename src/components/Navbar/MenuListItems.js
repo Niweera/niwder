@@ -80,14 +80,16 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
       >
         <MenuItem onClick={handleClose}>Direct to Mega.nz</MenuItem>
       </NavLink>
-      <NavLink
-        to={GDRIVE_TO_DIRECT_ROUTE}
-        className={({ isActive }) =>
-          isActive ? classes.linkTextActive : classes.linkText
-        }
-      >
-        <MenuItem onClick={handleClose}>Google Drive to Direct</MenuItem>
-      </NavLink>
+      {googleAuthorized && (
+        <NavLink
+          to={GDRIVE_TO_DIRECT_ROUTE}
+          className={({ isActive }) =>
+            isActive ? classes.linkTextActive : classes.linkText
+          }
+        >
+          <MenuItem onClick={handleClose}>Google Drive to Direct</MenuItem>
+        </NavLink>
+      )}
       <NavLink
         to={MEGA_TO_DIRECT_ROUTE}
         className={({ isActive }) =>
@@ -96,14 +98,16 @@ const MenuListItems = ({ anchorEl, handleClose, classes }) => {
       >
         <MenuItem onClick={handleClose}>Mega.nz to Direct</MenuItem>
       </NavLink>
-      <NavLink
-        to={TORRENTS_TO_GDRIVE_ROUTE}
-        className={({ isActive }) =>
-          isActive ? classes.linkTextActive : classes.linkText
-        }
-      >
-        <MenuItem onClick={handleClose}>Torrents to Google Drive</MenuItem>
-      </NavLink>
+      {googleAuthorized && (
+        <NavLink
+          to={TORRENTS_TO_GDRIVE_ROUTE}
+          className={({ isActive }) =>
+            isActive ? classes.linkTextActive : classes.linkText
+          }
+        >
+          <MenuItem onClick={handleClose}>Torrents to Google Drive</MenuItem>
+        </NavLink>
+      )}
       <NavLink
         to={TORRENTS_TO_MEGA_ROUTE}
         className={({ isActive }) =>

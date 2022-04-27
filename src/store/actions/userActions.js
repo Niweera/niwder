@@ -72,6 +72,15 @@ export const removeTransferred = (dbPath, key) => async (firebase) => {
   }
 };
 
+export const removeTorrents = (url, dbPath, key) => async (firebase) => {
+  try {
+    const uid = await firebase.auth().currentUser.uid;
+    await firebase.set(`removeTorrents/${uid}/${dbPath}/${key}`, true);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 export const clearMessages = () => (dispatch) =>
   dispatch(actions.queueTransferAction.fulfill());
 

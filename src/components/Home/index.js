@@ -106,16 +106,15 @@ const Home = () => {
                 color="text.secondary"
                 sx={{ mb: "10px" }}
               >
-                Niwder.io first download the file specified by the user (the
-                user provides the download link), then it downloads the file to
-                the Niwder.io ephemeral server and uploads the files to the
-                Google Drive using Google Drive API. After the file is uploaded,
-                the file is deleted from the ephemeral server. For this feature
-                to function, the user has to grant the permission to their
-                Google Drive (the permission to see, edit, create, and delete
-                all of the Google Drive files). Niwder.io does not view nor
-                access any personal files on the user's Google Drive. Please
-                read the{" "}
+                Niwder.io first downloads the file(s) specified by the user (the
+                user provides the download link) to the Niwder.io ephemeral
+                server and uploads the file(s) to the Google Drive using Google
+                Drive API. After the file is uploaded, the file is deleted from
+                the ephemeral server. For this feature to function, the user has
+                to grant the permission to access Google Drive (the permission
+                to see, edit, create, and delete all of the Google Drive files).
+                Niwder.io does not view nor access any personal files on the
+                user's Google Drive. Please read the{" "}
                 <NavLink to={"/privacy-policy"} className={classes.linkText}>
                   Privacy Policy
                 </NavLink>{" "}

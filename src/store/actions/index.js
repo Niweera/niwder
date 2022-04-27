@@ -6,6 +6,7 @@ export {
   revokeGoogle,
   clearAuthorizingMessages,
   removeTransferred,
+  removeTorrents,
 } from "./userActions";
 
 export {

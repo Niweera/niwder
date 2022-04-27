@@ -78,6 +78,11 @@ const Transfers = () => {
       textDecoration: `none`,
       color: theme.palette.text.primary,
     },
+    linkDisabled: {
+      textDecoration: `none`,
+      cursor: "not-allowed",
+      color: theme.palette.text.primary,
+    },
     box: {
       display: "flex",
       alignItems: "center",
@@ -142,6 +147,10 @@ const Transfers = () => {
         return "#1FA463";
       }
     }
+  };
+
+  const handleNavigation = (e) => {
+    if (!googleAuthorized) e.preventDefault();
   };
 
   return (
@@ -231,8 +240,13 @@ const Transfers = () => {
                 variant="contained"
               >
                 <NavLink
+                  onClick={handleNavigation}
                   to={MEGA_TO_GDRIVE_ROUTE}
-                  className={classes.linkTextActive}
+                  className={
+                    googleAuthorized
+                      ? classes.linkTextActive
+                      : classes.linkDisabled
+                  }
                 >
                   <Button
                     fullWidth
@@ -256,8 +270,13 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
+                  onClick={handleNavigation}
                   to={GDRIVE_TO_MEGA_ROUTE}
-                  className={classes.linkTextActive}
+                  className={
+                    googleAuthorized
+                      ? classes.linkTextActive
+                      : classes.linkDisabled
+                  }
                 >
                   <Button
                     fullWidth
@@ -281,8 +300,13 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
+                  onClick={handleNavigation}
                   to={DIRECT_TO_GDRIVE_ROUTE}
-                  className={classes.linkTextActive}
+                  className={
+                    googleAuthorized
+                      ? classes.linkTextActive
+                      : classes.linkDisabled
+                  }
                 >
                   <Button
                     fullWidth
@@ -326,13 +350,19 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
+                  onClick={handleNavigation}
                   to={GDRIVE_TO_DIRECT_ROUTE}
-                  className={classes.linkTextActive}
+                  className={
+                    googleAuthorized
+                      ? classes.linkTextActive
+                      : classes.linkDisabled
+                  }
                 >
                   <Button
                     fullWidth
                     variant="contained"
                     size="large"
+                    disabled={!googleAuthorized}
                     startIcon={
                       <Box className={classes.box} component="span">
                         <FontAwesomeIcon
@@ -370,13 +400,19 @@ const Transfers = () => {
                 </NavLink>
 
                 <NavLink
+                  onClick={handleNavigation}
                   to={TORRENTS_TO_GDRIVE_ROUTE}
-                  className={classes.linkTextActive}
+                  className={
+                    googleAuthorized
+                      ? classes.linkTextActive
+                      : classes.linkDisabled
+                  }
                 >
                   <Button
                     fullWidth
                     variant="contained"
                     size="large"
+                    disabled={!googleAuthorized}
                     startIcon={
                       <Box className={classes.box} component="span">
                         <FontAwesomeIcon
