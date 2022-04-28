@@ -21,6 +21,7 @@ import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 import { useDropzone } from "react-dropzone";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import parseTorrent from "parse-torrent";
 
 const DNDComponent = (props) => {
   return (
@@ -92,9 +93,23 @@ const TorrentsInput = ({
     };
   }, [firebase]);
 
-  const onSubmit = () => {
+  const torrentToMagnet = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        parseTorrent.remote(torrent, (err, parsedTorrent) => {
+          if (err) return reject(err);
+          resolve(parseTorrent.toMagnetURI(parsedTorrent));
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+
+  const onSubmit = async () => {
     if (torrent) {
-      submitFN(link, dbPath, torrent)(firebase, dispatch);
+      const magnet = await torrentToMagnet();
+      submitFN(magnet, dbPath)(firebase, dispatch);
       setTorrent(null);
       setName("");
       setValidationError("");
@@ -131,10 +146,10 @@ const TorrentsInput = ({
     setLink(clipText);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      onSubmit();
+      await onSubmit();
     }
   };
 
