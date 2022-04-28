@@ -29,7 +29,7 @@ const DNDComponent = (props) => {
       justifyContent="center"
       alignItems="center"
       className={props.className}
-      sx={{ cursor: props.apiAlive ? "pointer" : "" }}
+      sx={{ cursor: props.apiAlive ? "pointer" : "not-allowed" }}
     >
       <Grid item>
         <FileUploadIcon sx={{ mt: "5px", mr: "5px" }} />
@@ -40,7 +40,6 @@ const DNDComponent = (props) => {
           variant="body1"
           className={props.className1}
           sx={{
-            display: "inline-block",
             maxWidth: "40vw",
           }}
         >

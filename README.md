@@ -1,3 +1,5 @@
+[![action status badge](https://github.com/Niweera/niwder/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/Niweera/niwder/actions)
+
 # Niwder
 
 ![image](src/helpers/cover_3.png)
@@ -19,6 +21,10 @@ When a user add a Mega.nz file, the [Niwder-API](https://github.com/Niweera/niwd
 Niwder-UI and Niwder-API use [Firebase](https://firebase.google.com/) for hosting and authentication.
 
 ![image](src/helpers/ui.jpg)
+
+__Niwder.io uses [WebTorrent](https://github.com/webtorrent/webtorrent) for transferring torrents.__
+
+![image](src/helpers/torrents-download-demo.gif)
 
 New features to keep an eye on;
 

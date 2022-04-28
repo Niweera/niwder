@@ -166,7 +166,26 @@ const Home = () => {
                 >
                   unDraw
                 </Link>{" "}
-                for illustrations.
+                for illustrations
+              </Typography>
+              <Typography
+                variant="button"
+                color="text.secondary"
+                sx={{ mt: "5px" }}
+              >
+                {" "}
+                and{" "}
+                <Link
+                  href="https://github.com/webtorrent/webtorrent"
+                  underline={"hover"}
+                  variant="button"
+                  target="_blank"
+                  color="text.primary"
+                  rel="noopener noreferrer"
+                >
+                  WebTorrent
+                </Link>{" "}
+                for torrents transferring.
               </Typography>
             </CardContent>
           </Card>
