@@ -25,8 +25,10 @@ const TorrentsComponent = ({
     uploaded,
     btPeers,
     btSeeders,
+    btTrackers,
     wtPeers,
     wtSeeders,
+    wtTrackers,
   },
 }) => (
   <Box sx={{ maxWidth: "40vw" }}>
@@ -93,17 +95,27 @@ const TorrentsComponent = ({
       </Grid>
       <Grid item lg={6}>
         <Typography component="span" variant="body2" color="text.primary">
-          Bittorrent Seeders: {btSeeders}
-        </Typography>
-      </Grid>
-      <Grid item lg={6}>
-        <Typography component="span" variant="body2" color="text.primary">
           WebTorrent Peers: {wtPeers}
         </Typography>
       </Grid>
       <Grid item lg={6}>
         <Typography component="span" variant="body2" color="text.primary">
+          Bittorrent Seeders: {btSeeders}
+        </Typography>
+      </Grid>
+      <Grid item lg={6}>
+        <Typography component="span" variant="body2" color="text.primary">
           WebTorrent Seeders: {wtSeeders}
+        </Typography>
+      </Grid>
+      <Grid item lg={6}>
+        <Typography component="span" variant="body2" color="text.primary">
+          Bittorrent Trackers: {btTrackers}
+        </Typography>
+      </Grid>
+      <Grid item lg={6}>
+        <Typography component="span" variant="body2" color="text.primary">
+          WebTorrent Trackers: {wtTrackers}
         </Typography>
       </Grid>
     </Grid>
