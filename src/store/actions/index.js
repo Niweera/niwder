@@ -1,6 +1,5 @@
 export {
   clearMessages,
-  checkAPIAlive,
   queueTransfer,
   authorizeGoogle,
   revokeGoogle,

@@ -19,20 +19,6 @@ export const queueTransfer = (url, queue) => async (firebase, dispatch) => {
   }
 };
 
-export const checkAPIAlive = () => async (firebase) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const token = await firebase.auth().currentUser.getIdToken();
-      await axios.get(`${API_BASE}/api`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      resolve();
-    } catch (e) {
-      reject();
-    }
-  });
-};
-
 export const authorizeGoogle = () => async (firebase, dispatch) => {
   try {
     dispatch(actions.authorizingAction.trigger());

@@ -13,10 +13,11 @@ import SyncIcon from "@mui/icons-material/Sync";
 import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 import { red } from "@mui/material/colors";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { checkAPIAlive, clearMessages } from "../../../store/actions";
+import { clearMessages } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../../helpers/Notification";
+import useCheckAPIAlive from "../../../helpers/useCheckAPIAlive";
 
 /**
  * @param {string} dbPath
@@ -46,17 +47,7 @@ const InputComponent = ({
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      checkAPIAlive()(firebase)
-        .then(() => setApiAlive(true))
-        .catch(() => setApiAlive(false));
-    }, 5000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [firebase]);
+  useCheckAPIAlive(setApiAlive);
 
   const onSubmit = () => {
     const regExp = new RegExp(regExpString);
