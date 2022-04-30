@@ -8,7 +8,7 @@ Niwder (a combo of words, [NIWeera](https://github.com/Niweera), DownloadER) is 
 
 Niwder is a system in three parts where,
 
-1. [Niwder-API](https://github.com/Niweera/niwder-api)
+1. [Niwder-API](https://github.com/Niweera/niwder-api) ([API Documentation](https://niwder-api.niweera.gq/api/docs))
 2. [Niwder-Worker](https://github.com/Niweera/niwder-api/tree/main/src/worker)
 3. [Niwder-UI](https://github.com/Niweera/niwder)
 
