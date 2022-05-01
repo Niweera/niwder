@@ -176,7 +176,7 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
                           keepMounted
                           open={open}
                           onClose={handleClose}
-                          primaryMessage={"Remove Torrent Transferring"}
+                          primaryMessage={"Removing Transferring Torrents"}
                           secondaryMessage={
                             "You are going to remove the current torrent transferring. This will stop the current transfer (but you can re-queue the transfer at any time)."
                           }

@@ -1,4 +1,5 @@
 [![action status badge](https://github.com/Niweera/niwder/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/Niweera/niwder/actions)
+[![action status badge](https://github.com/Niweera/niwder/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Niweera/niwder/actions)
 
 # Niwder
 

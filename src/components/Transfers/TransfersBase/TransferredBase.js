@@ -18,6 +18,7 @@ import { useFirebase, useFirebaseConnect } from "react-redux-firebase";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { red, common } from "@mui/material/colors";
 import { removeTransferred } from "../../../store/actions";
+import ConfirmationDialog from "../../../helpers/ConfirmationDialog";
 
 /**
  *
@@ -30,6 +31,7 @@ import { removeTransferred } from "../../../store/actions";
 const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
   const [transfers, setTransfers] = useState([]);
   const [transfersLoading, setTransfersLoading] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const firebase = useFirebase();
 
@@ -73,6 +75,14 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
       setTransfersLoading(false);
     }
   }, [requestingProp, requestedProp]);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRemoveTransferred = () => {
+    setOpen(true);
+  };
 
   return (
     <Grid
@@ -160,6 +170,19 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                           justifyContent: "flex-end",
                         }}
                       >
+                        <ConfirmationDialog
+                          id="remove-completed-torrent"
+                          keepMounted
+                          open={open}
+                          onClose={handleClose}
+                          primaryMessage={"Removing Transferred Torrents"}
+                          secondaryMessage={
+                            "You are going to remove the transferred torrents. (No worries you can re-queue the transfer at any time)."
+                          }
+                          action={() =>
+                            removeTransferred(dbPath, obj.key)(firebase)
+                          }
+                        />
                         <CustomizedToolTip arrow placement="top" title="Remove">
                           <Avatar
                             sx={{
@@ -168,9 +191,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                               bgcolor: common["black"],
                               cursor: "pointer",
                             }}
-                            onClick={() =>
-                              removeTransferred(dbPath, obj.key)(firebase)
-                            }
+                            onClick={handleRemoveTransferred}
                           >
                             <RemoveCircleIcon
                               sx={{ color: red["A700"] }}
