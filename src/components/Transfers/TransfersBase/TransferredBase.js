@@ -171,13 +171,13 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                         }}
                       >
                         <ConfirmationDialog
-                          id="remove-completed-torrent"
+                          id="remove-completed"
                           keepMounted
                           open={open}
                           onClose={handleClose}
-                          primaryMessage={"Removing Transferred Torrents"}
+                          primaryMessage={"Removing Transferred File"}
                           secondaryMessage={
-                            "You are going to remove the transferred torrents. (No worries you can re-queue the transfer at any time)."
+                            "You are going to remove the transferred file (but this will not remove the file from your cloud storage)."
                           }
                           action={() =>
                             removeTransferred(dbPath, obj.key)(firebase)
