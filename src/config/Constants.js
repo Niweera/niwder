@@ -27,3 +27,24 @@ export const MEGA_TO_DIRECT_ROUTE = `/transfers/${MEGA_TO_DIRECT_QUEUE}`;
 export const TORRENTS_TO_GDRIVE_ROUTE = `/transfers/${TORRENTS_TO_GDRIVE_QUEUE}`;
 export const TORRENTS_TO_MEGA_ROUTE = `/transfers/${TORRENTS_TO_MEGA_QUEUE}`;
 export const TORRENTS_TO_DIRECT_ROUTE = `/transfers/${TORRENTS_TO_DIRECT_QUEUE}`;
+
+export const confirmationMessages = {
+  [MEGA_TO_GDRIVE_QUEUE]:
+    "You are going to remove the transferred file (but this will not remove the file from your Google Drive storage).",
+  [GDRIVE_TO_MEGA_QUEUE]:
+    "You are going to remove the transferred file (and the file will be removed from Mega.nz cloud storage).",
+  [DIRECT_TO_GDRIVE_QUEUE]:
+    "You are going to remove the transferred file (but this will not remove the file from your Google Drive storage).",
+  [DIRECT_TO_MEGA_QUEUE]:
+    "You are going to remove the transferred file (and the file will be removed from Mega.nz cloud storage).",
+  [GDRIVE_TO_DIRECT_QUEUE]:
+    "You are going to remove the transferred file (and the direct download link will stop working).",
+  [MEGA_TO_DIRECT_QUEUE]:
+    "You are going to remove the transferred file (and the direct download link will stop working).",
+  [TORRENTS_TO_GDRIVE_QUEUE]:
+    "You are going to remove the transferred file (but this will not remove the file from your Google Drive storage).",
+  [TORRENTS_TO_MEGA_QUEUE]:
+    "You are going to remove the transferred file (and the file will be removed from Mega.nz cloud storage).",
+  [TORRENTS_TO_DIRECT_QUEUE]:
+    "You are going to remove the transferred file (and the direct download link will stop working).",
+};

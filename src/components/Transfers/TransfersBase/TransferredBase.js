@@ -19,6 +19,7 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { red, common } from "@mui/material/colors";
 import { removeTransferred } from "../../../store/actions";
 import ConfirmationDialog from "../../../helpers/ConfirmationDialog";
+import { confirmationMessages } from "../../../config/Constants";
 
 /**
  *
@@ -176,9 +177,7 @@ const TransferredBase = ({ classes, dbPath, secondaryComponent }) => {
                           open={open}
                           onClose={handleClose}
                           primaryMessage={"Removing Transferred File"}
-                          secondaryMessage={
-                            "You are going to remove the transferred file (but this will not remove the file from your cloud storage)."
-                          }
+                          secondaryMessage={confirmationMessages[dbPath]}
                           action={() =>
                             removeTransferred(dbPath, obj.key)(firebase)
                           }
