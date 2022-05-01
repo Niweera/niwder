@@ -20,6 +20,7 @@ import Box from "@mui/material/Box";
 import { common, red } from "@mui/material/colors";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { removeTorrents } from "../../../store/actions";
+import ConfirmationDialog from "../../../helpers/ConfirmationDialog";
 
 /**
  *
@@ -33,6 +34,7 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
   const firebase = useFirebase();
   const [transferring, setTransferring] = useState([]);
   const [transferringLoading, setTransferringLoading] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const uid = useSelector(
     ({
@@ -74,6 +76,14 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
         .map((obj) => ({ ...obj.value, key: obj.key }))
     );
   }, [orderedData]);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRemoveTorrents = () => {
+    setOpen(true);
+  };
 
   return (
     <Grid
@@ -161,6 +171,19 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
                           justifyContent: "flex-end",
                         }}
                       >
+                        <ConfirmationDialog
+                          id="remove-torrent"
+                          keepMounted
+                          open={open}
+                          onClose={handleClose}
+                          primaryMessage={"Remove Torrent Transferring"}
+                          secondaryMessage={
+                            "You are going to remove the current torrent transferring. This will stop the current transfer (but you can re-queue the transfer at any time)."
+                          }
+                          action={() =>
+                            removeTorrents(dbPath, obj.key)(firebase)
+                          }
+                        />
                         <CustomizedToolTip arrow placement="top" title="Remove">
                           <Avatar
                             sx={{
@@ -169,13 +192,7 @@ const TorrentsTransferring = ({ classes, torrentsComponent, dbPath }) => {
                               bgcolor: common["black"],
                               cursor: "pointer",
                             }}
-                            onClick={() =>
-                              removeTorrents(
-                                obj.magnetURI,
-                                dbPath,
-                                obj.key
-                              )(firebase)
-                            }
+                            onClick={handleRemoveTorrents}
                           >
                             <RemoveCircleIcon
                               sx={{ color: red["A700"] }}
