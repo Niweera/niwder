@@ -1,5 +1,5 @@
 import React from "react";
-import { queueTransfer } from "../../../store/actions";
+import { queueMegaTransfer } from "../../../store/actions";
 import TransfersBase from "../TransfersBase";
 import SecondaryComponent from "../TransfersBase/SecondaryComponent";
 import TransferringComponent from "../TransfersBase/TransferringComponent";
@@ -33,7 +33,7 @@ const MegaToDirect = () => {
       validationErrorMessage={
         "The URL must be a valid Mega.nz file/folder export URL"
       }
-      submitFN={queueTransfer}
+      submitFN={queueMegaTransfer}
       title={<>Add a Mega.nz link to convert to a Direct link</>}
       placeholder={"Mega.nz Link"}
       secondaryComponent={secondary}

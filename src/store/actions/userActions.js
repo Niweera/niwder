@@ -1,6 +1,8 @@
 import * as actions from "./actionTypes";
 import axios from "axios";
 import { API_BASE } from "../../config";
+import { megaOldRe } from "../../config/Constants";
+import { File } from "megajs";
 
 export const queueTransfer = (url, queue) => async (firebase, dispatch) => {
   try {
@@ -10,6 +12,30 @@ export const queueTransfer = (url, queue) => async (firebase, dispatch) => {
       `${API_BASE}/api/${queue}`,
       {
         url,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    dispatch(actions.queueTransferAction.success());
+  } catch (e) {
+    dispatch(actions.queueTransferAction.failure(e.message));
+  }
+};
+
+export const queueMegaTransfer = (url, queue) => async (firebase, dispatch) => {
+  try {
+    dispatch(actions.queueTransferAction.trigger());
+    const token = await firebase.auth().currentUser.getIdToken();
+    const megaRe = new RegExp(megaOldRe);
+    let megaURL;
+    if (megaRe.test(url)) {
+      megaURL = await File.fromURL(url).link(false);
+    } else {
+      megaURL = url;
+    }
+    await axios.post(
+      `${API_BASE}/api/${queue}`,
+      {
+        url: megaURL,
       },
       { headers: { Authorization: `Bearer ${token}` } }
     );

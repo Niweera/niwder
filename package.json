@@ -24,6 +24,7 @@
     "https-browserify": "^1.0.0",
     "javascript-time-ago": "^2.3.13",
     "lodash": "^4.17.21",
+    "megajs": "^1.0.4",
     "os-browserify": "^0.3.0",
     "parse-torrent": "^9.1.5",
     "path-browserify": "^1.0.1",

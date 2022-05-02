@@ -6,6 +6,7 @@ export {
   clearAuthorizingMessages,
   removeTransferred,
   removeTorrents,
+  queueMegaTransfer,
 } from "./userActions";
 
 export {

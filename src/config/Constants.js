@@ -3,9 +3,9 @@ export const gDriveRe =
 export const directRe =
   /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/g;
 export const megaRe =
-  /(^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$)|(^https:\/\/mega\.nz\/folder\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+\/(file|folder)\/[a-zA-Z0-9]{0,8}$)/g;
-//TODO: /(^https:\/\/mega\.nz\/#[a-zA-Z0-9!_-]+$)/g add this to megaRe and expand this url before sending to the API.
-//TODO: Niwder-API will not accept the above regex.
+  /(^https:\/\/mega\.nz\/(file|folder)\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+$)|(^https:\/\/mega\.nz\/folder\/[a-zA-Z0-9]{0,8}#[a-zA-Z0-9_-]+\/(file|folder)\/[a-zA-Z0-9]{0,8}$)|(^https:\/\/mega\.nz\/#F![a-zA-Z0-9!_-]+![a-zA-Z0-9!_-]+$)|(^https:\/\/mega\.nz\/#![a-zA-Z0-9!_-]+![a-zA-Z0-9!_-]+$)/g;
+export const megaOldRe =
+  /(^https:\/\/mega\.nz\/#F![a-zA-Z0-9!_-]+![a-zA-Z0-9!_-]+$)|(^https:\/\/mega\.nz\/#![a-zA-Z0-9!_-]+![a-zA-Z0-9!_-]+$)/g;
 export const magnetRe = /magnet:\?xt=urn:[a-zA-Z0-9]+:[a-zA-Z0-9]+&?.*/g;
 
 export const MEGA_TO_GDRIVE_QUEUE = "mega-to-gdrive";
