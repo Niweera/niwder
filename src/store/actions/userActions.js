@@ -78,7 +78,7 @@ export const revokeGoogle = () => async (firebase, dispatch) => {
 export const removeTransferred = (dbPath, key) => async (firebase) => {
   try {
     const uid = await firebase.auth().currentUser.uid;
-    await firebase.remove(`transfers/${uid}/${dbPath}/${key}`);
+    await firebase.set(`removeTransfers/${uid}/${dbPath}/${key}`, true);
   } catch (e) {
     console.log(e.message);
   }
