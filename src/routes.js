@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Container from "@mui/material/Container";
@@ -37,6 +37,10 @@ import {
   TORRENTS_TO_GDRIVE_ROUTE,
   TORRENTS_TO_MEGA_ROUTE,
 } from "./config/Constants";
+import { io } from "socket.io-client";
+import { get } from "lodash";
+import { API_BASE } from "./config";
+import Message from "./helpers/Notification";
 
 const AuthIsLoaded = ({ children }) => {
   const profile = useSelector(({ firebase: { profile } }) => profile);
@@ -49,10 +53,64 @@ const AuthIsLoaded = ({ children }) => {
 };
 
 const RoutesComponent = () => {
+  const [time, setTime] = useState(0);
+  const [connected, setConnected] = useState(null);
+  const [disconnected, setDisconnected] = useState(null);
+
+  const accessToken = useSelector(({ firebase: { auth } }) =>
+    get(auth, "stsTokenManager.accessToken", "")
+  );
+
+  useEffect(() => {
+    if (accessToken) {
+      const socket = io(API_BASE, {
+        transports: ["websocket", "polling"],
+      });
+
+      socket.on("api-alive", () => {
+        setConnected(true);
+        setDisconnected(false);
+      });
+
+      socket.on("connect_error", () => {
+        setConnected(false);
+        setDisconnected(true);
+        setTime(1);
+      });
+    }
+  }, [accessToken]);
+
+  const onNotificationClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setConnected(null);
+    setDisconnected(null);
+  };
+
   return (
     <Router>
       <AuthIsLoaded>
         <Navbar />
+        {Boolean(time) && Boolean(connected) && (
+          <Message
+            severity={"success"}
+            alertTitle={`Connected to Niwder-API`}
+            onClose={onNotificationClose}
+            message={"Connection is restored to Niwder-API."}
+            open={connected}
+            autoHideDuration={5000}
+          />
+        )}
+        {Boolean(disconnected) && (
+          <Message
+            severity={"error"}
+            alertTitle={`Niwder-API is unreachable`}
+            message={"Either you are offline or Niwder-API is down."}
+            open={disconnected}
+            autoHideDuration={5000}
+          />
+        )}
         <Container maxWidth={false}>
           <Routes>
             <Route exact path={"/"} element={<Home />} />

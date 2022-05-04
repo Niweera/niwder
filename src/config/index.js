@@ -21,7 +21,9 @@ if (firebase.messaging.isSupported()) {
 }
 
 export const API_BASE =
-  process.env.NODE_ENV === "development" ? "" : "https://niwder-api.niweera.gq";
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:9091"
+    : "https://niwder-api.niweera.gq";
 export const FCM_VAPID_KEY = process.env.REACT_APP_FCM_VAPID_KEY;
 export const messaging = firebaseMessaging;
 

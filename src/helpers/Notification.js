@@ -28,18 +28,20 @@ const Notification = ({
       {...rest}
     >
       {alertTitle && <AlertTitle>{alertTitle}</AlertTitle>}
-      <Typography
-        sx={{
-          display: "inline-block",
-          maxWidth: "40vw",
-        }}
-        component="span"
-        variant="body2"
-        color="text.primary"
-        noWrap
-      >
-        {message}
-      </Typography>
+      {message && (
+        <Typography
+          sx={{
+            display: "inline-block",
+            maxWidth: "40vw",
+          }}
+          component="span"
+          variant="body2"
+          color="text.primary"
+          noWrap
+        >
+          {message}
+        </Typography>
+      )}
     </Alert>
   </Snackbar>
 );

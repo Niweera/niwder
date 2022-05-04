@@ -10,7 +10,15 @@ try {
     "https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging-compat.js"
   );
 
-  firebase.initializeApp();
+  firebase.initializeApp({
+    apiKey: "AIzaSyBmfOnN-L1e8AyfDdrWbnzV9Z5Vv4W7wNE",
+    authDomain: "niwder-io.firebaseapp.com",
+    databaseURL: "https://niwder-io-default-rtdb.firebaseio.com",
+    projectId: "niwder-io",
+    storageBucket: "niwder-io.appspot.com",
+    messagingSenderId: "262286132985",
+    appId: "1:262286132985:web:0e54a950650e7513a8c428",
+  });
 }
 
 if (firebase.messaging.isSupported()) {
