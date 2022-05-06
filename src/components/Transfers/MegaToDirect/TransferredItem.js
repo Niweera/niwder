@@ -16,11 +16,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import prettyBytes from "pretty-bytes";
 import TimeAgo from "react-time-ago";
 import { useFirebase } from "react-redux-firebase";
-import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
-import { faM } from "@fortawesome/free-solid-svg-icons/faM";
 import { get } from "lodash";
 
-const TransferredItem = ({ classes, data, dbPath, id }) => {
+/**
+ *
+ * @param {object} classes
+ * @param {object} data
+ * @param {string} dbPath
+ * @param {string} id
+ * @param {string} toText
+ * @param {IconDefinition} toIcon
+ * @param {string} fromText
+ * @param {IconDefinition} fromIcon
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const TransferredItem = ({
+  classes,
+  data,
+  dbPath,
+  id,
+  toText,
+  toIcon,
+  fromText,
+  fromIcon,
+}) => {
   const { key, name, directLink, megaLink, size, mimeType, timestamp } = data;
 
   const [open, setOpen] = useState(false);
@@ -73,7 +93,7 @@ const TransferredItem = ({ classes, data, dbPath, id }) => {
               rel="noopener noreferrer"
               color="white"
             >
-              <FontAwesomeIcon icon={faLink} /> Direct Link
+              <FontAwesomeIcon icon={toIcon} /> {toText}
             </Link>
             <br />
             <Link
@@ -84,7 +104,7 @@ const TransferredItem = ({ classes, data, dbPath, id }) => {
               color="white"
               rel="noopener noreferrer"
             >
-              <FontAwesomeIcon icon={faM} /> Mega.nz Link
+              <FontAwesomeIcon icon={fromIcon} /> {fromText}
             </Link>
             <br />
             <Typography

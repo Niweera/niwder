@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { clearMessages } from "../../../store/actions";
+import { clearMessages, queueMegaTransfer } from "../../../store/actions";
 import { MEGA_TO_DIRECT_QUEUE, megaRe } from "../../../config/Constants";
 import Message from "../../../helpers/Notification";
 import InputComponent from "./InputComponent";
@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import useEnableFCM from "../../../helpers/useEnableFCM";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import { makeStyles } from "@mui/styles";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
 
 const MegaToDirect = () => {
   const dispatch = useDispatch();
@@ -93,11 +95,28 @@ const MegaToDirect = () => {
         />
       )}
 
-      <InputComponent classes={classes} regExpString={megaRe} />
+      <InputComponent
+        classes={classes}
+        regExpString={megaRe}
+        dbPath={MEGA_TO_DIRECT_QUEUE}
+        validationErrorMessage={
+          "The URL must be a valid Mega.nz file/folder export URL"
+        }
+        submitFN={queueMegaTransfer}
+        title={<>Add a Mega.nz link to convert to a Direct link</>}
+        placeholder={"Mega.nz Link"}
+      />
 
       <TransferringComponent classes={classes} dbPath={MEGA_TO_DIRECT_QUEUE} />
 
-      <TransferredComponent classes={classes} dbPath={MEGA_TO_DIRECT_QUEUE} />
+      <TransferredComponent
+        classes={classes}
+        dbPath={MEGA_TO_DIRECT_QUEUE}
+        toText={"Direct Link"}
+        toIcon={faLink}
+        fromText={"Mega.nz Link"}
+        fromIcon={faM}
+      />
     </div>
   );
 };

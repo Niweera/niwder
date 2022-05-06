@@ -13,20 +13,32 @@ import SyncIcon from "@mui/icons-material/Sync";
 import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 import { red } from "@mui/material/colors";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { clearMessages, queueMegaTransfer } from "../../../store/actions";
+import { clearMessages } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../../helpers/Notification";
 import useCheckAPIAlive from "../../../helpers/useCheckAPIAlive";
-import { MEGA_TO_DIRECT_QUEUE } from "../../../config/Constants";
 
 /**
  * @param {object} classes
  * @param {RegExp} regExpString
+ * @param {string} dbPath
+ * @param {string} validationErrorMessage
+ * @param {function} submitFN
+ * @param {JSX.Element} title
+ * @param {string} placeholder
  * @returns {JSX.Element}
  * @constructor
  */
-const InputComponent = ({ classes, regExpString }) => {
+const InputComponent = ({
+  classes,
+  regExpString,
+  dbPath,
+  validationErrorMessage,
+  submitFN,
+  title,
+  placeholder,
+}) => {
   const firebase = useFirebase();
   const dispatch = useDispatch();
   const [link, setLink] = useState("");
@@ -41,12 +53,10 @@ const InputComponent = ({ classes, regExpString }) => {
     const regExp = new RegExp(regExpString);
 
     if (!regExp.test(link)) {
-      setValidationError(
-        "The URL must be a valid Mega.nz file/folder export URL"
-      );
+      setValidationError(validationErrorMessage);
       return;
     }
-    queueMegaTransfer(link, MEGA_TO_DIRECT_QUEUE)(firebase, dispatch);
+    submitFN(link, dbPath)(firebase, dispatch);
     setValidationError("");
     setLink("");
     clearMessages()(dispatch);
@@ -152,14 +162,14 @@ const InputComponent = ({ classes, regExpString }) => {
                 className={classes.typography}
                 sx={{ marginBottom: "10px" }}
               >
-                Add a Mega.nz link to convert to a Direct link
+                {title}
               </Typography>
               <Box component="form" noValidate autoComplete="off">
                 <FormGroup>
                   <TextField
                     disabled={!apiAlive}
                     sx={{ mb: 1 }}
-                    placeholder={"Mega.nz Link"}
+                    placeholder={placeholder}
                     value={link}
                     onChange={(event) => {
                       setValidationError("");

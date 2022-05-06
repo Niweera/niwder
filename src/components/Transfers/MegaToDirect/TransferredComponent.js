@@ -12,13 +12,23 @@ import { useFirebaseConnect } from "react-redux-firebase";
 import TransferredItem from "./TransferredItem";
 
 /**
- *
  * @param {object} classes
  * @param {string} dbPath
+ * @param {string} toText
+ * @param {IconDefinition} toIcon
+ * @param {string} fromText
+ * @param {IconDefinition} fromIcon
  * @returns {JSX.Element}
  * @constructor
  */
-const TransferredComponent = ({ classes, dbPath }) => {
+const TransferredComponent = ({
+  classes,
+  dbPath,
+  toText,
+  toIcon,
+  fromText,
+  fromIcon,
+}) => {
   const [transfers, setTransfers] = useState([]);
   const [transfersLoading, setTransfersLoading] = useState(null);
 
@@ -119,6 +129,10 @@ const TransferredComponent = ({ classes, dbPath }) => {
                     dbPath={dbPath}
                     key={obj.key}
                     id={obj.key}
+                    toText={toText}
+                    toIcon={toIcon}
+                    fromText={fromText}
+                    fromIcon={fromIcon}
                   />
                 ))}
               </List>
