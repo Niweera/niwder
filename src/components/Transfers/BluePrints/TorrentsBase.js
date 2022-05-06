@@ -5,32 +5,41 @@ import { clearMessages } from "../../../store/actions";
 import Message from "../../../helpers/Notification";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import useEnableFCM from "../../../helpers/useEnableFCM";
-import InputComponent from "./InputComponent";
-import TransferringBase from "./TransferringBase";
-import TransferredBase from "./TransferredBase";
+import TorrentsInput from "./TorrentsInput";
+import TorrentsTransferring from "./TorrentsTransferring";
+import TransferringComponent from "./TransferringComponent";
+import TransferredComponent from "./TransferredComponent";
 
 /**
  *
- * @param {string} dbPath
  * @param {RegExp} regExpString
+ * @param {string} dbPath
  * @param {string} validationErrorMessage
  * @param {function} submitFN
  * @param {JSX.Element} title
  * @param {string} placeholder
- * @param {function} secondaryComponent
- * @param {function} transferringComponent
+ * @param {string} toText
+ * @param {IconDefinition} toIcon
+ * @param {string} fromText
+ * @param {IconDefinition} fromIcon
+ * @param {string} toLink
+ * @param {string} fromLink
  * @returns {JSX.Element}
  * @constructor
  */
-const TransfersBase = ({
-  dbPath,
+const TorrentsBase = ({
   regExpString,
+  dbPath,
   validationErrorMessage,
   submitFN,
   title,
   placeholder,
-  secondaryComponent,
-  transferringComponent,
+  toText,
+  toIcon,
+  toLink,
+  fromText,
+  fromIcon,
+  fromLink,
 }) => {
   const dispatch = useDispatch();
   const [notificationOpen, setNotificationOpen] = useState(false);
@@ -82,6 +91,11 @@ const TransfersBase = ({
         color: theme.palette.action.success,
       },
     },
+    fileUpload: {
+      backgroundColor: theme.palette.background.paper,
+      minHeight: "50px",
+      marginBottom: "10px",
+    },
   }))();
 
   return (
@@ -114,7 +128,7 @@ const TransfersBase = ({
         />
       )}
 
-      <InputComponent
+      <TorrentsInput
         dbPath={dbPath}
         classes={classes}
         regExpString={regExpString}
@@ -124,19 +138,22 @@ const TransfersBase = ({
         placeholder={placeholder}
       />
 
-      <TransferringBase
-        classes={classes}
-        transferringComponent={transferringComponent}
-        dbPath={dbPath}
-      />
+      <TorrentsTransferring classes={classes} dbPath={dbPath} />
 
-      <TransferredBase
+      <TransferringComponent classes={classes} dbPath={dbPath} />
+
+      <TransferredComponent
         classes={classes}
-        secondaryComponent={secondaryComponent}
         dbPath={dbPath}
+        toText={toText}
+        toIcon={toIcon}
+        toLink={toLink}
+        fromText={fromText}
+        fromIcon={fromIcon}
+        fromLink={fromLink}
       />
     </div>
   );
 };
 
-export default TransfersBase;
+export default TorrentsBase;

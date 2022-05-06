@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,7 +17,40 @@ import { clearMessages } from "../../../store/actions";
 import { useFirebase } from "react-redux-firebase";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../../helpers/Notification";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
+import { useDropzone } from "react-dropzone";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import parseTorrent from "parse-torrent";
 import useCheckAPIAlive from "../../../helpers/useCheckAPIAlive";
+
+const DNDComponent = (props) => {
+  return (
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      className={props.className}
+      sx={{ cursor: props.apiAlive ? "pointer" : "not-allowed" }}
+    >
+      <Grid item>
+        <FileUploadIcon sx={{ mt: "5px", mr: "5px" }} />
+      </Grid>
+      <Grid item>
+        <Typography
+          noWrap
+          variant="body1"
+          className={props.className1}
+          sx={{
+            maxWidth: "40vw",
+          }}
+        >
+          {props.name ? props.name : "Drag and drop your torrent file here."}
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};
 
 /**
  * @param {string} dbPath
@@ -30,7 +63,7 @@ import useCheckAPIAlive from "../../../helpers/useCheckAPIAlive";
  * @returns {JSX.Element}
  * @constructor
  */
-const InputComponent = ({
+const TorrentsInput = ({
   dbPath,
   classes,
   regExpString,
@@ -46,20 +79,48 @@ const InputComponent = ({
   const [apiAlive, setApiAlive] = useState(null);
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [torrent, setTorrent] = useState(null);
+  const [name, setName] = useState("");
 
   useCheckAPIAlive(setApiAlive);
 
-  const onSubmit = () => {
-    const regExp = new RegExp(regExpString);
+  const torrentToMagnet = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        parseTorrent.remote(torrent, (err, parsedTorrent) => {
+          if (err) return reject(err);
+          resolve(parseTorrent.toMagnetURI(parsedTorrent));
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
 
-    if (!regExp.test(link)) {
-      setValidationError(validationErrorMessage);
+  const onSubmit = async () => {
+    if (torrent) {
+      const magnet = await torrentToMagnet();
+      submitFN(magnet, dbPath)(firebase, dispatch);
+      setTorrent(null);
+      setName("");
+      setValidationError("");
+      clearMessages()(dispatch);
       return;
     }
-    submitFN(link, dbPath)(firebase, dispatch);
-    setValidationError("");
-    setLink("");
-    clearMessages()(dispatch);
+
+    if (link) {
+      const regExp = new RegExp(regExpString);
+
+      if (!regExp.test(link)) {
+        setValidationError(validationErrorMessage);
+        return;
+      }
+
+      submitFN(link, dbPath)(firebase, dispatch);
+      setLink("");
+      setValidationError("");
+      clearMessages()(dispatch);
+    }
   };
 
   const copyFromClipboard = async () => {
@@ -76,10 +137,10 @@ const InputComponent = ({
     setLink(clipText);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = async (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      onSubmit();
+      await onSubmit();
     }
   };
 
@@ -126,6 +187,27 @@ const InputComponent = ({
     }
   }, [error]);
 
+  const onDropAccepted = useCallback((files) => {
+    if (files.length > 0) {
+      setName(files[0].name);
+      setTorrent(files[0]);
+    }
+  }, []);
+
+  const onDropRejected = useCallback((files) => {
+    if (files.length > 0) {
+      setTorrent(null);
+      setValidationError("Please only select a torrent file");
+    }
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDropAccepted,
+    accept: [".torrent", "application/x-bittorrent"],
+    maxFiles: 1,
+    onDropRejected,
+  });
+
   return (
     <>
       {error && (
@@ -152,7 +234,7 @@ const InputComponent = ({
         direction="column"
         alignItems="center"
         justifyContent="center"
-        sx={{ minHeight: "30vh" }}
+        sx={{ my: "20px" }}
       >
         <Grid item sx={{ textAlign: "center", minWidth: "50vw" }}>
           <Card className={classes.root}>
@@ -204,13 +286,33 @@ const InputComponent = ({
                   />
                 </FormGroup>
               </Box>
+              <Divider sx={{ my: "10px" }}>
+                <Chip color="primary" label="OR" />
+              </Divider>
+              {apiAlive ? (
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <DNDComponent
+                    className={classes.fileUpload}
+                    apiAlive={apiAlive}
+                    className1={classes.typography}
+                    name={name}
+                  />
+                </div>
+              ) : (
+                <DNDComponent
+                  className={classes.fileUpload}
+                  apiAlive={apiAlive}
+                  className1={classes.typography}
+                />
+              )}
               <LoadingButton
                 type="submit"
                 variant="outlined"
                 color="inherit"
                 size={"large"}
                 className={classes.button}
-                disabled={!link}
+                disabled={!link && !torrent}
                 onClick={onSubmit}
                 loading={loading}
               >
@@ -224,4 +326,4 @@ const InputComponent = ({
   );
 };
 
-export default InputComponent;
+export default TorrentsInput;
