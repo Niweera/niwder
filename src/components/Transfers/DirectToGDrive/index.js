@@ -3,7 +3,6 @@ import { queueTransfer } from "../../../store/actions";
 import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
 import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
 import { DIRECT_TO_GDRIVE_QUEUE, directRe } from "../../../config/Constants";
-import TransferredComponent from "../BluePrints/TransferredComponent";
 import CommonBase from "../BluePrints/CommonBase";
 
 const DirectToGDrive = () => {
@@ -15,7 +14,6 @@ const DirectToGDrive = () => {
       submitFN={queueTransfer}
       title={<>Add a direct link to convert to a Google Drive link</>}
       placeholder={"Direct Link"}
-      TransferredComponent={TransferredComponent}
       toText={"Google Drive Link"}
       toIcon={faGoogleDrive}
       toLink={"gDriveLink"}
