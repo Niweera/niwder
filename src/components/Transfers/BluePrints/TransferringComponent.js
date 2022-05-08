@@ -36,7 +36,7 @@ const TransferringComponent = ({ classes, dbPath }) => {
     get(requested, `transferring/${uid}/${dbPath}`, null)
   );
   const orderedData = useSelector(({ firebase: { ordered } }) =>
-    get(ordered, `transferring.${uid}.${dbPath}`, [])
+    get(ordered, `transferring.${uid}.${dbPath}`, null)
   );
 
   useFirebaseConnect({

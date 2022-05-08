@@ -36,7 +36,7 @@ const TorrentsTransferring = ({ classes, dbPath }) => {
     get(requested, `torrents/${uid}/${dbPath}`, null)
   );
   const orderedData = useSelector(({ firebase: { ordered } }) =>
-    get(ordered, `torrents.${uid}.${dbPath}`, [])
+    get(ordered, `torrents.${uid}.${dbPath}`, null)
   );
 
   useFirebaseConnect({

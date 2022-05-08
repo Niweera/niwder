@@ -45,7 +45,7 @@ const TransferredComponent = ({
     }) => uid
   );
   const orderedData = useSelector(({ firebase: { ordered } }) =>
-    get(ordered, `transfers.${uid}.${dbPath}`, [])
+    get(ordered, `transfers.${uid}.${dbPath}`, null)
   );
   const requestingProp = useSelector(({ firebase: { requesting } }) =>
     get(requesting, `transfers/${uid}/${dbPath}`, null)
