@@ -16,7 +16,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import prettyBytes from "pretty-bytes";
 import TimeAgo from "react-time-ago";
 import { useFirebase } from "react-redux-firebase";
-import { get } from "lodash";
 
 /**
  *
@@ -169,7 +168,4 @@ const TransferredItem = ({
   );
 };
 
-const areEqual = (prevProps, nextProps) =>
-  get(prevProps, "id", "") === get(nextProps, "id", "");
-
-export default React.memo(TransferredItem, areEqual);
+export default React.memo(TransferredItem);
