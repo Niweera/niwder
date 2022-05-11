@@ -2,6 +2,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/messaging";
 import "firebase/compat/database";
+import "firebase/compat/app-check";
+import "firebase/compat/performance";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,6 +16,8 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const appCheck = firebase.appCheck();
+appCheck.activate(process.env.REACT_APP_FIREBASE_APP_CHECK_SITE_KEY, true);
 
 let firebaseMessaging;
 if (firebase.messaging.isSupported()) {
@@ -26,5 +30,9 @@ export const API_BASE =
     : "https://niwder-api.niweera.gq";
 export const FCM_VAPID_KEY = process.env.REACT_APP_FCM_VAPID_KEY;
 export const messaging = firebaseMessaging;
+export const perfmon = firebase.performance();
+
+perfmon.instrumentationEnabled = true;
+perfmon.dataCollectionEnabled = true;
 
 export default firebase;

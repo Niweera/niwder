@@ -1,6 +1,9 @@
 import * as actions from "./actionTypes";
+import { perfmon } from "../../config";
 
 export const signIn = (email, password) => async (firebase, dispatch) => {
+  const trace = perfmon.trace("signIn");
+  trace.start();
   try {
     dispatch(actions.signInAction.trigger());
     await firebase.login({
@@ -8,7 +11,9 @@ export const signIn = (email, password) => async (firebase, dispatch) => {
       password,
     });
     dispatch(actions.signInAction.success());
+    trace.stop();
   } catch (e) {
+    trace.stop();
     switch (e.code) {
       case "auth/wrong-password": {
         return dispatch(
@@ -29,6 +34,8 @@ export const signIn = (email, password) => async (firebase, dispatch) => {
 
 export const signInWithProviderID =
   (provider) => async (firebase, dispatch) => {
+    const trace = perfmon.trace("signInWithProviderID");
+    trace.start();
     try {
       dispatch(actions.signInAction.trigger());
       await firebase.login({
@@ -37,24 +44,34 @@ export const signInWithProviderID =
         scopes: [""],
       });
       dispatch(actions.signInAction.success());
+      trace.stop();
     } catch (e) {
+      trace.stop();
       dispatch(actions.signInAction.failure(e.message));
     }
   };
 
 export const signOut = () => async (firebase) => {
+  const trace = perfmon.trace("signOut");
+  trace.start();
   try {
     await firebase.logout();
+    trace.stop();
     window.location.reload();
   } catch (e) {
+    trace.stop();
     console.log(e.message);
   }
 };
 
 export const storeFCMKey = (FCMKey, uid) => async (firebase) => {
+  const trace = perfmon.trace("storeFCMKey");
+  trace.start();
   try {
     await firebase.database().ref("fcmKeys").child(uid).push(FCMKey);
+    trace.stop();
   } catch (e) {
+    trace.stop();
     console.log(e.message);
   }
 };

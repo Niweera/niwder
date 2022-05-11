@@ -1,10 +1,13 @@
 import * as actions from "./actionTypes";
 import axios from "axios";
-import { API_BASE } from "../../config";
+import { API_BASE, perfmon } from "../../config";
 import { megaOldRe } from "../../config/Constants";
 import { File } from "megajs";
 
 export const queueTransfer = (url, queue) => async (firebase, dispatch) => {
+  const trace = perfmon.trace("queueTransfer");
+  trace.start();
+  trace.putAttribute("queue", queue);
   try {
     dispatch(actions.queueTransferAction.trigger());
     const token = await firebase.auth().currentUser.getIdToken();
@@ -16,12 +19,17 @@ export const queueTransfer = (url, queue) => async (firebase, dispatch) => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
     dispatch(actions.queueTransferAction.success());
+    trace.stop();
   } catch (e) {
+    trace.stop();
     dispatch(actions.queueTransferAction.failure(e.message));
   }
 };
 
 export const queueMegaTransfer = (url, queue) => async (firebase, dispatch) => {
+  const trace = perfmon.trace("queueMegaTransfer");
+  trace.start();
+  trace.putAttribute("queue", queue);
   try {
     dispatch(actions.queueTransferAction.trigger());
     const token = await firebase.auth().currentUser.getIdToken();
@@ -40,12 +48,16 @@ export const queueMegaTransfer = (url, queue) => async (firebase, dispatch) => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
     dispatch(actions.queueTransferAction.success());
+    trace.stop();
   } catch (e) {
+    trace.stop();
     dispatch(actions.queueTransferAction.failure(e.message));
   }
 };
 
 export const authorizeGoogle = () => async (firebase, dispatch) => {
+  const trace = perfmon.trace("authorizeGoogle");
+  trace.start();
   try {
     dispatch(actions.authorizingAction.trigger());
     const token = await firebase.auth().currentUser.getIdToken();
@@ -55,12 +67,16 @@ export const authorizeGoogle = () => async (firebase, dispatch) => {
     const win = window.open(response.data.url, "_blank");
     win.focus();
     dispatch(actions.authorizingAction.success());
+    trace.stop();
   } catch (e) {
+    trace.stop();
     dispatch(actions.authorizingAction.failure(e.message));
   }
 };
 
 export const revokeGoogle = () => async (firebase, dispatch) => {
+  const trace = perfmon.trace("revokeGoogle");
+  trace.start();
   try {
     dispatch(actions.authorizingAction.trigger());
     const token = await firebase.auth().currentUser.getIdToken();
@@ -70,25 +86,37 @@ export const revokeGoogle = () => async (firebase, dispatch) => {
     const win = window.open(response.data.url, "_blank");
     win.focus();
     dispatch(actions.authorizingAction.success());
+    trace.stop();
   } catch (e) {
+    trace.stop();
     dispatch(actions.authorizingAction.failure(e.message));
   }
 };
 
 export const removeTransferred = (dbPath, key) => async (firebase) => {
+  const trace = perfmon.trace("removeTransferred");
+  trace.start();
+  trace.putAttribute("dbPath", dbPath);
   try {
     const uid = await firebase.auth().currentUser.uid;
     await firebase.set(`removeTransfers/${uid}/${dbPath}/${key}`, true);
+    trace.stop();
   } catch (e) {
+    trace.stop();
     console.log(e.message);
   }
 };
 
 export const removeTorrents = (dbPath, key) => async (firebase) => {
+  const trace = perfmon.trace("removeTorrents");
+  trace.start();
+  trace.putAttribute("dbPath", dbPath);
   try {
     const uid = await firebase.auth().currentUser.uid;
     await firebase.set(`removeTorrents/${uid}/${dbPath}/${key}`, true);
+    trace.stop();
   } catch (e) {
+    trace.stop();
     console.log(e.message);
   }
 };
