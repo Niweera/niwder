@@ -7,6 +7,7 @@ export {
   removeTransferred,
   removeTorrents,
   queueMegaTransfer,
+  readNotifications,
 } from "./userActions";
 
 export {

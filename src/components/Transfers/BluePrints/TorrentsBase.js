@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { useDispatch } from "react-redux";
-import { clearMessages } from "../../../store/actions";
+import { clearMessages, readNotifications } from "../../../store/actions";
 import Message from "../../../helpers/Notification";
 import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import useEnableFCM from "../../../helpers/useEnableFCM";
@@ -9,6 +9,8 @@ import TorrentsInput from "./TorrentsInput";
 import TorrentsTransferring from "./TorrentsTransferring";
 import TransferringComponent from "./TransferringComponent";
 import TransferredComponent from "./TransferredComponent";
+import useGetNotifications from "../../../helpers/useGetNotifications";
+import { useFirebase } from "react-redux-firebase";
 
 /**
  *
@@ -42,11 +44,14 @@ const TorrentsBase = ({
   fromLink,
 }) => {
   const dispatch = useDispatch();
+  const firebase = useFirebase();
+
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notification, setNotification] = useState(null);
 
   useEnableFCM();
   useFCMNotifications(setNotification, setNotificationOpen);
+  useGetNotifications(setNotification, setNotificationOpen);
 
   useEffect(() => () => clearMessages()(dispatch), [dispatch]);
 
@@ -55,6 +60,7 @@ const TorrentsBase = ({
       return;
     }
     setNotificationOpen(false);
+    readNotifications()(firebase);
   };
 
   const classes = makeStyles((theme) => ({
@@ -107,7 +113,7 @@ const TorrentsBase = ({
           onClose={onNotificationClose}
           message={notification.body}
           open={notificationOpen}
-          autoHideDuration={5000}
+          autoHideDuration={10000}
         />
       )}
 

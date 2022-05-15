@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { clearMessages } from "../../../store/actions";
+import { clearMessages, readNotifications } from "../../../store/actions";
 import Message from "../../../helpers/Notification";
 import InputComponent from "../BluePrints/InputComponent";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,8 @@ import useFCMNotifications from "../../../helpers/useFCMNotifications";
 import { makeStyles } from "@mui/styles";
 import TransferringComponent from "../BluePrints/TransferringComponent";
 import TransferredComponent from "./TransferredComponent";
+import useGetNotifications from "../../../helpers/useGetNotifications";
+import { useFirebase } from "react-redux-firebase";
 
 /**
  *
@@ -41,11 +43,14 @@ const CommonBase = ({
   fromLink,
 }) => {
   const dispatch = useDispatch();
+  const firebase = useFirebase();
+
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notification, setNotification] = useState(null);
 
   useEnableFCM();
   useFCMNotifications(setNotification, setNotificationOpen);
+  useGetNotifications(setNotification, setNotificationOpen);
 
   useEffect(() => () => clearMessages()(dispatch), [dispatch]);
 
@@ -54,6 +59,7 @@ const CommonBase = ({
       return;
     }
     setNotificationOpen(false);
+    readNotifications()(firebase);
   };
 
   const classes = makeStyles((theme) => ({
@@ -101,7 +107,7 @@ const CommonBase = ({
           onClose={onNotificationClose}
           message={notification.body}
           open={notificationOpen}
-          autoHideDuration={5000}
+          autoHideDuration={10000}
         />
       )}
 

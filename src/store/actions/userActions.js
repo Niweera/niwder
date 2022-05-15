@@ -121,6 +121,19 @@ export const removeTorrents = (dbPath, key) => async (firebase) => {
   }
 };
 
+export const readNotifications = () => async (firebase) => {
+  const trace = perfmon.trace("readNotifications");
+  trace.start();
+  try {
+    const uid = await firebase.auth().currentUser.uid;
+    await firebase.remove(`notifications/${uid}`);
+    trace.stop();
+  } catch (e) {
+    trace.stop();
+    console.log(e.message);
+  }
+};
+
 export const clearMessages = () => (dispatch) =>
   dispatch(actions.queueTransferAction.fulfill());
 
