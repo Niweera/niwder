@@ -23,7 +23,9 @@ Niwder-UI and Niwder-API use [Firebase](https://firebase.google.com/) for hostin
 
 ![image](src/helpers/ui.jpg)
 
-__Niwder.io uses [WebTorrent](https://github.com/webtorrent/webtorrent) for transferring torrents.__
+__🔥 Niwder.io uses [WebTorrent](https://github.com/webtorrent/webtorrent) for transferring torrents.__
+
+__🍭 Niwder.io uses [FingerPrintJS](https://fingerprintjs.com) for anonymizing the user agents for storing Firebase Cloud Messaging keys.__
 
 ![image](src/helpers/torrents-download-demo.gif)
 

@@ -1,5 +1,6 @@
 import * as actions from "./actionTypes";
 import { perfmon } from "../../config";
+import FingerPrintJS from "@fingerprintjs/fingerprintjs";
 
 export const signIn = (email, password) => async (firebase, dispatch) => {
   const trace = perfmon.trace("signIn");
@@ -68,7 +69,14 @@ export const storeFCMKey = (FCMKey, uid) => async (firebase) => {
   const trace = perfmon.trace("storeFCMKey");
   trace.start();
   try {
-    await firebase.database().ref("fcmKeys").child(uid).push(FCMKey);
+    const fingerPrintJS = await FingerPrintJS.load();
+    const fingerPrint = await fingerPrintJS.get();
+    await firebase
+      .database()
+      .ref("fcmKeys")
+      .child(uid)
+      .child(fingerPrint.visitorId)
+      .set(FCMKey);
     trace.stop();
   } catch (e) {
     trace.stop();
