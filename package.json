@@ -21,6 +21,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "buffer": "^6.0.3",
+    "figlet": "^1.5.2",
     "firebase": "^9.8.1",
     "https-browserify": "^1.0.0",
     "javascript-time-ago": "^2.3.13",
