@@ -10,15 +10,8 @@ import store, { rrfProps } from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import figlet from "figlet";
-import one from "figlet/importable-fonts/Big Money-se";
-import two from "figlet/importable-fonts/Bigfig";
-import three from "figlet/importable-fonts/Sweet";
 
 TimeAgo.addDefaultLocale(en);
-figlet.parseFont("One", one);
-figlet.parseFont("Two", two);
-figlet.parseFont("Three", three);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -39,18 +32,35 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-console.log(
-  figlet.textSync("Niwder.io", {
-    font: "One",
-  }),
-  figlet.textSync("Want to contribute?", {
-    font: "Two",
-  }),
-  "\n\n",
-  figlet.textSync("Fork", {
-    font: "Three",
-  }),
-  `\n     .
+console.log(` __    __  __                      __                      __           
+|  \\  |  \\|  \\                    |  \\                    |  \\          
+| $$\\ | $$ \\$$ __   __   __   ____| $$  ______    ______   \\$$  ______  
+| $$$\\| $$|  \\|  \\ |  \\ |  \\ /      $$ /      \\  /      \\ |  \\ /      \\ 
+| $$$$\\ $$| $$| $$ | $$ | $$|  $$$$$$$|  $$$$$$\\|  $$$$$$\\| $$|  $$$$$$\\
+| $$\\$$ $$| $$| $$ | $$ | $$| $$  | $$| $$    $$| $$   \\$$| $$| $$  | $$
+| $$ \\$$$$| $$| $$_/ $$_/ $$| $$__| $$| $$$$$$$$| $$ __   | $$| $$__/ $$
+| $$  \\$$$| $$ \\$$   $$   $$ \\$$    $$ \\$$     \\| $$|  \\  | $$ \\$$    $$
+ \\$$   \\$$ \\$$  \\$$$$$\\$$$$   \\$$$$$$$  \\$$$$$$$ \\$$ \\$$   \\$$  \\$$$$$$ 
+                                                                        
+                                                                        
+                                                                                                                                 
+| | _ __ _|_   _|_ _     _  _ __ _|_ __ o |_    _|_ _   )
+|^|(_|| | |_    |_(_)   (_ (_)| | |_ |  | |_)|_| |_(/_ o  
+
+   .-.                           ___         
+ /    \\                        (   )        
+ | .\`. ;    .--.    ___ .-.     | |   ___   
+ | |(___)  /    \\  (   )   \\    | |  (   )  
+ | |_     |  .-. ;  | ' .-. ;   | |  ' /    
+(   __)   | |  | |  |  / (___)  | |,' /     
+ | |      | |  | |  | |         | .  '.     
+ | |      | |  | |  | |         | | \`. \\    
+ | |      | '  | |  | |         | |   \\ \\   
+ | |      '  \`-' /  | |         | |    \\ .  
+(___)      \`.__.'  (___)       (___ ) (___) 
+                                            
+                                             
+     .
        .
    . ;.
     .;
@@ -64,9 +74,7 @@ console.log(
    ;;;;;
  ..;;;;;..
   ':::::'
-    ':\`
-`
-);
+    ':\``);
 
 console.log(
   "%c https://github.com/Niweera/niwder.git",
