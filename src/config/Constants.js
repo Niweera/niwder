@@ -48,3 +48,6 @@ export const confirmationMessages = {
   [TORRENTS_TO_DIRECT_QUEUE]:
     "You are going to remove the transferred file (and the direct download link will stop working).",
 };
+
+export const logoGenerator = (number) =>
+  `https://raw.githubusercontent.com/Niweera/colorizer/main/logos/logo_${number}.jpg`;

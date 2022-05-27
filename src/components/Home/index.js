@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
@@ -10,6 +10,7 @@ import LogoTwo from "../../helpers/cover_2.png";
 import LogoThree from "../../helpers/cover_3.png";
 import Link from "@mui/material/Link";
 import { NavLink } from "react-router-dom";
+import { logoGenerator } from "../../config/Constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,15 +39,56 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+  const [startIndex, setStartIndex] = useState(0);
+  const [image, setImage] = useState("");
+  const [imageTwo, setImageTwo] = useState("");
+  const [imageThree, setImageThree] = useState("");
+  const [imageLoad, setImageLoad] = useState(false);
+  const [imageLoadTwo, setImageLoadTwo] = useState(false);
+  const [imageLoadThree, setImageLoadThree] = useState(false);
+
+  useEffect(() => {
+    setStartIndex(Math.floor((Math.random() * 1000000) % 1000));
+  }, []);
+
+  useEffect(() => {
+    setImage(logoGenerator(startIndex));
+    setImageTwo(logoGenerator((startIndex + 1) % 1000));
+    setImageThree(logoGenerator((startIndex + 2) % 1000));
+  }, [startIndex]);
 
   return (
     <div className={`container ${classes.root}`}>
       <Grid container>
         <Grid item>
           <Card elevation={0} className={classes.cardPaper}>
-            <CardMedia component="img" image={Logo} alt="Niwder.io" />
-            <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
-            <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
+            {!imageLoad && (
+              <CardMedia component="img" image={Logo} alt="Niwder.io" />
+            )}
+            <CardMedia
+              component="img"
+              image={Boolean(image) ? image : Logo}
+              alt="Niwder.io"
+              onLoad={() => setImageLoad(true)}
+            />
+            {!imageLoadTwo && (
+              <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
+            )}
+            <CardMedia
+              component="img"
+              image={Boolean(imageTwo) ? imageTwo : LogoTwo}
+              alt="Niwder.io"
+              onLoad={() => setImageLoadTwo(true)}
+            />
+            {!imageLoadThree && (
+              <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
+            )}
+            <CardMedia
+              component="img"
+              image={Boolean(imageThree) ? imageThree : LogoThree}
+              alt="Niwder.io"
+              onLoad={() => setImageLoadThree(true)}
+            />
             <CardContent sx={{ padding: "30px" }} className={classes.glass}>
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
