@@ -48,8 +48,11 @@ const Home = () => {
   const [imageLoadThree, setImageLoadThree] = useState(false);
 
   useEffect(() => {
-    setStartIndex(Math.floor((Math.random() * 1000000) % 1000));
-  }, []);
+    const id = setInterval(() => {
+      setStartIndex(Math.floor((Math.random() * 1000000) % 1000));
+    }, 60000);
+    return () => clearInterval(id);
+  }, [startIndex]);
 
   useEffect(() => {
     setImage(logoGenerator(startIndex));
