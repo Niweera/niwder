@@ -52,7 +52,7 @@ const Spinner = ({ half }) => {
       setEndIndex(Math.floor((Math.random() * 1000000) % 6));
     }, 500);
     return () => clearInterval(id);
-  }, [startIndex, endIndex]);
+  }, []);
 
   return (
     <Grid

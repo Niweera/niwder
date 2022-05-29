@@ -39,7 +39,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-  const [startIndex, setStartIndex] = useState(0);
+  const [startIndex, setStartIndex] = useState(
+    Math.floor((Math.random() * 1000000) % 1000)
+  );
   const [image, setImage] = useState("");
   const [imageTwo, setImageTwo] = useState("");
   const [imageThree, setImageThree] = useState("");
@@ -52,7 +54,7 @@ const Home = () => {
       setStartIndex(Math.floor((Math.random() * 1000000) % 1000));
     }, 60000);
     return () => clearInterval(id);
-  }, [startIndex]);
+  }, []);
 
   useEffect(() => {
     setImage(logoGenerator(startIndex));
