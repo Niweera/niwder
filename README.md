@@ -13,7 +13,7 @@
  \$$   \$$ \$$  \$$$$$\$$$$   \$$$$$$$  \$$$$$$$ \$$ \$$   \$$  \$$$$$$
 ```
 
-![image](src/helpers/cover_3.png)
+![image](animated.gif)
 
 # Niwder
 
