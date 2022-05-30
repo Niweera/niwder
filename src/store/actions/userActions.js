@@ -107,6 +107,20 @@ export const removeTransferred = (dbPath, key) => async (firebase) => {
   }
 };
 
+export const interruptTransfer = (dbPath, key) => async (firebase) => {
+  const trace = perfmon.trace("interruptTransfer");
+  trace.start();
+  trace.putAttribute("dbPath", dbPath);
+  try {
+    const uid = await firebase.auth().currentUser.uid;
+    await firebase.set(`interruptions/${uid}/${dbPath}/${key}`, true);
+    trace.stop();
+  } catch (e) {
+    trace.stop();
+    console.log(e.message);
+  }
+};
+
 export const removeTorrents = (dbPath, key) => async (firebase) => {
   const trace = perfmon.trace("removeTorrents");
   trace.start();

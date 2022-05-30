@@ -116,6 +116,7 @@ const TransferringComponent = ({ classes, dbPath }) => {
                   <TransferringItem
                     data={obj}
                     classes={classes}
+                    dbPath={dbPath}
                     key={obj.key}
                     id={obj.key}
                   />

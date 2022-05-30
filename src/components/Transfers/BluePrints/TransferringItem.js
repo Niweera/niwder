@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
@@ -10,16 +10,38 @@ import { faSync } from "@fortawesome/free-solid-svg-icons/faSync";
 import ListItemText from "@mui/material/ListItemText";
 import CustomizedToolTip from "../../../helpers/CustomizedToolTip";
 import { get } from "lodash";
+import ConfirmationDialog from "../../../helpers/ConfirmationDialog";
+import { common, red } from "@mui/material/colors";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { interruptTransfer } from "../../../store/actions";
+import { useFirebase } from "react-redux-firebase";
 
 /**
  *
  * @param {object} data
  * @param {object} classes
+ * @param {string} dbPath
  * @param {string} id
  * @returns {JSX.Element}
  * @constructor
  */
-const TransferringItem = ({ data, classes, id }) => {
+const TransferringItem = ({ data, classes, dbPath, id }) => {
+  const [open, setOpen] = useState(false);
+  const firebase = useFirebase();
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const onInterruptTransfer = useCallback(
+    () => interruptTransfer(dbPath, id)(firebase),
+    [firebase, dbPath, id]
+  );
+
+  const handleInterruptions = useCallback(() => {
+    setOpen(true);
+  }, []);
+
   return (
     <React.Fragment key={id}>
       <ListItem alignItems="flex-start" className={classes.glass}>
@@ -72,6 +94,40 @@ const TransferringItem = ({ data, classes, id }) => {
             </React.Fragment>
           }
         />
+        <ListItemAvatar
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <ConfirmationDialog
+            id="interrupt-transfer"
+            keepMounted
+            open={open}
+            onClose={handleClose}
+            primaryMessage={"Interrupt transfer"}
+            secondaryMessage={
+              "Now you are going to interrupt the transferring job"
+            }
+            action={onInterruptTransfer}
+          />
+          <CustomizedToolTip arrow placement="top" title="Remove">
+            <Avatar
+              sx={{
+                width: 24,
+                height: 24,
+                bgcolor: common["black"],
+                cursor: "pointer",
+              }}
+              onClick={handleInterruptions}
+            >
+              <RemoveCircleIcon
+                sx={{ color: red["A700"] }}
+                fontSize="inherit"
+              />
+            </Avatar>
+          </CustomizedToolTip>
+        </ListItemAvatar>
       </ListItem>
     </React.Fragment>
   );
