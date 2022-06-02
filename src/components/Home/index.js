@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import Logo from "../../helpers/cover.jpg";
+import Logo from "../../helpers/cover.png";
+import LogoTwo from "../../helpers/cover_2.png";
+import LogoThree from "../../helpers/cover_3.png";
 import Link from "@mui/material/Link";
 import { NavLink } from "react-router-dom";
 import { logoGenerator } from "../../config/Constants";
@@ -63,7 +65,11 @@ const Home = () => {
     Math.floor((Math.random() * 1000000) % 1000)
   );
   const [image, setImage] = useState("");
+  const [imageTwo, setImageTwo] = useState("");
+  const [imageThree, setImageThree] = useState("");
   const [imageLoad, setImageLoad] = useState(false);
+  const [imageLoadTwo, setImageLoadTwo] = useState(false);
+  const [imageLoadThree, setImageLoadThree] = useState(false);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -74,6 +80,8 @@ const Home = () => {
 
   useEffect(() => {
     setImage(logoGenerator(startIndex));
+    setImageTwo(logoGenerator((startIndex + 1) % 1000));
+    setImageThree(logoGenerator((startIndex + 2) % 1000));
   }, [startIndex]);
 
   return (
@@ -89,6 +97,24 @@ const Home = () => {
               image={Boolean(image) ? image : Logo}
               alt="Niwder.io"
               onLoad={() => setImageLoad(true)}
+            />
+            {!imageLoadTwo && (
+              <CardMedia component="img" image={LogoTwo} alt="Niwder.io" />
+            )}
+            <CardMedia
+              component="img"
+              image={Boolean(imageTwo) ? imageTwo : LogoTwo}
+              alt="Niwder.io"
+              onLoad={() => setImageLoadTwo(true)}
+            />
+            {!imageLoadThree && (
+              <CardMedia component="img" image={LogoThree} alt="Niwder.io" />
+            )}
+            <CardMedia
+              component="img"
+              image={Boolean(imageThree) ? imageThree : LogoThree}
+              alt="Niwder.io"
+              onLoad={() => setImageLoadThree(true)}
             />
             <CardContent sx={{ padding: "30px" }} className={classes.glassTwo}>
               <Grid
