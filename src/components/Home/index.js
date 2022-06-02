@@ -11,6 +11,12 @@ import LogoThree from "../../helpers/cover_3.png";
 import Link from "@mui/material/Link";
 import { NavLink } from "react-router-dom";
 import { logoGenerator } from "../../config/Constants";
+import { faGoogleDrive } from "@fortawesome/free-brands-svg-icons/faGoogleDrive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faM } from "@fortawesome/free-solid-svg-icons/faM";
+import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
+import { faLink } from "@fortawesome/free-solid-svg-icons/faLink";
+import changeColor from "../../helpers/changeColor";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +40,22 @@ const useStyles = makeStyles((theme) => ({
     background: "rgba(255, 255, 255, 0.05)",
     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
     backdropFilter: "blur(2.1px)",
+  },
+  glassTwo: {
+    background: "rgba(0, 0, 0, 0.5)",
+    backdropFilter: "blur(24px)",
+  },
+  glassThree: {
+    background: "rgba(0, 0, 0, 1)",
+    backdropFilter: "blur(24px)",
+  },
+  typo: {
+    flexGrow: 1,
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -94,7 +116,169 @@ const Home = () => {
               alt="Niwder.io"
               onLoad={() => setImageLoadThree(true)}
             />
-            <CardContent sx={{ padding: "30px" }} className={classes.glass}>
+            <CardContent sx={{ padding: "30px" }} className={classes.glassTwo}>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+                mb={14}
+                mt={6}
+              >
+                <Grid item lg={12} sx={{ mt: "30px", mb: "30px" }}>
+                  <Typography variant="h4" component="div">
+                    Transfers on the Cloud
+                  </Typography>
+                </Grid>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={4}
+                >
+                  <Grid item lg={1} />
+                  <Grid item lg={2}>
+                    <Card elevation={10} className={classes.glassThree}>
+                      <CardContent className={classes.glassThree}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                        >
+                          <FontAwesomeIcon
+                            icon={faGoogleDrive}
+                            size="6x"
+                            color={changeColor()}
+                          />
+                        </Typography>
+                      </CardContent>
+                      <CardContent
+                        className={classes.glassThree}
+                        sx={{ height: "80px", display: "flex" }}
+                      >
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          Google Drive
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={2}>
+                    <Card elevation={10} className={classes.glassThree}>
+                      <CardContent className={classes.glassThree}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                        >
+                          <FontAwesomeIcon icon={faLink} size="6x" />
+                        </Typography>
+                      </CardContent>
+                      <CardContent
+                        className={classes.glassThree}
+                        sx={{ height: "80px", display: "flex" }}
+                      >
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          Direct Links
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={2}>
+                    <Card elevation={10} className={classes.glassThree}>
+                      <CardContent className={classes.glassThree}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{ color: "#0747a6" }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faM}
+                            size="6x"
+                            color="#d9272e"
+                          />
+                        </Typography>
+                      </CardContent>
+                      <CardContent
+                        className={classes.glassThree}
+                        sx={{ height: "80px", display: "flex" }}
+                      >
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          Mega.nz
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={2}>
+                    <Card elevation={10} className={classes.glassThree}>
+                      <CardContent className={classes.glassThree}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{ color: "#0747a6" }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faMagnet}
+                            size="6x"
+                            color="#ffeeb4"
+                          />
+                        </Typography>
+                      </CardContent>
+                      <CardContent
+                        className={classes.glassThree}
+                        sx={{ height: "80px", display: "flex" }}
+                      >
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          className={classes.typo}
+                          sx={{
+                            alignItems: "flex-end",
+                          }}
+                        >
+                          Torrents
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item lg={1} />
+                </Grid>
+              </Grid>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                padding: "30px",
+                background: "rgba(0, 0, 0, 0.6)",
+                backdropFilter: "blur(24px)",
+                textAlign: "center",
+                py: 10,
+                px: 15,
+              }}
+            >
               <Typography gutterBottom variant="h4" component="div">
                 Niwder.io
               </Typography>
@@ -111,38 +295,20 @@ const Home = () => {
                 to a Mega.nz share link. Also, the user can convert a direct
                 download link to a Mega.nz share link.
               </Typography>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                padding: "30px",
+                background: "rgba(0, 0, 0, 0.7)",
+                backdropFilter: "blur(24px)",
+                textAlign: "center",
+                py: 10,
+                px: 20,
+              }}
+            >
               <Typography
-                variant="h6"
-                color="text.secondary"
-                sx={{ mb: "10px" }}
-              >
-                With Niwder.io you can convert:{" "}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-                sx={{ mb: "10px" }}
-              >
-                1. Mega.nz link to Google Drive link
-                <br />
-                2. Google Drive link to Mega.nz link
-                <br />
-                3. Direct download link to Google Drive link
-                <br />
-                4. Direct download link to Mega.nz link
-                <br />
-                5. Google Drive link to direct download link
-                <br />
-                6. Mega.nz link to direct download link
-                <br />
-                7. Torrents to Google Drive link
-                <br />
-                8. Torrents to Mega.nz link
-                <br />
-                9. Torrents to direct download link
-              </Typography>
-              <Typography
-                variant="h6"
+                variant="h4"
                 color="text.secondary"
                 sx={{ mb: "10px" }}
               >
@@ -171,6 +337,17 @@ const Home = () => {
                 </NavLink>{" "}
                 of Niwder.io before using the service.
               </Typography>
+            </CardContent>
+
+            <CardContent
+              sx={{
+                padding: "30px",
+                background: "rgba(0, 0, 0, 1)",
+                backdropFilter: "blur(24px)",
+                textAlign: "center",
+                px: 15,
+              }}
+            >
               <Typography
                 variant="h5"
                 color="text.secondary"

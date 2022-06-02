@@ -35,6 +35,7 @@ import {
   TORRENTS_TO_MEGA_ROUTE,
 } from "../../config/Constants";
 import { faMagnet } from "@fortawesome/free-solid-svg-icons/faMagnet";
+import changeColor from "../../helpers/changeColor";
 
 const Transfers = () => {
   const dispatch = useDispatch();
@@ -131,22 +132,6 @@ const Transfers = () => {
     }
     setErrorOpen(false);
     setSearchParams();
-  };
-
-  const changeColor = () => {
-    const rando = Math.floor((Math.random() * 1000000) % 3);
-
-    switch (rando) {
-      case 0: {
-        return "#4688F4";
-      }
-      case 1: {
-        return "#FFD04B";
-      }
-      default: {
-        return "#1FA463";
-      }
-    }
   };
 
   const handleNavigation = (e) => {
