@@ -1,6 +1,12 @@
 [![action status badge](https://github.com/Niweera/niwder/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/Niweera/niwder/actions)
 [![action status badge](https://github.com/Niweera/niwder/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Niweera/niwder/actions)
 
+## Niwder.io needs your help!
+# We are accepting [Hacktoberfest 2022](https://hacktoberfest.com/) pull requests.
+
+![image](https://user-images.githubusercontent.com/25348766/193465823-74d56110-1774-4cc8-97cf-e5c109ee9d15.png)
+
+
 ```
  __    __  __                      __                      __           
 |  \  |  \|  \                    |  \                    |  \          
