@@ -83,7 +83,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 sx={{ display: "flex", alignItems: "center" }}
               >
-                <GitHubIcon fontSize="small" sx={{ ml: "10px" }} />
+                <GitHubIcon fontSize="small" sx={{ ml: "12px" }} />
               </Link>
             </Typography>
           </Toolbar>
