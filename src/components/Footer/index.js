@@ -76,14 +76,14 @@ const Footer = () => {
                 Terms of Service
               </NavLink>
               <Link
-                href="https://github.com/Niweera/niwder"
+                href={"https://github.com/Niweera/niwder"}
                 underline={"hover"}
                 target="_blank"
                 color="white"
                 rel="noopener noreferrer"
                 sx={{ display: "flex", alignItems: "center" }}
               >
-                <GitHubIcon fontSize="small" sx={{ ml: "12px" }} />
+                <GitHubIcon fontSize="small" sx={{ ml: "10px" }} />
               </Link>
             </Typography>
           </Toolbar>
