@@ -363,7 +363,7 @@ const Home = () => {
               >
                 Niwder.io is open-source. Check it out on{" "}
                 <Link
-                  href="https://github.com/Niweera/niwder"
+                  href={"https://github.com/Niweera/niwder"}
                   underline={"hover"}
                   variant="h6"
                   target="_blank"
@@ -381,7 +381,7 @@ const Home = () => {
               >
                 This project uses{" "}
                 <Link
-                  href="https://undraw.co/"
+                  href={"https://undraw.co/"}
                   underline={"hover"}
                   variant="button"
                   target="_blank"
@@ -400,7 +400,7 @@ const Home = () => {
                 {" "}
                 and{" "}
                 <Link
-                  href="https://github.com/webtorrent/webtorrent"
+                  href={"https://github.com/webtorrent/webtorrent"}
                   underline={"hover"}
                   variant="button"
                   target="_blank"
