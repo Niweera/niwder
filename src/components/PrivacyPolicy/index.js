@@ -65,7 +65,7 @@ const PrivacyPolicy = () => {
                 information collection in this platform and the source code of
                 this platform is open-source and hosted on GitHub as{" "}
                 <Link
-                  href="https://github.com/Niweera/niwder"
+                  href={"https://github.com/Niweera/niwder"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
@@ -76,7 +76,7 @@ const PrivacyPolicy = () => {
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="https://github.com/Niweera/niwder-api"
+                  href={"https://github.com/Niweera/niwder-api"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
@@ -146,7 +146,7 @@ const PrivacyPolicy = () => {
                 cloud. For an example, if the USER needs to transfer a
                 application binary (
                 <Link
-                  href="https://github.com/chromium/chromium/archive/refs/tags/102.0.4993.1.zip"
+                  href={"https://github.com/chromium/chromium/archive/refs/tags/102.0.4993.1.zip"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
