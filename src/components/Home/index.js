@@ -400,7 +400,7 @@ const Home = () => {
                 {" "}
                 and{" "}
                 <Link
-                  href={"https://github.com/webtorrent/webtorrent"}
+                  href="https://github.com/webtorrent/webtorrent"
                   underline={"hover"}
                   variant="button"
                   target="_blank"
