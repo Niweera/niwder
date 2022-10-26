@@ -68,7 +68,7 @@ const Footer = () => {
                 Privacy Policy
               </NavLink>{" "}
               <NavLink
-                to={"/terms-of-service"}
+                to="/terms-of-service"
                 className={({ isActive }) =>
                   isActive ? classes.linkTextActive : classes.linkText
                 }
@@ -76,7 +76,7 @@ const Footer = () => {
                 Terms of Service
               </NavLink>
               <Link
-                href={"https://github.com/Niweera/niwder"}
+                href="https://github.com/Niweera/niwder"
                 underline={"hover"}
                 target="_blank"
                 color="white"
