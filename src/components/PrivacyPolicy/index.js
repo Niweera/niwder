@@ -173,7 +173,7 @@ const PrivacyPolicy = () => {
               <Typography gutterBottom variant="body1" component="div">
                 The SERVICE uses https for transporting security and uses{" "}
                 <Link
-                  href="https://firebase.google.com/docs/auth"
+                  href={"https://firebase.google.com/docs/auth"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
@@ -242,7 +242,7 @@ const PrivacyPolicy = () => {
                 Policy, do not hesitate to contact us via email:
                 w[dot]nipuna[at]gmail[dot]com or create an issue on{" "}
                 <Link
-                  href="https://github.com/Niweera/niwder"
+                  href={"https://github.com/Niweera/niwder"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
@@ -258,7 +258,7 @@ const PrivacyPolicy = () => {
                 The SERVICE uses functionality of Google services. Please read
                 the{" "}
                 <Link
-                  href="https://policies.google.com/privacy"
+                  href={"https://policies.google.com/privacy"}
                   underline={"hover"}
                   variant="body1"
                   target="_blank"
