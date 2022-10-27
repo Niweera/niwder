@@ -68,7 +68,7 @@ const Footer = () => {
                 Privacy Policy
               </NavLink>{" "}
               <NavLink
-                to={"/terms-of-service"}
+                to="/terms-of-service"
                 className={({ isActive }) =>
                   isActive ? classes.linkTextActive : classes.linkText
                 }

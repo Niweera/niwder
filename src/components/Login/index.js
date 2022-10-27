@@ -47,7 +47,7 @@ const Login = () => {
       minWidth: 350,
     },
     title: {
-      fontSize: 14,
+      fontSize: 15,
     },
     large: {
       paddingBottom: "6px",
