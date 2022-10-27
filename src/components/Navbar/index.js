@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   large: {
-    paddingTop: "3px",
+    paddingTop: "4px",
     paddingBottom: "2px",
     height: theme.spacing(8),
     width: theme.spacing(8),
