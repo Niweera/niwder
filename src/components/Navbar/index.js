@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from "@mui/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Logo from "../../helpers/logo.png";
+import LogoImg from "../../helpers/logo.png";
 import Avatar from "@mui/material/Avatar";
 import { NavLink, useLocation } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   large: {
-    paddingTop: "3px",
-    paddingBottom: "3px",
+    paddingTop: "4px",
+    paddingBottom: "2px",
     height: theme.spacing(8),
     width: theme.spacing(8),
   },
@@ -95,7 +95,7 @@ const Navbar = () => {
         <Toolbar>
           <Avatar
             variant="square"
-            src={Logo}
+            src={LogoImg}
             className={classes.large}
             sx={{ width: 60, height: 60 }}
           />
@@ -114,7 +114,7 @@ const Navbar = () => {
             className={classes.navDisplayFlex}
           >
             <NavLink
-              to={"/"}
+              to="/"
               className={({ isActive }) =>
                 isActive ? classes.linkTextActive : classes.linkText
               }
@@ -127,7 +127,7 @@ const Navbar = () => {
             {isLoaded(auth) && !isEmpty(auth) && (
               <div>
                 <NavLink
-                  to={"/transfers"}
+                  to="/transfers"
                   className={({ isActive }) =>
                     isActive ? classes.linkTextActive : classes.linkText
                   }
@@ -172,7 +172,7 @@ const Navbar = () => {
               </div>
             ) : (
               <NavLink
-                to={"/login"}
+                to="/login"
                 className={({ isActive }) =>
                   isActive ? classes.linkTextActive : classes.linkText
                 }
