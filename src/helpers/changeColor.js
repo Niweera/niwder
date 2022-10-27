@@ -3,13 +3,13 @@ const changeColor = () => {
 
   switch (rando) {
     case 0: {
-      return "#4688F4";
+      return "#4688F3";
     }
     case 1: {
       return "#FFD04B";
     }
     default: {
-      return "#1FA463";
+      return "#1FA464";
     }
   }
 };
