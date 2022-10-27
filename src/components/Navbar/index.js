@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   large: {
     paddingTop: "3px",
-    paddingBottom: "2px",
+    paddingBottom: "3px",
     height: theme.spacing(8),
     width: theme.spacing(8),
   },
@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     background: `linear-gradient(90deg, rgba(0,0,0,1) 16%, rgba(59,58,48,1) 60%, rgba(56,55,51,1) 100%) !important`,
-    paddingRight: "79px",
-    paddingLeft: "118px",
+    paddingRight: "80px",
+    paddingLeft: "120px",
     paddingBottom: "1px",
     borderBottom: "solid 1px transparent !important",
     boxShadow:
