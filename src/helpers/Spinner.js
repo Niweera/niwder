@@ -10,9 +10,9 @@ const BrandName = ({ startIndex, endIndex }) => {
 
   const brandName = Array.from("niwder.io")
     .map((letter) => {
-      const rando = Math.floor((Math.random() * 1000000) % 3);
+      const random = Math.floor((Math.random() * 1000000) % 3);
 
-      switch (rando) {
+      switch (random) {
         case 0: {
           return letter.toLowerCase();
         }
