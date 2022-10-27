@@ -328,11 +328,11 @@ const Home = () => {
                 to see, edit, create, and delete all of the Google Drive files).
                 Niwder.io does not view nor access any personal files on the
                 user's Google Drive. Please read the{" "}
-                <NavLink to={"/privacy-policy"} className={classes.linkText}>
+                <NavLink to="/privacy-policy" className={classes.linkText}>
                   Privacy Policy
                 </NavLink>{" "}
                 and{" "}
-                <NavLink to={"/terms-of-service"} className={classes.linkText}>
+                <NavLink to="/terms-of-service" className={classes.linkText}>
                   Terms of Service
                 </NavLink>{" "}
                 of Niwder.io before using the service.
