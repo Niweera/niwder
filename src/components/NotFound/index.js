@@ -60,7 +60,7 @@ const NotFound = () => {
               <Typography
                 variant="h6"
                 component="div"
-                color={"rgb(118,109,198)"}
+                color={"rgb(118,109,200)"}
               >
                 This link has been zucced. 🙄
               </Typography>
