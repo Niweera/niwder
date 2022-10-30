@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   cardPaper: {
-    padding: "20px",
+    padding: "18px",
     background: `radial-gradient(115.33% 258.13% at 1.39% -10.78%, #333333 0%, #000000 100%) !important`,
   },
   linkText: {
