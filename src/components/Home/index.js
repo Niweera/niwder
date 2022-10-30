@@ -43,11 +43,11 @@ const useStyles = makeStyles((theme) => ({
   },
   glassTwo: {
     background: "rgba(0, 0, 0, 0.4)",
-    backdropFilter: "blur(24px)",
+    backdropFilter: "blur(25px)",
   },
   glassThree: {
     background: "rgba(0, 0, 0, 1)",
-    backdropFilter: "blur(24px)",
+    backdropFilter: "blur(25px)",
   },
   typo: {
     flexGrow: 1,
